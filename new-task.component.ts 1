@@ -1,0 +1,20 @@
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModele } from '@angular/forms
+
+@Component({
+    selector: 'app-new-task',
+    standalone: true',
+    imports: [FormsModele],
+    templateUrl: './new-task.component.html',
+    styleUrl: './new-task.component.css'
+})
+export class NewTaskComponent {
+@Output() Cancel = new EventEmitter<void>()
+enteredTitle= '';
+
+onCancel() {
+    this.Cancel.emit();
+}
+}
+
+
