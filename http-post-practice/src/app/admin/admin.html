@@ -1,0 +1,185 @@
+<h2>Admin Panel</h2>
+
+<p>
+  Mirë se vini në panelin administrativ të Salianji Rent Car.
+</p>
+
+<hr>
+
+<h3>Admin Service</h3>
+
+<p>
+  {{ message }}
+</p>
+
+<hr>
+
+<h3>Raporti financiar</h3>
+
+@defer (on viewport; prefetch on idle) {
+
+  <div>
+    <h4>Raporti u ngarkua</h4>
+
+    <p>
+      Të ardhurat totale: 5,250 €
+    </p>
+
+    <p>
+      Rezervime këtë muaj: 42
+    </p>
+  </div>
+
+} @placeholder {
+
+  <p>
+    Raporti do të ngarkohet kur të arrish te kjo pjesë...
+  </p>
+
+} @loading {
+
+  <p>
+    Duke ngarkuar raportin...
+  </p>
+
+} @error {
+
+  <p>
+    Ndodhi një gabim gjatë ngarkimit të raportit.
+  </p>
+
+}
+
+<hr>
+
+<h3>Statistikat e Admin Panel</h3>
+
+<button #statsButton>
+  Shfaq statistikat
+</button>
+
+@defer (on interaction(statsButton)) {
+
+  <div>
+    <h4>Statistikat</h4>
+
+    <p>
+      Makina aktive: 20
+    </p>
+
+    <p>
+      Rezervime: 42
+    </p>
+
+    <p>
+      Klientë: 35
+    </p>
+  </div>
+
+} @placeholder {
+
+  <p>
+    Kliko butonin për të ngarkuar statistikat.
+  </p>
+
+} @loading {
+
+  <p>
+    Duke ngarkuar statistikat...
+  </p>
+
+} @error {
+
+  <p>
+    Nuk u arritën të ngarkohen statistikat.
+  </p>
+
+}
+
+<hr>
+
+<h3>Informacion shtesë</h3>
+
+@defer (on idle) {
+
+  <div>
+    <h4>Informacioni i sistemit</h4>
+
+    <p>
+      Sistemi: Salianji Rent Car
+    </p>
+
+    <p>
+      Statusi: Aktiv
+    </p>
+
+    <p>
+      Versioni: 1.0
+    </p>
+  </div>
+
+} @placeholder {
+
+  <p>
+    Informacioni i sistemit do të ngarkohet më vonë...
+  </p>
+
+} @loading {
+
+  <p>
+    Duke ngarkuar informacionin...
+  </p>
+
+} @error {
+
+  <p>
+    Nuk u arrit të ngarkohej informacioni.
+  </p>
+
+}
+
+<hr>
+
+<h3>Ofertat speciale</h3>
+
+<button #offersButton>
+  Shiko ofertat
+</button>
+
+@defer (on hover(offersButton)) {
+
+  <div>
+    <h4>Ofertat speciale</h4>
+
+    <p>
+      BMW X5 - 70 € / ditë
+    </p>
+
+    <p>
+      Audi Q7 - 80 € / ditë
+    </p>
+
+    <p>
+      Mercedes G-Class - 120 € / ditë
+    </p>
+  </div>
+
+} @placeholder {
+
+  <p>
+    Kalo mausin mbi buton për të parë ofertat.
+  </p>
+
+} @loading {
+
+  <p>
+    Duke ngarkuar ofertat...
+  </p>
+
+} @error {
+
+  <p>
+    Nuk u arritën të ngarkohen ofertat.
+  </p>
+
+}

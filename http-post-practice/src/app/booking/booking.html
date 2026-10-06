@@ -1,0 +1,84 @@
+<h2>Rezervim makine</h2>
+
+<p>
+  Plotëso të dhënat e rezervimit.
+</p>
+
+<hr>
+
+<h3>Të dhënat e klientit</h3>
+
+<label>
+  Emri:
+  <input
+    type="text"
+    placeholder="Shkruaj emrin"
+    (input)="onInput()"
+  >
+</label>
+
+<br><br>
+
+<label>
+  Mbiemri:
+  <input
+    type="text"
+    placeholder="Shkruaj mbiemrin"
+    (input)="onInput()"
+  >
+</label>
+
+<br><br>
+
+<label>
+  Telefoni:
+  <input
+    type="tel"
+    placeholder="06XXXXXXXX"
+    (input)="onInput()"
+  >
+</label>
+
+<hr>
+
+<h3>Të dhënat e makinës</h3>
+
+<label>
+  Makina:
+  <input
+    type="text"
+    placeholder="BMW X5"
+    (input)="onInput()"
+  >
+</label>
+
+<br><br>
+
+<label>
+  Data e marrjes:
+  <input
+    type="date"
+    (input)="onInput()"
+  >
+</label>
+
+<br><br>
+
+<label>
+  Data e kthimit:
+  <input
+    type="date"
+    (input)="onInput()"
+  >
+</label>
+
+<hr>
+
+<p>
+  ⚠️ Nëse largohesh nga kjo faqe pa përfunduar rezervimin,
+  ndryshimet e paruajtura mund të humbasin.
+</p>
+
+<button (click)="goToCars()">
+  Shko te makinat
+</button>

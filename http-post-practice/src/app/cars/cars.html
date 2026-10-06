@@ -1,0 +1,117 @@
+<h2>Cars</h2>
+
+<p>cars works!</p>
+
+<p>{{ carInfoMessage }}</p>
+
+<hr>
+
+<h3>Static Route Data</h3>
+
+<p>{{ routeTitle }}</p>
+
+<p>{{ routeDescription }}</p>
+
+<hr>
+
+<h3>Dynamic Route</h3>
+
+<p>ID e makinës: {{ carId }}</p>
+
+<hr>
+
+<h3>Zgjidh një makinë sipas ID-së</h3>
+
+<a [routerLink]="['/cars', 1]">
+  Shiko makinën 1
+</a>
+
+<br>
+
+<a [routerLink]="['/cars', 2]">
+  Shiko makinën 2
+</a>
+
+<br>
+
+<a [routerLink]="['/cars', 3]">
+  Shiko makinën 3
+</a>
+
+<br>
+
+<a [routerLink]="['/cars', 4]">
+  Shiko makinën 4
+</a>
+
+<br>
+
+<a [routerLink]="['/cars', 5]">
+  Shiko makinën 5
+</a>
+
+<hr>
+
+<h3>Query Parameters</h3>
+
+<a
+  [routerLink]="['/cars']"
+  [queryParams]="{ brand: 'BMW', price: 80 }">
+  BMW - 80€
+</a>
+
+<br>
+
+<a
+  [routerLink]="['/cars']"
+  [queryParams]="{ brand: 'Audi', price: 70 }">
+  Audi - 70€
+</a>
+
+<br>
+
+<a
+  [routerLink]="['/cars']"
+  [queryParams]="{ brand: 'Mercedes', price: 100 }">
+  Mercedes - 100€
+</a>
+
+<hr>
+
+<h3>Query Parametrat nga URL</h3>
+
+<p>Marka: {{ brand }}</p>
+
+<p>Çmimi: {{ price }} €</p>
+
+<hr>
+
+<h3>Makina të filtruara</h3>
+
+@for (car of filteredCars; track car.model) {
+  <p>
+    {{ car.brand }} {{ car.model }} - {{ car.price }} €
+  </p>
+}
+
+<hr>
+
+<h3>Resolver Data</h3>
+
+@if (resolvedCar) {
+  <p>
+    ID: {{ resolvedCar.id }}
+  </p>
+
+  <p>
+    Marka: {{ resolvedCar.brand }}
+  </p>
+
+  <p>
+    Modeli: {{ resolvedCar.model }}
+  </p>
+
+  <p>
+    Çmimi: {{ resolvedCar.price }} €
+  </p>
+}

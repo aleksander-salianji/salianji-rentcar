@@ -1,0 +1,373 @@
+<h1>Reactive Forms - Form Group Validator</h1>
+
+<form
+  [formGroup]="userForm"
+  (ngSubmit)="onSubmit()"
+>
+
+  <!-- EMRI -->
+
+  <label for="name">
+    Emri:
+  </label>
+
+  <input
+    type="text"
+    id="name"
+    formControlName="name"
+  >
+
+  @if (
+    userForm.controls.name.invalid &&
+    userForm.controls.name.touched
+  ) {
+
+    @if (userForm.controls.name.hasError('required')) {
+      <p class="error">
+        Emri është i detyrueshëm.
+      </p>
+    }
+
+    @if (userForm.controls.name.hasError('minlength')) {
+      <p class="error">
+        Emri duhet të ketë të paktën 3 karaktere.
+      </p>
+    }
+
+    @if (userForm.controls.name.hasError('forbiddenName')) {
+      <p class="error">
+        Emri "test" nuk lejohet.
+      </p>
+    }
+
+  }
+
+  <br><br>
+
+
+  <!-- EMAIL -->
+
+  <label for="email">
+    Email:
+  </label>
+
+  <input
+    type="email"
+    id="email"
+    formControlName="email"
+  >
+
+  @if (userForm.controls.email.pending) {
+    <p>
+      Po kontrollojmë email-in...
+    </p>
+  }
+
+  @if (
+    userForm.controls.email.invalid &&
+    userForm.controls.email.touched
+  ) {
+
+    @if (userForm.controls.email.hasError('required')) {
+      <p class="error">
+        Email-i është i detyrueshëm.
+      </p>
+    }
+
+    @if (userForm.controls.email.hasError('email')) {
+      <p class="error">
+        Vendos një email të vlefshëm.
+      </p>
+    }
+
+    @if (userForm.controls.email.hasError('emailTaken')) {
+      <p class="error">
+        Ky email është i zënë.
+      </p>
+    }
+
+  }
+
+  <br><br>
+
+
+  <!-- MBIEMRI -->
+
+  <label for="surname">
+    Mbiemri:
+  </label>
+
+  <input
+    type="text"
+    id="surname"
+    formControlName="surname"
+  >
+
+  <br><br>
+
+
+  <!-- TELEFONI -->
+
+  <label for="phone">
+    Telefoni:
+  </label>
+
+  <input
+    type="text"
+    id="phone"
+    formControlName="phone"
+  >
+
+  <br><br>
+
+
+  <!-- PASSWORD -->
+
+  <label for="password">
+    Password:
+  </label>
+
+  <input
+    type="password"
+    id="password"
+    formControlName="password"
+  >
+
+  @if (
+    userForm.controls.password.invalid &&
+    userForm.controls.password.touched
+  ) {
+
+    @if (userForm.controls.password.hasError('required')) {
+      <p class="error">
+        Password është i detyrueshëm.
+      </p>
+    }
+
+    @if (userForm.controls.password.hasError('minlength')) {
+      <p class="error">
+        Password duhet të ketë të paktën 6 karaktere.
+      </p>
+    }
+
+  }
+
+  <br><br>
+
+
+  <!-- CONFIRM PASSWORD -->
+
+  <label for="confirmPassword">
+    Konfirmo Password:
+  </label>
+
+  <input
+    type="password"
+    id="confirmPassword"
+    formControlName="confirmPassword"
+  >
+
+  @if (
+    userForm.controls.confirmPassword.invalid &&
+    userForm.controls.confirmPassword.touched
+  ) {
+
+    @if (
+      userForm.controls.confirmPassword.hasError('required')
+    ) {
+      <p class="error">
+        Konfirmimi i password-it është i detyrueshëm.
+      </p>
+    }
+
+  }
+
+
+  <!-- PASSWORD MISMATCH -->
+
+  @if (
+    userForm.hasError('passwordMismatch') &&
+    userForm.controls.confirmPassword.touched
+  ) {
+
+    <p class="error">
+      Password-et nuk përputhen.
+    </p>
+
+  }
+
+  <br><br>
+
+
+  <!-- ADRESA -->
+
+  <div formGroupName="address">
+
+    <h3>Adresa</h3>
+
+    <label for="street">
+      Rruga:
+    </label>
+
+    <input
+      type="text"
+      id="street"
+      formControlName="street"
+    >
+
+    <br><br>
+
+    <label for="city">
+      Qyteti:
+    </label>
+
+    <input
+      type="text"
+      id="city"
+      formControlName="city"
+    >
+
+    <br><br>
+
+    <label for="zipCode">
+      Kodi postar:
+    </label>
+
+    <input
+      type="text"
+      id="zipCode"
+      formControlName="zipCode"
+    >
+
+  </div>
+
+  <br><br>
+
+
+  <!-- FORM ARRAY -->
+
+  <div formArrayName="phoneNumbers">
+
+    <h3>Numrat e telefonit</h3>
+
+    @for (
+      phone of phoneNumbers.controls;
+      track $index
+    ) {
+
+      <div>
+
+        <input
+          type="text"
+          [formControlName]="$index"
+          placeholder="Numri i telefonit"
+        >
+
+        @if (
+          phone.invalid &&
+          phone.touched
+        ) {
+
+          @if (phone.hasError('required')) {
+            <p class="error">
+              Numri i telefonit është i detyrueshëm.
+            </p>
+          }
+
+          @if (phone.hasError('minlength')) {
+            <p class="error">
+              Numri duhet të ketë të paktën 10 karaktere.
+            </p>
+          }
+
+        }
+
+        <button
+          type="button"
+          (click)="removePhone($index)"
+        >
+          Fshi
+        </button>
+
+      </div>
+
+      <br>
+
+    }
+
+    <button
+      type="button"
+      (click)="addPhone()"
+    >
+      Shto telefon
+    </button>
+
+  </div>
+
+  <br><br>
+
+
+  <!-- SUBMIT -->
+
+  <button
+    type="submit"
+    [disabled]="userForm.invalid || userForm.pending"
+  >
+    Regjistrohu
+  </button>
+
+  <br><br>
+
+
+  <!-- PROGRAMMATIC FORM -->
+
+  <button
+    type="button"
+    (click)="fillForm()"
+  >
+    Plotëso formën
+  </button>
+
+  <button
+    type="button"
+    (click)="setForm()"
+  >
+    Vendos vlerat
+  </button>
+
+  <button
+    type="button"
+    (click)="resetForm()"
+  >
+    Pastro formën
+  </button>
+
+  <button
+    type="button"
+    (click)="fillTestData()"
+  >
+    Vendos të dhënat e testit
+  </button>
+
+</form>
+
+
+<!-- REZULTATI -->
+
+@if (submittedName || submittedEmail) {
+
+  <hr>
+
+  <h2>Të dhënat e dërguara</h2>
+
+  <p>
+    <strong>Emri:</strong>
+    {{ submittedName }}
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    {{ submittedEmail }}
+  </p>
+
+}
