@@ -1,185 +1,638 @@
-<h2>Admin Panel</h2>
+<div class="admin-page">
 
-<p>
-  Mirë se vini në panelin administrativ të Salianji Rent Car.
-</p>
+  <!-- SIDEBAR -->
 
-<hr>
+  <aside class="admin-sidebar">
 
-<h3>Admin Service</h3>
+    <div class="logo">
+      <span>SALIANJI</span>
+      <strong>RENT CAR</strong>
+    </div>
 
-<p>
-  {{ message }}
-</p>
+    <nav>
 
-<hr>
+      <a routerLink="/admin" class="active">
+        📊 Dashboard
+      </a>
 
-<h3>Raporti financiar</h3>
+      <a routerLink="/cars">
+        🚗 Makinat
+      </a>
 
-@defer (on viewport; prefetch on idle) {
+      <a routerLink="/booking">
+        📅 Rezervimet
+      </a>
 
-  <div>
-    <h4>Raporti u ngarkua</h4>
+      <a href="#">
+        👥 Klientët
+      </a>
 
-    <p>
-      Të ardhurat totale: 5,250 €
-    </p>
+      <a href="#">
+        💰 Financat
+      </a>
 
-    <p>
-      Rezervime këtë muaj: 42
-    </p>
-  </div>
+      <a href="#">
+        ⚙️ Settings
+      </a>
 
-} @placeholder {
+    </nav>
 
-  <p>
-    Raporti do të ngarkohet kur të arrish te kjo pjesë...
-  </p>
+    <div class="sidebar-bottom">
 
-} @loading {
+      <a routerLink="/">
+        ← Kthehu në website
+      </a>
 
-  <p>
-    Duke ngarkuar raportin...
-  </p>
+    </div>
 
-} @error {
+  </aside>
 
-  <p>
-    Ndodhi një gabim gjatë ngarkimit të raportit.
-  </p>
 
-}
+  <!-- MAIN -->
 
-<hr>
+  <main class="admin-main">
 
-<h3>Statistikat e Admin Panel</h3>
+    <!-- HEADER -->
 
-<button #statsButton>
-  Shfaq statistikat
-</button>
+    <header class="admin-header">
 
-@defer (on interaction(statsButton)) {
+      <div>
 
-  <div>
-    <h4>Statistikat</h4>
+        <span class="eyebrow">
+          ADMIN PANEL
+        </span>
 
-    <p>
-      Makina aktive: 20
-    </p>
+        <h1>
+          Dashboard
+        </h1>
 
-    <p>
-      Rezervime: 42
-    </p>
+        <p>
+          Mirë se vini në panelin administrativ të
+          Salianji Rent Car.
+        </p>
 
-    <p>
-      Klientë: 35
-    </p>
-  </div>
+      </div>
 
-} @placeholder {
+      <div class="admin-status">
+        <span class="status-dot"></span>
+        Sistem aktiv
+      </div>
 
-  <p>
-    Kliko butonin për të ngarkuar statistikat.
-  </p>
+    </header>
 
-} @loading {
 
-  <p>
-    Duke ngarkuar statistikat...
-  </p>
+    <!-- SERVICE MESSAGE -->
 
-} @error {
+    @if (message) {
 
-  <p>
-    Nuk u arritën të ngarkohen statistikat.
-  </p>
+      <div class="service-message">
 
-}
+        <span>✓</span>
 
-<hr>
+        {{ message }}
 
-<h3>Informacion shtesë</h3>
+      </div>
 
-@defer (on idle) {
+    }
 
-  <div>
-    <h4>Informacioni i sistemit</h4>
 
-    <p>
-      Sistemi: Salianji Rent Car
-    </p>
+    <!-- STATISTICS -->
 
-    <p>
-      Statusi: Aktiv
-    </p>
+    <section class="stats-grid">
 
-    <p>
-      Versioni: 1.0
-    </p>
-  </div>
+      <div class="stat-card">
 
-} @placeholder {
+        <div class="stat-icon">
+          🚗
+        </div>
 
-  <p>
-    Informacioni i sistemit do të ngarkohet më vonë...
-  </p>
+        <div>
 
-} @loading {
+          <span>
+            Makina aktive
+          </span>
 
-  <p>
-    Duke ngarkuar informacionin...
-  </p>
+          <strong>
+            {{ totalCars }}
+          </strong>
 
-} @error {
+        </div>
 
-  <p>
-    Nuk u arrit të ngarkohej informacioni.
-  </p>
+      </div>
 
-}
 
-<hr>
+      <div class="stat-card">
 
-<h3>Ofertat speciale</h3>
+        <div class="stat-icon">
+          📅
+        </div>
 
-<button #offersButton>
-  Shiko ofertat
-</button>
+        <div>
 
-@defer (on hover(offersButton)) {
+          <span>
+            Rezervime
+          </span>
 
-  <div>
-    <h4>Ofertat speciale</h4>
+          <strong>
+            {{ totalBookings }}
+          </strong>
 
-    <p>
-      BMW X5 - 70 € / ditë
-    </p>
+        </div>
 
-    <p>
-      Audi Q7 - 80 € / ditë
-    </p>
+      </div>
 
-    <p>
-      Mercedes G-Class - 120 € / ditë
-    </p>
-  </div>
 
-} @placeholder {
+      <div class="stat-card">
 
-  <p>
-    Kalo mausin mbi buton për të parë ofertat.
-  </p>
+        <div class="stat-icon">
+          👥
+        </div>
 
-} @loading {
+        <div>
 
-  <p>
-    Duke ngarkuar ofertat...
-  </p>
+          <span>
+            Klientë
+          </span>
 
-} @error {
+          <strong>
+            {{ totalCustomers }}
+          </strong>
 
-  <p>
-    Nuk u arritën të ngarkohen ofertat.
-  </p>
+        </div>
 
-}
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          €
+        </div>
+
+        <div>
+
+          <span>
+            Të ardhura
+          </span>
+
+          <strong>
+            {{ totalRevenue }} €
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTENT GRID -->
+
+    <div class="dashboard-grid">
+
+
+      <!-- FINANCIAL REPORT -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <span class="card-label">
+              FINANCA
+            </span>
+
+            <h2>
+              Raporti financiar
+            </h2>
+
+          </div>
+
+          <span class="card-icon">
+            €
+          </span>
+
+        </div>
+
+
+        @defer (on viewport; prefetch on idle) {
+
+          <div class="report-content">
+
+            <div class="big-number">
+              5,250 €
+            </div>
+
+            <p>
+              Të ardhurat totale
+            </p>
+
+            <div class="report-row">
+
+              <span>
+                Rezervime këtë muaj
+              </span>
+
+              <strong>
+                42
+              </strong>
+
+            </div>
+
+            <div class="report-row">
+
+              <span>
+                Mesatarja / rezervim
+              </span>
+
+              <strong>
+                125 €
+              </strong>
+
+            </div>
+
+          </div>
+
+        } @placeholder {
+
+          <div class="defer-placeholder">
+            Raporti do të ngarkohet kur të arrish
+            te kjo pjesë...
+          </div>
+
+        } @loading {
+
+          <div class="defer-placeholder">
+            Duke ngarkuar raportin...
+          </div>
+
+        } @error {
+
+          <div class="error-message">
+            Ndodhi një gabim gjatë ngarkimit
+            të raportit.
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- SYSTEM INFO -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <span class="card-label">
+              SISTEMI
+            </span>
+
+            <h2>
+              Informacion
+            </h2>
+
+          </div>
+
+          <span class="card-icon">
+            ⚙
+          </span>
+
+        </div>
+
+
+        @defer (on idle) {
+
+          <div class="system-info">
+
+            <div class="system-row">
+
+              <span>
+                Sistemi
+              </span>
+
+              <strong>
+                Salianji Rent Car
+              </strong>
+
+            </div>
+
+            <div class="system-row">
+
+              <span>
+                Statusi
+              </span>
+
+              <strong class="active-text">
+                Aktiv
+              </strong>
+
+            </div>
+
+            <div class="system-row">
+
+              <span>
+                Versioni
+              </span>
+
+              <strong>
+                1.0
+              </strong>
+
+            </div>
+
+          </div>
+
+        } @placeholder {
+
+          <div class="defer-placeholder">
+            Informacioni i sistemit do të
+            ngarkohet më vonë...
+          </div>
+
+        } @loading {
+
+          <div class="defer-placeholder">
+            Duke ngarkuar informacionin...
+          </div>
+
+        } @error {
+
+          <div class="error-message">
+            Nuk u arrit të ngarkohej informacioni.
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- STATISTICS -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <span class="card-label">
+              STATISTIKA
+            </span>
+
+            <h2>
+              Statistikat e biznesit
+            </h2>
+
+          </div>
+
+          <button
+            #statsButton
+            class="small-button"
+          >
+            Shfaq
+          </button>
+
+        </div>
+
+
+        @defer (on interaction(statsButton)) {
+
+          <div class="business-stats">
+
+            <div class="business-stat">
+
+              <span>
+                🚗
+              </span>
+
+              <div>
+                <small>
+                  Makina aktive
+                </small>
+
+                <strong>
+                  {{ totalCars }}
+                </strong>
+              </div>
+
+            </div>
+
+
+            <div class="business-stat">
+
+              <span>
+                📅
+              </span>
+
+              <div>
+                <small>
+                  Rezervime
+                </small>
+
+                <strong>
+                  {{ totalBookings }}
+                </strong>
+              </div>
+
+            </div>
+
+
+            <div class="business-stat">
+
+              <span>
+                👥
+              </span>
+
+              <div>
+                <small>
+                  Klientë
+                </small>
+
+                <strong>
+                  {{ totalCustomers }}
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        } @placeholder {
+
+          <div class="defer-placeholder">
+            Kliko "Shfaq" për të ngarkuar statistikat.
+          </div>
+
+        } @loading {
+
+          <div class="defer-placeholder">
+            Duke ngarkuar statistikat...
+          </div>
+
+        } @error {
+
+          <div class="error-message">
+            Nuk u arritën të ngarkohen statistikat.
+          </div>
+
+        }
+
+      </section>
+
+
+      <!-- SPECIAL OFFERS -->
+
+      <section class="dashboard-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <span class="card-label">
+              OFERTA
+            </span>
+
+            <h2>
+              Ofertat speciale
+            </h2>
+
+          </div>
+
+          <button
+            #offersButton
+            class="small-button"
+          >
+            Shiko
+          </button>
+
+        </div>
+
+
+        @defer (on hover(offersButton)) {
+
+          <div class="offers-list">
+
+            <div class="offer">
+
+              <div>
+                <strong>
+                  BMW X5
+                </strong>
+
+                <span>
+                  SUV Premium
+                </span>
+              </div>
+
+              <strong>
+                70 € / ditë
+              </strong>
+
+            </div>
+
+
+            <div class="offer">
+
+              <div>
+                <strong>
+                  Audi Q7
+                </strong>
+
+                <span>
+                  SUV Premium
+                </span>
+              </div>
+
+              <strong>
+                80 € / ditë
+              </strong>
+
+            </div>
+
+
+            <div class="offer">
+
+              <div>
+                <strong>
+                  Mercedes G-Class
+                </strong>
+
+                <span>
+                  Luxury
+                </span>
+              </div>
+
+              <strong>
+                120 € / ditë
+              </strong>
+
+            </div>
+
+          </div>
+
+        } @placeholder {
+
+          <div class="defer-placeholder">
+            Kalo mausin mbi "Shiko" për të parë ofertat.
+          </div>
+
+        } @loading {
+
+          <div class="defer-placeholder">
+            Duke ngarkuar ofertat...
+          </div>
+
+        } @error {
+
+          <div class="error-message">
+            Nuk u arritën të ngarkohen ofertat.
+          </div>
+
+        }
+
+      </section>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <section class="quick-actions">
+
+      <h2>
+        Veprime të shpejta
+      </h2>
+
+      <div class="actions">
+
+        <a routerLink="/cars">
+          🚗
+          <span>
+            Shiko makinat
+          </span>
+        </a>
+
+        <a routerLink="/booking">
+          📅
+          <span>
+            Hap Booking
+          </span>
+        </a>
+
+        <a routerLink="/">
+          🌐
+          <span>
+            Shiko website
+          </span>
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

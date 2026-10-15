@@ -1,117 +1,182 @@
-<h2>Cars</h2>
 
-<p>cars works!</p>
+<div class="cars-page">
 
-<p>{{ carInfoMessage }}</p>
+  <!-- HEADER -->
+  <section class="cars-header">
+    <div class="header-content">
 
-<hr>
+      <span class="eyebrow">
+        SALIANJI RENT CAR
+      </span>
 
-<h3>Static Route Data</h3>
+      <h1>
+        Zgjidh makinën<br>
+        e <span>udhëtimit tënd</span>
+      </h1>
 
-<p>{{ routeTitle }}</p>
+      <p>
+        Makina premium me qira në Shqipëri.
+        Zgjidh modelin që të përshtatet më shumë.
+      </p>
 
-<p>{{ routeDescription }}</p>
+      <a routerLink="/booking" class="header-button">
+        Rezervo tani →
+      </a>
 
-<hr>
+    </div>
+  </section>
 
-<h3>Dynamic Route</h3>
 
-<p>ID e makinës: {{ carId }}</p>
+  <!-- LISTA E MAKINAVE -->
+  <section class="cars-section">
 
-<hr>
+    <div class="section-header">
+      <div>
+        <span class="section-label">
+          FLEETA JONË
+        </span>
 
-<h3>Zgjidh një makinë sipas ID-së</h3>
+        <h2>Makina të disponueshme</h2>
+      </div>
 
-<a [routerLink]="['/cars', 1]">
-  Shiko makinën 1
-</a>
+      <span class="cars-count">
+        {{ cars.length }} makina
+      </span>
+    </div>
 
-<br>
 
-<a [routerLink]="['/cars', 2]">
-  Shiko makinën 2
-</a>
+    <!-- LOADING -->
+    @if (loading) {
 
-<br>
+      <div class="empty-state">
+        <h3>Po ngarkohen makinat...</h3>
+        <p>Ju lutem prisni pak.</p>
+      </div>
 
-<a [routerLink]="['/cars', 3]">
-  Shiko makinën 3
-</a>
+    }
 
-<br>
+    <!-- ERROR -->
+    @else if (errorMessage) {
 
-<a [routerLink]="['/cars', 4]">
-  Shiko makinën 4
-</a>
+      <div class="empty-state">
+        <h3>Ndodhi një gabim</h3>
+        <p>{{ errorMessage }}</p>
 
-<br>
+        <button
+          type="button"
+          class="details-button"
+          (click)="loadCars()"
+        >
+          Provo përsëri
+        </button>
+      </div>
 
-<a [routerLink]="['/cars', 5]">
-  Shiko makinën 5
-</a>
+    }
 
-<hr>
+    <!-- NUK KA MAKINA -->
+    @else if (cars.length === 0) {
 
-<h3>Query Parameters</h3>
+      <div class="empty-state">
+        <h3>Nuk ka makina të disponueshme</h3>
+        <p>Ju lutem provoni përsëri më vonë.</p>
+      </div>
 
-<a
-  [routerLink]="['/cars']"
-  [queryParams]="{ brand: 'BMW', price: 80 }">
-  BMW - 80€
-</a>
+    }
 
-<br>
+    <!-- MAKINAT -->
+    @else {
 
-<a
-  [routerLink]="['/cars']"
-  [queryParams]="{ brand: 'Audi', price: 70 }">
-  Audi - 70€
-</a>
+      <div class="cars-grid">
 
-<br>
+        @for (car of cars; track car.id) {
 
-<a
-  [routerLink]="['/cars']"
-  [queryParams]="{ brand: 'Mercedes', price: 100 }">
-  Mercedes - 100€
-</a>
+          <article class="car-card">
 
-<hr>
+            <!-- FOTO -->
+            <div class="car-image-container">
 
-<h3>Query Parametrat nga URL</h3>
+              <img
+                [src]="car.image"
+                [alt]="car.brand + ' ' + car.model"
+                class="car-image"
+              >
 
-<p>Marka: {{ brand }}</p>
+              <span class="category-badge">
+                {{ car.category }}
+              </span>
 
-<p>Çmimi: {{ price }} €</p>
+            </div>
 
-<hr>
 
-<h3>Makina të filtruara</h3>
+            <!-- INFORMACIONI -->
+            <div class="car-content">
 
-@for (car of filteredCars; track car.model) {
-  <p>
-    {{ car.brand }} {{ car.model }} - {{ car.price }} €
-  </p>
-}
+              <span class="car-brand">
+                {{ car.brand }}
+              </span>
 
-<hr>
+              <h3>
+                {{ car.model }}
+              </h3>
 
-<h3>Resolver Data</h3>
 
-@if (resolvedCar) {
-  <p>
-    ID: {{ resolvedCar.id }}
-  </p>
+              <!-- DETAJET -->
+              <div class="car-details">
 
-  <p>
-    Marka: {{ resolvedCar.brand }}
-  </p>
+                <span>
+                  🚗 {{ car.category }}
+                </span>
 
-  <p>
-    Modeli: {{ resolvedCar.model }}
-  </p>
+                <span>
+                  ID: {{ car.id }}
+                </span>
 
-  <p>
-    Çmimi: {{ resolvedCar.price }} €
-  </p>
-}
+              </div>
+
+
+              <!-- CMIMI DHE BUTONI -->
+              <div class="car-footer">
+
+                <div class="price">
+
+                  <span>Nga</span>
+
+                  <strong>
+                    {{ car.price }} €
+                  </strong>
+
+                  <small>/ ditë</small>
+
+                </div>
+
+                <a
+                  [routerLink]="['/cars', car.id]"
+                  class="details-button"
+                >
+                  Detajet →
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="cars-footer">
+    <p>
+      © {{ currentYear }} Salianji Rent Car.
+      Të gjitha të drejtat e rezervuara.
+    </p>
+  </footer>
+
+</div>

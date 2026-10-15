@@ -1,84 +1,394 @@
-<h2>Rezervim makine</h2>
 
-<p>
-  Plotëso të dhënat e rezervimit.
-</p>
+<div class="booking-page">
 
-<hr>
+  <header class="booking-header">
+    <span class="eyebrow">SALIANJI RENT CAR</span>
+    <h1>Rezervo makinën</h1>
+    <p>Plotëso të dhënat për të krijuar rezervimin tënd.</p>
+  </header>
 
-<h3>Të dhënat e klientit</h3>
+  <div class="booking-layout">
 
-<label>
-  Emri:
-  <input
-    type="text"
-    placeholder="Shkruaj emrin"
-    (input)="onInput()"
-  >
-</label>
+    <main class="booking-form-card">
 
-<br><br>
+      @if (message) {
+        <div class="success-message" role="status">
+          {{ message }}
+        </div>
+      }
 
-<label>
-  Mbiemri:
-  <input
-    type="text"
-    placeholder="Shkruaj mbiemrin"
-    (input)="onInput()"
-  >
-</label>
+      @if (errorMessage) {
+        <div class="error-message" role="alert">
+          {{ errorMessage }}
+        </div>
+      }
 
-<br><br>
+      <h2>Të dhënat e klientit</h2>
 
-<label>
-  Telefoni:
-  <input
-    type="tel"
-    placeholder="06XXXXXXXX"
-    (input)="onInput()"
-  >
-</label>
+      <div class="form-grid">
 
-<hr>
+        <div class="form-group">
+          <label for="name">Emri i plotë</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            [(ngModel)]="name"
+            placeholder="Shkruaj emrin e plotë"
+            autocomplete="name"
+            required
+          >
+        </div>
 
-<h3>Të dhënat e makinës</h3>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            [(ngModel)]="email"
+            placeholder="shembull@email.com"
+            autocomplete="email"
+            required
+          >
+        </div>
 
-<label>
-  Makina:
-  <input
-    type="text"
-    placeholder="BMW X5"
-    (input)="onInput()"
-  >
-</label>
+        <div class="form-group full-width">
+          <label for="phonePrefix">Numri i telefonit</label>
 
-<br><br>
+          <div class="phone-input-group">
+            <select
+              id="phonePrefix"
+              name="phonePrefix"
+              [(ngModel)]="phonePrefix"
+              aria-label="Zgjidh prefiksin e shtetit"
+            >
+              @for (country of countries; track country.name) {
+                <option [value]="country.prefix">
+                  {{ country.flag }} {{ country.name }} ({{ country.prefix }})
+                </option>
+              }
+            </select>
 
-<label>
-  Data e marrjes:
-  <input
-    type="date"
-    (input)="onInput()"
-  >
-</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              [(ngModel)]="phone"
+              placeholder="Numri i telefonit"
+              autocomplete="tel-national"
+              inputmode="tel"
+              required
+            >
+          </div>
+        </div>
 
-<br><br>
+      </div>
 
-<label>
-  Data e kthimit:
-  <input
-    type="date"
-    (input)="onInput()"
-  >
-</label>
+      <div class="form-divider"></div>
 
-<hr>
+      <h2>Të dhënat e makinës</h2>
 
-<p>
-  ⚠️ Nëse largohesh nga kjo faqe pa përfunduar rezervimin,
-  ndryshimet e paruajtura mund të humbasin.
-</p>
+      @if (selectedCar) {
+        <div class="selected-car">
+          <img
+            [src]="selectedCar.image"
+            [alt]="selectedCar.brand + ' ' + selectedCar.model"
+          >
 
-<button (click)="goToCars()">
-  Shko te makinat
-</button>
+          <div class="selected-car-info">
+            <span class="car-category">{{ selectedCar.category }}</span>
+            <h3>{{ selectedCar.brand }} {{ selectedCar.model }}</h3>
+            <p>{{ selectedCar.price }} € / ditë</p>
+          </div>
+        </div>
+      } @else {
+        <div class="no-car-selected">
+          <p>Nuk është zgjedhur ende një makinë.</p>
+          <a routerLink="/cars" class="secondary-button">
+            Zgjidh një makinë
+          </a>
+        </div>
+      }
+
+      <div class="form-divider"></div>
+
+      <h2>Vendi i marrjes dhe kthimit</h2>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="pickupLocation">Vendi i marrjes</label>
+          <input
+            id="pickupLocation"
+            name="pickupLocation"
+            type="text"
+            [(ngModel)]="pickupLocation"
+            placeholder="P.sh. Aeroporti i Tiranës"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="returnLocation">Vendi i kthimit</label>
+          <input
+            id="returnLocation"
+            name="returnLocation"
+            type="text"
+            [(ngModel)]="returnLocation"
+            placeholder="P.sh. Tirana"
+            required
+          >
+        </div>
+
+      </div>
+
+      <div class="form-divider"></div>
+
+      <h2>Data dhe ora e rezervimit</h2>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="pickupDate">Data e marrjes</label>
+          <input
+            id="pickupDate"
+            name="pickupDate"
+            type="date"
+            [(ngModel)]="pickupDate"
+            [min]="today"
+            (ngModelChange)="onPickupDateChange()"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="returnDate">Data e kthimit (minimumi 3 ditë)</label>
+          <input
+            id="returnDate"
+            name="returnDate"
+            type="date"
+            [(ngModel)]="returnDate"
+            [min]="getMinReturnDate()"
+            (ngModelChange)="calculateRentalDays()"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="pickupHour">Ora e marrjes</label>
+
+          <div class="time-select-group">
+            <select
+              id="pickupHour"
+              name="pickupHour"
+              [(ngModel)]="pickupHour"
+              (ngModelChange)="updatePickupTime()"
+            >
+              @for (hour of hours; track hour) {
+                <option [value]="hour">{{ hour }}</option>
+              }
+            </select>
+
+            <span>:</span>
+
+            <select
+              name="pickupMinute"
+              [(ngModel)]="pickupMinute"
+              (ngModelChange)="updatePickupTime()"
+              aria-label="Minutat e marrjes"
+            >
+              @for (minute of minutes; track minute) {
+                <option [value]="minute">{{ minute }}</option>
+              }
+            </select>
+
+            <select
+              name="pickupPeriod"
+              [(ngModel)]="pickupPeriod"
+              (ngModelChange)="updatePickupTime()"
+              aria-label="AM ose PM"
+            >
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="returnHour">Ora e kthimit</label>
+
+          <div class="time-select-group">
+            <select
+              id="returnHour"
+              name="returnHour"
+              [(ngModel)]="returnHour"
+              (ngModelChange)="updateReturnTime()"
+            >
+              @for (hour of hours; track hour) {
+                <option [value]="hour">{{ hour }}</option>
+              }
+            </select>
+
+            <span>:</span>
+
+            <select
+              name="returnMinute"
+              [(ngModel)]="returnMinute"
+              (ngModelChange)="updateReturnTime()"
+              aria-label="Minutat e kthimit"
+            >
+              @for (minute of minutes; track minute) {
+                <option [value]="minute">{{ minute }}</option>
+              }
+            </select>
+
+            <select
+              name="returnPeriod"
+              [(ngModel)]="returnPeriod"
+              (ngModelChange)="updateReturnTime()"
+              aria-label="AM ose PM"
+            >
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="rental-days-info">
+        <span>Ditë qiraje (minimumi 3)</span>
+        <strong>{{ rentalDays }}</strong>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <h2>Opsionet shtesë</h2>
+
+      <div class="extras-list">
+
+        <label class="extra-option">
+          <input
+            type="checkbox"
+            name="babySeat"
+            [(ngModel)]="babySeat"
+            (ngModelChange)="calculateTotal()"
+          >
+          <span class="extra-description">
+            <strong>Baby Seat</strong>
+            <small>Karrige për fëmijë</small>
+          </span>
+          <span class="extra-price">+10 €</span>
+        </label>
+
+        <label class="extra-option">
+          <input
+            type="checkbox"
+            name="extraDriver"
+            [(ngModel)]="extraDriver"
+            (ngModelChange)="calculateTotal()"
+          >
+          <span class="extra-description">
+            <strong>Extra Driver</strong>
+            <small>Shofer i dytë</small>
+          </span>
+          <span class="extra-price">+20 €</span>
+        </label>
+
+        <label class="extra-option">
+          <input
+            type="checkbox"
+            name="outsideAlbania"
+            [(ngModel)]="outsideAlbania"
+            (ngModelChange)="calculateTotal()"
+          >
+          <span class="extra-description">
+            <strong>Jashtë Shqipërisë</strong>
+            <small>Tarifë shtesë për çdo ditë</small>
+          </span>
+          <span class="extra-price">+30 €/ditë</span>
+        </label>
+
+        <label class="extra-option">
+          <input
+            type="checkbox"
+            name="over250Km"
+            [(ngModel)]="over250Km"
+            (ngModelChange)="calculateTotal()"
+          >
+          <span class="extra-description">
+            <strong>Mbi 250 km/ditë</strong>
+            <small>Tarifë shtesë për çdo ditë</small>
+          </span>
+          <span class="extra-price">+20 €/ditë</span>
+        </label>
+
+        <div class="free-feature">
+          <span class="free-check">✓</span>
+          <span>GPS falas</span>
+          <strong>FALAS</strong>
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="submit-booking-button"
+        [disabled]="!selectedCar"
+        (click)="createBooking()"
+      >
+        Konfirmo rezervimin →
+      </button>
+
+    </main>
+
+    <aside class="booking-summary">
+      <span class="summary-label">PËRMBLEDHJE</span>
+      <h2>Çmimi i rezervimit</h2>
+
+      @if (selectedCar) {
+        <p class="summary-car">
+          {{ selectedCar.brand }} {{ selectedCar.model }}
+        </p>
+      }
+
+      <div class="summary-row">
+        <span>Çmimi ditor</span>
+        <strong>{{ carPrice }} €</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Ditët e qirasë</span>
+        <strong>{{ rentalDays }}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Qiraja bazë</span>
+        <strong>{{ basePrice }} €</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Opsionet shtesë</span>
+        <strong>{{ extraPrice }} €</strong>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-total">
+        <span>Totali</span>
+        <strong>{{ totalPrice }} €</strong>
+      </div>
+
+      <p class="summary-note">
+        Qiraja minimale është 3 ditë. Çmimi llogaritet sipas
+        kohëzgjatjes dhe opsioneve të zgjedhura.
+      </p>
+
+      <div class="summary-benefit"><span>✓</span> GPS falas</div>
+      <div class="summary-benefit"><span>✓</span> Rezervim i thjeshtë</div>
+      <div class="summary-benefit"><span>✓</span> Salianji Rent Car</div>
+    </aside>
+
+  </div>
+</div>

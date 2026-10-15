@@ -2,31 +2,33 @@ import { Routes } from '@angular/router';
 
 import { Home } from './home/home';
 import { Cars } from './cars/cars';
+import { CarDetails } from './car-details/car-details';
 import { About } from './about/about';
 import { Booking } from './booking/booking';
 
-import { carResolver } from './car-resolver';
 import { authGuard } from './auth-guard';
 import { canDeactivateGuard } from './can-deactivate-guard';
 
 export const routes: Routes = [
 
+  // HOME
   {
     path: '',
     component: Home,
     title: 'Home | Salianji Rent Car'
   },
 
+  // ADMIN
   {
     path: 'admin',
     loadComponent: () =>
       import('./admin/admin').then(m => m.Admin)
   },
 
+  // LISTA E MAKINAVE
   {
     path: 'cars',
     component: Cars,
-    canActivate: [authGuard],
     title: 'Cars | Salianji Rent Car',
     data: {
       title: 'Lista e makinave',
@@ -34,22 +36,21 @@ export const routes: Routes = [
     }
   },
 
+  // DETAJET E MAKINËS
   {
     path: 'cars/:id',
-    component: Cars,
-    title: 'Car Details | Salianji Rent Car',
-    resolve: {
-      car: carResolver
-    },
-    runGuardsAndResolvers: 'paramsChange'
+    component: CarDetails,
+    title: 'Car Details | Salianji Rent Car'
   },
 
+  // ABOUT
   {
     path: 'about',
     component: About,
     title: 'About | Salianji Rent Car'
   },
 
+  // BOOKING
   {
     path: 'booking',
     component: Booking,

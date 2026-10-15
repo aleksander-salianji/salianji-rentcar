@@ -1,0 +1,236 @@
+@if (car) {
+
+  <div class="car-details-page">
+
+    <!-- HERO / CAR IMAGE -->
+    <section class="car-details-hero">
+
+      <div class="car-image-wrapper">
+
+        <img
+          [src]="car.image"
+          [alt]="car.brand + ' ' + car.model"
+          class="car-main-image"
+        >
+
+        <span class="category-badge">
+          {{ car.category }}
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- CAR DETAILS -->
+    <section class="car-details-section">
+
+      <div class="car-details-container">
+
+
+        <!-- LEFT SIDE -->
+        <div class="car-info">
+
+          <span class="car-brand">
+            {{ car.brand }}
+          </span>
+
+          <h1>
+            {{ car.model }}
+          </h1>
+
+          <p class="car-description">
+            Zgjidh këtë makinë për udhëtimin tënd.
+            Makina është pjesë e flotës së
+            <strong>Salianji Rent Car</strong>.
+          </p>
+
+
+          <!-- INFORMATION -->
+          <div class="details-grid">
+
+
+            <div class="detail-box">
+
+              <span class="detail-label">
+                Marka
+              </span>
+
+              <strong>
+                {{ car.brand }}
+              </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+              <span class="detail-label">
+                Modeli
+              </span>
+
+              <strong>
+                {{ car.model }}
+              </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+              <span class="detail-label">
+                Kategoria
+              </span>
+
+              <strong>
+                {{ car.category }}
+              </strong>
+
+            </div>
+
+
+            <div class="detail-box">
+
+              <span class="detail-label">
+                ID e makinës
+              </span>
+
+              <strong>
+                #{{ car.id }}
+              </strong>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE / BOOKING -->
+        <aside class="booking-card">
+
+
+          <span class="price-label">
+            Çmimi ditor
+          </span>
+
+
+          <div class="price">
+
+            <strong>
+              {{ car.price }} €
+            </strong>
+
+            <span>
+              / ditë
+            </span>
+
+          </div>
+
+
+          <div class="booking-divider"></div>
+
+
+          <!-- FEATURES -->
+          <div class="booking-features">
+
+            <div>
+              <span>✓</span>
+              GPS falas
+            </div>
+
+            <div>
+              <span>✓</span>
+              Makina të kontrolluara
+            </div>
+
+            <div>
+              <span>✓</span>
+              Rezervim i shpejtë
+            </div>
+
+            <div>
+              <span>✓</span>
+              Mbështetje për klientët
+            </div>
+
+          </div>
+
+
+          <!-- BOOKING BUTTON -->
+          <a
+            [routerLink]="['/booking']"
+            [queryParams]="{ carId: car.id }"
+            class="booking-button"
+          >
+
+            Rezervo makinën
+
+            <span>
+              →
+            </span>
+
+          </a>
+
+
+          <!-- BACK TO CARS -->
+          <a
+            routerLink="/cars"
+            class="back-button"
+          >
+
+            ← Kthehu te makinat
+
+          </a>
+
+
+        </aside>
+
+
+      </div>
+
+    </section>
+
+  </div>
+
+}
+
+
+@else {
+
+
+  <!-- CAR NOT FOUND -->
+
+  <div class="not-found">
+
+
+    <div class="not-found-icon">
+      🚗
+    </div>
+
+
+    <h2>
+      Makina nuk u gjet
+    </h2>
+
+
+    <p>
+      Kjo makinë nuk ekziston ose nuk është më
+      e disponueshme në flotën tonë.
+    </p>
+
+
+    <a
+      routerLink="/cars"
+      class="back-button"
+    >
+
+      ← Kthehu te makinat
+
+    </a>
+
+
+  </div>
+
+}

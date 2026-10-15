@@ -1,0 +1,495 @@
+
+:host {
+  display: block;
+  min-height: 100%;
+  background: #101010;
+  color: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.booking-page {
+  min-height: 100vh;
+  padding: 40px 24px 64px;
+  background: #101010;
+}
+
+.booking-header {
+  max-width: 1200px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.eyebrow,
+.summary-label {
+  color: #c9a44c;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.booking-header h1 {
+  margin: 14px 0;
+  font-size: clamp(30px, 5vw, 48px);
+  font-weight: 800;
+}
+
+.booking-header p {
+  color: #aaa;
+  line-height: 1.7;
+}
+
+.booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+  align-items: start;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.booking-form-card,
+.booking-summary {
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid #303030;
+  border-radius: 16px;
+  background: #181818;
+}
+
+.booking-form-card h2,
+.booking-summary h2 {
+  margin: 0 0 22px;
+  font-size: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  color: #e4e4e4;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.phone-input-group select,
+.phone-input-group input,
+.time-select-group select {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 12px;
+  border: 1px solid #414141;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  font: inherit;
+}
+
+.form-group select option,
+.phone-input-group select option,
+.time-select-group select option {
+  background: #222;
+  color: #fff;
+}
+
+.form-group input[type="date"] {
+  color-scheme: dark;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.phone-input-group select:focus,
+.phone-input-group input:focus,
+.time-select-group select:focus {
+  border-color: #c9a44c;
+  outline: 2px solid #c9a44c;
+  outline-offset: 1px;
+}
+
+/* Prefiksi dhe numri i telefonit */
+.phone-input-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.phone-input-group select {
+  cursor: pointer;
+  text-overflow: ellipsis;
+}
+
+.phone-input-group input {
+  min-width: 0;
+}
+
+.form-divider,
+.summary-divider {
+  height: 1px;
+  margin: 28px 0;
+  background: #343434;
+}
+
+.selected-car {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px;
+  border: 1px solid #333;
+  border-radius: 12px;
+  background: #202020;
+}
+
+.selected-car img {
+  width: 140px;
+  height: 95px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.car-category {
+  color: #c9a44c;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.selected-car-info h3 {
+  margin: 8px 0;
+  font-size: 19px;
+}
+
+.selected-car-info p {
+  margin: 0;
+  color: #c9a44c;
+  font-weight: 700;
+}
+
+.no-car-selected {
+  padding: 18px;
+  border: 1px dashed #444;
+  border-radius: 10px;
+  color: #bbb;
+}
+
+.secondary-button {
+  display: inline-block;
+  margin-top: 10px;
+  color: #c9a44c;
+  text-decoration: none;
+}
+
+.secondary-button:hover {
+  color: #e0bd66;
+  text-decoration: underline;
+}
+
+/* Zgjedhja e orës */
+.time-select-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 6px;
+}
+
+.time-select-group select {
+  padding: 10px 5px;
+}
+
+.rental-days-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid #383838;
+  border-radius: 10px;
+  background: #222;
+}
+
+.rental-days-info strong {
+  color: #c9a44c;
+  font-size: 20px;
+}
+
+/* Opsionet shtesë */
+.extras-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.extra-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #353535;
+  border-radius: 10px;
+  background: #202020;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.extra-option:hover {
+  border-color: #716039;
+}
+
+.extra-option:has(input:checked) {
+  border-color: #c9a44c;
+  background: #29251b;
+}
+
+.extra-option input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: #c9a44c;
+}
+
+.extra-description {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.extra-description strong {
+  font-size: 14px;
+}
+
+.extra-description small {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.extra-price {
+  flex-shrink: 0;
+  color: #c9a44c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.free-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #353535;
+  border-radius: 10px;
+}
+
+.free-check {
+  color: #c9a44c;
+  font-weight: 800;
+}
+
+.free-feature strong {
+  margin-left: auto;
+  color: #c9a44c;
+  font-size: 12px;
+}
+
+/* Butoni i rezervimit */
+.submit-booking-button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: 9px;
+  background: #c9a44c;
+  color: #111;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.submit-booking-button:hover:not(:disabled) {
+  background: #e0bd66;
+  transform: translateY(-1px);
+}
+
+.submit-booking-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Përmbledhja e çmimit */
+.booking-summary {
+  position: sticky;
+  top: 24px;
+}
+
+.booking-summary h2 {
+  margin-top: 14px;
+  margin-bottom: 10px;
+}
+
+.summary-car {
+  margin: 0 0 24px;
+  color: #c9a44c;
+  font-weight: 700;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 0;
+  color: #bbb;
+  font-size: 14px;
+}
+
+.summary-row strong {
+  color: #fff;
+  text-align: right;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-total span {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summary-total strong {
+  color: #c9a44c;
+  font-size: 30px;
+}
+
+.summary-note {
+  margin: 18px 0 24px;
+  color: #999;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.summary-benefit {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  color: #ddd;
+  font-size: 13px;
+}
+
+.summary-benefit span {
+  color: #c9a44c;
+  font-weight: 800;
+}
+
+/* Mesazhet */
+.success-message,
+.error-message {
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.success-message {
+  border: 1px solid #356b49;
+  background: #172b1d;
+  color: #a7e5b7;
+}
+
+.error-message {
+  border: 1px solid #853f3f;
+  background: #321b1b;
+  color: #ffb5b5;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-summary {
+    position: static;
+  }
+}
+
+/* Celular */
+@media (max-width: 600px) {
+  .booking-page {
+    padding: 28px 14px 40px;
+  }
+
+  .booking-form-card,
+  .booking-summary {
+    padding: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .phone-input-group {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-car {
+    gap: 12px;
+  }
+
+  .selected-car img {
+    width: 105px;
+    height: 85px;
+  }
+
+  .time-select-group {
+    gap: 4px;
+  }
+
+  .time-select-group select {
+    padding: 10px 4px;
+    font-size: 13px;
+  }
+
+  .extra-option {
+    gap: 9px;
+    padding: 12px;
+  }
+
+  .extra-price {
+    font-size: 12px;
+  }
+
+  .summary-total strong {
+    font-size: 26px;
+  }
+}

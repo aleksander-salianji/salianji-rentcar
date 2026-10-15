@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { CarInfo } from '../car-info';
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+import { Car } from '../car.model';
+import { CarService } from '../car-service';
 
 @Component({
   selector: 'app-cars',
@@ -9,67 +11,36 @@ import { CarInfo } from '../car-info';
   templateUrl: './cars.html',
   styleUrl: './cars.css'
 })
-export class Cars {
+export class Cars implements OnInit {
 
-  private route = inject(ActivatedRoute);
+  private carService = inject(CarService);
 
-  private carInfo = inject(CarInfo);
+  cars: Car[] = [];
 
-  carInfoMessage = '';
+  loading = true;
 
-  carId = '';
+  errorMessage = '';
 
-  brand = '';
-  price = '';
-
-  routeTitle = '';
-  routeDescription = '';
-
-  resolvedCar: any = null;
-
-  cars = [
-    { brand: 'BMW', model: 'X5', price: 80 },
-    { brand: 'BMW', model: 'X3', price: 60 },
-    { brand: 'Audi', model: 'Q7', price: 90 },
-    { brand: 'Audi', model: 'A6', price: 70 },
-    { brand: 'Mercedes', model: 'GLE', price: 100 }
-  ];
-
-  filteredCars = this.cars;
-
-  ngOnInit() {
-
-    this.carInfoMessage =
-      this.carInfo.getMassage();
-
-    this.route.paramMap.subscribe((params) => {
-      this.carId = params.get('id') || '';
-    });
-
-    this.route.queryParamMap.subscribe((params) => {
-      this.brand = params.get('brand') || '';
-      this.price = params.get('price') || '';
-
-      this.filterCars();
-    });
-
-    this.route.data.subscribe((data) => {
-      this.routeTitle = data['title'] || '';
-      this.routeDescription = data['description'] || '';
-
-      this.resolvedCar = data['car'] || null;
-    });
+  ngOnInit(): void {
+    this.loadCars();
   }
 
-  filterCars() {
+  loadCars(): void {
+    this.loading = true;
+    this.errorMessage = '';
 
-    if (!this.brand) {
-      this.filteredCars = this.cars;
-      return;
+    try {
+      this.cars = this.carService.getCars();
+    } catch (error) {
+      console.error('Gabim gjatë ngarkimit të makinave:', error);
+
+      this.errorMessage =
+        'Ndodhi një gabim gjatë ngarkimit të makinave.';
+    } finally {
+      this.loading = false;
     }
 
-    this.filteredCars = this.cars.filter((car) => {
-      return car.brand === this.brand;
-    });
+    console.log('Makina e ngarkuara:', this.cars);
   }
+
 }

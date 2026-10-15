@@ -1,0 +1,156 @@
+<div class="details-page">
+
+  @if (car) {
+
+    <div class="details-container">
+
+      <!-- Kthimi te lista e makinave -->
+      <a
+        routerLink="/cars"
+        class="back-button"
+      >
+        ← Kthehu te makinat
+      </a>
+
+
+      <div class="details-card">
+
+        <!-- FOTOJA E MAKINËS -->
+        <div class="details-image">
+
+          <img
+            [src]="car.image"
+            [alt]="car.brand + ' ' + car.model"
+          >
+
+          <span class="category-badge">
+            {{ car.category }}
+          </span>
+
+        </div>
+
+
+        <!-- INFORMACIONI I MAKINËS -->
+        <div class="details-content">
+
+          <span class="brand">
+            {{ car.brand }}
+          </span>
+
+
+          <h1>
+            {{ car.model }}
+          </h1>
+
+
+          <p class="description">
+            {{ car.brand }} {{ car.model }} është një nga
+            makinat tona të disponueshme për qera.
+            Zgjidh këtë makinë për udhëtimin tënd në Shqipëri.
+          </p>
+
+
+          <!-- SPECIFIKAT -->
+          <div class="car-specs">
+
+            <div class="spec">
+
+              <span>
+                Kategoria
+              </span>
+
+              <strong>
+                {{ car.category }}
+              </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+              <span>
+                ID
+              </span>
+
+              <strong>
+                {{ car.id }}
+              </strong>
+
+            </div>
+
+
+            <div class="spec">
+
+              <span>
+                Çmimi
+              </span>
+
+              <strong>
+                {{ car.price }} € / ditë
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- REZERVIMI -->
+          <div class="booking-area">
+
+            <div class="price">
+
+              <span>
+                Nga
+              </span>
+
+              <strong>
+                {{ car.price }} €
+              </strong>
+
+              <small>
+                / ditë
+              </small>
+
+            </div>
+
+
+            <!-- KALON MAKINËN TE BOOKING -->
+            <a
+              [routerLink]="['/booking']"
+              [queryParams]="{ carId: car.id }"
+              class="booking-button"
+            >
+              Rezervo makinën
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  } @else {
+
+    <!-- MAKINA NUK U GJET -->
+    <div class="not-found">
+
+      <h1>
+        Makina nuk u gjet
+      </h1>
+
+      <p>
+        Makina që kërkove nuk ekziston.
+      </p>
+
+      <a routerLink="/cars">
+        Shiko të gjitha makinat
+      </a>
+
+    </div>
+
+  }
+
+</div>

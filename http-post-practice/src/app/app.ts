@@ -1,245 +1,193 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
-import { CarService, Post, Car } from './services/car';
-import { ErrorHandlerService } from './services/error-handler';
-
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+  userId?: number;
+}
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-
   imports: [
+    FormsModule,
     RouterLink,
     RouterOutlet
   ],
-
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
 
-  // =========================
-  // SERVICES
-  // =========================
+  private http = inject(HttpClient);
 
-  private carService = inject(CarService);
-
-  private errorHandler = inject(ErrorHandlerService);
-
-
-  // =========================
-  // POSTS
-  // =========================
-
-  posts = this.carService.posts;
-
-
-  // =========================
-  // CARS
-  // =========================
-
-  cars: Car[] = [];
-
-
-  // =========================
-  // SELECTED POST
-  // =========================
+  posts: Post[] = [];
 
   selectedPost: Post | null = null;
 
+  newPostTitle = '';
 
-  // =========================
-  // LOADING
-  // =========================
+  newPostBody = '';
 
-  isLoading = signal(false);
-
-
-  // =========================
-  // ERROR
-  // =========================
+  message = '';
 
   errorMessage = '';
 
+  deleteMessage = '';
 
-  // ==================================================
-  // POST - SHTO BMW X5
-  // ==================================================
+  loadPosts(): void {
 
-  addCar() {
-
-    const car: Car = {
-
-      brand: 'BMW',
-
-      model: 'X5',
-
-      price: 80
-
-    };
-
-
-    // Ruajme pozicionin
-    // ku do te shkoje makina
-
-    const index = this.cars.length;
-
-
-    // ==================================================
-    // OPTIMISTIC UPDATE
-    // ==================================================
-
-    // Makina shfaqet menjehere ne UI
-
-    this.cars.push(car);
-
-
-    // ==================================================
-    // DËRGO REQUEST-IN NË BACKEND
-    // ==================================================
-
-    this.carService.addCar(car).subscribe({
-
-      next: (response) => {
-
-        // Request-i u krye me sukses
-
-      },
-
-      error: (error) => {
-
-        // Menaxhojme gabimin
-
-        this.errorHandler.handleError(error);
-
-
-        // ==================================================
-        // ROLLBACK
-        // ==================================================
-
-        // Nese request-i deshton,
-        // heqim makinen nga UI
-
-        this.cars.splice(index, 1);
-
-      }
-
-    });
-
-  }
-
-
-  // ==================================================
-  // GET - MERR TE GJITHA POSTIMET
-  // ==================================================
-
-  loadPosts() {
-
-    // Filloi loading
-
-    this.isLoading.set(true);
-
-
-    // Pastrojme error-in e meparshem
+    this.message = 'Duke ngarkuar postimet...';
 
     this.errorMessage = '';
 
+    this.http
+      .get<Post[]>(
+        'https://jsonplaceholder.typicode.com/posts'
+      )
+      .subscribe({
+        next: (posts) => {
 
-    // ==================================================
-    // HTTP GET
-    // ==================================================
+          this.posts = posts;
 
-    this.carService.loadPosts().subscribe({
+          this.message =
+            `U ngarkuan ${posts.length} postime.`;
+        },
 
-      next: (posts) => {
+        error: (error) => {
 
-        // Ruajme postimet ne Service
+          console.error(error);
 
-        this.carService.setPosts(posts);
-
-
-        // Request-i perfundoi
-
-        this.isLoading.set(false);
-
-      },
-
-      error: (error) => {
-
-        // Menaxhojme gabimin
-
-        this.errorHandler.handleError(error);
-
-
-        this.errorMessage =
-          'Ndodhi nje gabim gjate marrjes se te dhenave.';
-
-
-        // Mbyll loading
-
-        this.isLoading.set(false);
-
-      }
-
-    });
-
+          this.errorMessage =
+            'Gabim gjatë marrjes së postimeve.';
+        }
+      });
   }
 
+  loadSinglePost(id: number): void {
 
-  // ==================================================
-  // GET - MERR NJË POSTIM
-  // ==================================================
+    this.selectedPost = null;
 
-  loadSinglePost(id: number) {
+    this.errorMessage = '';
 
-    this.carService.getPost(id).subscribe({
+    this.http
+      .get<Post>(
+        `https://jsonplaceholder.typicode.com/posts/${id}`
+      )
+      .subscribe({
+        next: (post) => {
 
-      next: (post) => {
+          this.selectedPost = post;
+        },
 
-        // Ruajme postimin
+        error: (error) => {
 
-        this.selectedPost = post;
+          console.error(error);
 
-      },
-
-      error: (error) => {
-
-        // Menaxhojme gabimin
-
-        this.errorHandler.handleError(error);
-
-      }
-
-    });
-
+          this.errorMessage =
+            'Gabim gjatë marrjes së postimit.';
+        }
+      });
   }
 
+  addPost(): void {
 
-  // ==================================================
-  // DELETE - FSHIN NJË POSTIM
-  // ==================================================
+    if (
+      !this.newPostTitle.trim() ||
+      !this.newPostBody.trim()
+    ) {
 
-  deletePost(id: number) {
+      this.errorMessage =
+        'Plotëso titullin dhe përmbajtjen.';
 
-    this.carService.deletePost(id).subscribe({
+      return;
+    }
 
-      next: (response) => {
+    const newPost = {
 
-        // Postimi u fshi me sukses
+      title: this.newPostTitle,
 
-      },
+      body: this.newPostBody,
 
-      error: (error) => {
+      userId: 1
+    };
 
-        // Menaxhojme gabimin
+    this.http
+      .post<Post>(
+        'https://jsonplaceholder.typicode.com/posts',
+        newPost
+      )
+      .subscribe({
+        next: (post) => {
 
-        this.errorHandler.handleError(error);
+          console.log(
+            'Postimi u krijua:',
+            post
+          );
 
-      }
+          this.posts = [
+            post,
+            ...this.posts
+          ];
 
-    });
+          this.message =
+            `Postimi "${post.title}" u krijua me sukses.`;
 
+          this.newPostTitle = '';
+
+          this.newPostBody = '';
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          this.errorMessage =
+            'Gabim gjatë krijimit të postimit.';
+        }
+      });
+  }
+
+  deletePost(id: number): void {
+
+    this.deleteMessage = '';
+
+    this.errorMessage = '';
+
+    this.http
+      .delete(
+        `https://jsonplaceholder.typicode.com/posts/${id}`
+      )
+      .subscribe({
+        next: () => {
+
+          this.posts =
+            this.posts.filter(
+              post => post.id !== id
+            );
+
+          if (
+            this.selectedPost?.id === id
+          ) {
+
+            this.selectedPost = null;
+          }
+
+          this.deleteMessage =
+            `Postimi me ID ${id} u fshi me sukses.`;
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          this.errorMessage =
+            'Gabim gjatë fshirjes së postimit.';
+        }
+      });
   }
 
 }
