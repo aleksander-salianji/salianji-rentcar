@@ -73,8 +73,8 @@ export function notInPastValidator(control: AbstractControl): ValidationErrors |
   return value && value < todayISO() ? { pastDate: true } : null;
 }
 
-// Validator në FormGroup: kthimi pas marrjes dhe jo më shumë se maxDays ditë
-export function dateRangeValidator(maxDays: number): ValidatorFn {
+// Validator në FormGroup: kthimi pas marrjes, të paktën minDays dhe jo më shumë se maxDays ditë
+export function dateRangeValidator(minDays: number, maxDays: number): ValidatorFn {
   return (group: AbstractControl): ValidationErrors | null => {
     const pickup = group.get('pickupDate')?.value as string;
     const ret = group.get('returnDate')?.value as string;
@@ -84,6 +84,9 @@ export function dateRangeValidator(maxDays: number): ValidatorFn {
     }
     if (ret <= pickup) {
       return { invalidRange: true };
+    }
+    if (daysBetween(pickup, ret) < minDays) {
+      return { tooShort: true };
     }
     if (daysBetween(pickup, ret) > maxDays) {
       return { tooLong: true };

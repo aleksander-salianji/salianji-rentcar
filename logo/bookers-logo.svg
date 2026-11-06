@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100">
+  <rect width="420" height="100" fill="#050506"/>
+  <g><circle cx="50" cy="50" r="46" fill="none" stroke="#c8a86b" stroke-width="2"/><g transform="translate(50 55) scale(1.0) translate(-50 -55)">
+  <path d="M2 66.5 H98" stroke="#c8a86b" stroke-width="1.2" opacity=".55"/>
+  <path d="M3 52 H12 M1 56 H8" stroke="#c8a86b" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+  <path d="M8 60.5 L7.2 56 C7 53.4 8.4 52.1 11 51.7 L27 50 C37 47.4 44 44.2 52 44 C58 43.9 62.5 45.4 66.5 47.6 L74 51 C82 51.6 88.5 53 92 54.6 C93.8 55.4 94.4 56.7 94 58.4 L93.4 61 L9 61 Z" fill="#c8a86b"/>
+  <path d="M42 50.2 C47 46.9 51.5 45.7 55.8 45.7 C59.6 45.7 62.6 46.8 65.4 48.6 L69.5 51.2 Z" fill="#050506"/>
+  <path d="M30 56 C42 54.6 55 54.2 72 55.6" stroke="#050506" stroke-width="1.1" fill="none" opacity=".8"/>
+  <circle cx="26.5" cy="61" r="7.8" fill="#050506"/><circle cx="26.5" cy="61" r="5.6" fill="none" stroke="#c8a86b" stroke-width="2.3"/><circle cx="26.5" cy="61" r="1.5" fill="#c8a86b"/><circle cx="77" cy="61" r="7.8" fill="#050506"/><circle cx="77" cy="61" r="5.6" fill="none" stroke="#c8a86b" stroke-width="2.3"/><circle cx="77" cy="61" r="1.5" fill="#c8a86b"/></g></g>
+  <text x="112" y="56" fill="#ece8df" font-family="'Bodoni Moda','Didot','Bodoni 72',Georgia,serif" font-size="38" letter-spacing="6">BOOKERS</text>
+  <text x="114" y="80" fill="#c8a86b" font-family="'Jost','Futura','Century Gothic','Segoe UI',sans-serif" font-size="13" letter-spacing="7.2">CAR ALBANIA</text>
+</svg>

@@ -55,6 +55,9 @@
 
 .empty .btn { margin-top: 12px; }
 
+.cancel-note { max-width: 160px; }
+.company { margin: 4px 0 0; color: var(--accent, #f28c28); font-weight: 600; }
+
 @media (max-width: 640px) {
   .booking-item { flex-direction: column; }
   .booking-side {
@@ -63,4 +66,17 @@
     justify-content: space-between;
   }
   .booking-route { flex-wrap: wrap; gap: 10px; }
+}
+
+/* kërkimi me kod + telefon */
+.narrow { max-width: 860px; }
+.lookup {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+@media (max-width: 640px) {
+  .lookup { grid-template-columns: 1fr; }
 }

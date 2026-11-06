@@ -3,7 +3,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../core/auth.service';
-import { USE_MOCK_API } from '../../core/config';
 import { errorMessage } from '../../core/http-error';
 
 @Component({
@@ -12,14 +11,15 @@ import { errorMessage } from '../../core/http-error';
   template: `
     <div class="auth-page">
       <div class="card auth-card">
-        <h1>Hyr në llogari</h1>
-        <p class="muted">Mirë se u ktheve te Salianji Rent Car.</p>
+        <h1>Hyr · Biznese</h1>
+        <p class="muted">Vetëm për kompanitë partnere dhe administratorin.
+          Klientët rezervojnë pa llogari.</p>
 
         @if (skaduar()) {
           <div class="alert alert-info">Sesioni ka skaduar. Hyr përsëri.</div>
         }
         @if (kthehu()) {
-          <div class="alert alert-info">Duhet të hysh në llogari për të vazhduar.</div>
+          <div class="alert alert-info">Hyr me llogarinë e biznesit për të vazhduar.</div>
         }
         @if (error()) {
           <div class="alert alert-error">{{ error() }}</div>
@@ -50,17 +50,11 @@ import { errorMessage } from '../../core/http-error';
         </form>
 
         <p class="auth-switch">
-          Nuk ke llogari?
-          <a routerLink="/regjistrohu" [queryParams]="kthehu() ? { kthehu: kthehu() } : {}">Regjistrohu</a>
+          Je klient? <a routerLink="/rezervimi">Gjej rezervimin tënd</a> me kodin dhe telefonin.
         </p>
-
-        @if (demoMode) {
-          <div class="demo-accounts">
-            <strong>Llogari demo:</strong><br>
-            Admin: <button type="button" (click)="fillDemo('admin@salianjirent.al', 'Admin123')">admin&#64;salianjirent.al / Admin123</button><br>
-            Klient: <button type="button" (click)="fillDemo('klient@salianjirent.al', 'Klient123')">klient&#64;salianjirent.al / Klient123</button>
-          </div>
-        }
+        <p class="auth-switch">
+          Do të bëhesh partner? Na shkruaj te info&#64;bookerscar.al
+        </p>
       </div>
     </div>
   `,
@@ -75,8 +69,6 @@ export class LoginPage {
   readonly kthehu = input<string>();   // ku të kthehet pas login-it
   readonly skaduar = input<string>();  // sesioni skadoi
 
-  readonly demoMode = USE_MOCK_API;
-
   loading = signal(false);
   error = signal<string | null>(null);
 
@@ -90,11 +82,6 @@ export class LoginPage {
     return c.invalid && c.touched;
   }
 
-  // PATCH VALUE
-  fillDemo(email: string, password: string) {
-    this.form.patchValue({ email, password });
-  }
-
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -105,9 +92,9 @@ export class LoginPage {
     this.error.set(null);
 
     this.auth.login(this.form.getRawValue()).subscribe({
-      next: user => {
+      next: () => {
         this.loading.set(false);
-        const target = this.safeReturnUrl() ?? (user.role === 'ADMIN' ? '/admin' : '/');
+        const target = this.safeReturnUrl() ?? this.auth.panelUrl();
         this.router.navigateByUrl(target);
       },
       error: err => {

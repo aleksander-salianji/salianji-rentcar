@@ -35,26 +35,32 @@ public class SecurityConfig {
                                                    UserRepository userRepository,
                                                    ObjectMapper objectMapper) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)          // API me JWT, pa cookies
-                .cors(Customizer.withDefaults())
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/error").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register", "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/auth/email-exists").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/cars", "/api/cars/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .exceptionHandling(e -> e
-                        .authenticationEntryPoint((req, res, ex) ->
-                                writeError(res, objectMapper, HttpServletResponse.SC_UNAUTHORIZED, "Duhet të hysh në llogari."))
-                        .accessDeniedHandler((req, res, ex) ->
-                                writeError(res, objectMapper, HttpServletResponse.SC_FORBIDDEN, "Nuk ke leje për këtë veprim."))
-                )
-                .addFilterBefore(new JwtAuthFilter(jwtService, userRepository),
-                        UsernamePasswordAuthenticationFilter.class);
+            .csrf(AbstractHttpConfigurer::disable)          // API me JWT, pa cookies
+            .cors(Customizer.withDefaults())
+            .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/error").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                // klienti rezervon dhe e gjen / anulon rezervimin pa llogari
+                .requestMatchers(HttpMethod.POST, "/api/bookings", "/api/bookings/lookup", "/api/bookings/cancel").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/support").permitAll()          // formulari i ndihmës
+                .requestMatchers(HttpMethod.GET, "/api/cars", "/api/cars/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/companies", "/api/companies/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/blog", "/api/blog/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()          // fotot e makinave
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/company/**").hasRole("COMPANY")
+                .anyRequest().authenticated()
+            )
+            .exceptionHandling(e -> e
+                .authenticationEntryPoint((req, res, ex) ->
+                    writeError(res, objectMapper, HttpServletResponse.SC_UNAUTHORIZED, "Duhet të hysh në llogari."))
+                .accessDeniedHandler((req, res, ex) ->
+                    writeError(res, objectMapper, HttpServletResponse.SC_FORBIDDEN, "Nuk ke leje për këtë veprim."))
+            )
+            .addFilterBefore(new JwtAuthFilter(jwtService, userRepository),
+                             UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -64,7 +70,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Lejon frontend-in Angular (localhost në çdo portë) të thërrasë API-në
+    // Lejon frontend-in Angular (localhost:4200) të thërrasë API-në
     @Bean
     public CorsConfigurationSource corsConfigurationSource(
             @Value("${app.cors.allowed-origins}") String allowedOrigins) {

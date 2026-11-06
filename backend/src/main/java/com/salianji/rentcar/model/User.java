@@ -32,6 +32,11 @@ public class User {
     @Column(nullable = false, length = 20)
     private Role role = Role.CUSTOMER;
 
+    // Vetëm për llogaritë e bizneseve (role = COMPANY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
@@ -59,6 +64,9 @@ public class User {
 
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }
+
+    public Company getCompany() { return company; }
+    public void setCompany(Company company) { this.company = company; }
 
     public Instant getCreatedAt() { return createdAt; }
 }

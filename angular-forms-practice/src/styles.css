@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&display=swap");
+
 /* =====================================================
    STILET GLOBALE — Salianji Rent Car
    ===================================================== */
@@ -93,7 +95,7 @@ img { max-width: 100%; display: block; }
 
 .btn:disabled { opacity: .55; cursor: not-allowed; }
 
-.btn-primary { background: var(--accent); color: var(--navy); }
+.btn-primary { background: var(--accent); color: #0f1f3d; }
 .btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
 
 .btn-navy { background: var(--navy); color: #fff; }
@@ -346,3 +348,132 @@ input.invalid, select.invalid, textarea.invalid { border-color: var(--error); }
   .span-2, .span-3 { grid-column: auto; }
   .card { padding: 18px; }
 }
+
+
+/* =====================================================
+   KRYEFAQJA: skena me makinën sportive (përdoret te home.html)
+   ===================================================== */
+
+/* ---------- SKENA ME MAKINËN ---------- */
+.scene { position: relative; height: 230px; }
+
+.lights {
+  position: absolute;
+  left: 0;
+  bottom: 58px;
+  display: flex;
+  width: 200%;
+  height: 60px;
+  animation: scroll 50s linear infinite;
+}
+.lights svg { width: 50%; height: 100%; }
+.lights circle { fill: #c8a86b; }
+
+.road {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 58px;
+  background: linear-gradient(180deg, #0c0c0f, #050506);
+  border-top: 1px solid #1b1c21;
+}
+.lane {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, #c8a86b 0 90px, transparent 90px 170px);
+  background-size: 170px 1px;
+  opacity: .8;
+  animation: lane .55s linear infinite;
+}
+
+.car-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  width: min(480px, 88vw);
+  transform: translateX(-50%);
+}
+.car-move { animation: drive-in 2.4s cubic-bezier(.16, .84, .3, 1) both; }
+.car { display: block; width: 100%; height: auto; overflow: visible; }
+.car .body { animation: float 1.6s ease-in-out infinite; }
+.car .paint-edge { fill: none; stroke: rgba(236, 232, 223, .22); stroke-width: 1; }
+.car .shoulder { fill: none; stroke: rgba(236, 232, 223, .38); stroke-width: 1; }
+.car .chrome { fill: none; stroke: #b9b6ae; stroke-width: 1.2; }
+.car .glass { fill: #0b0f15; }
+.car .handle { fill: #8c8a84; }
+.car .spoiler { fill: #0a0a0c; stroke: rgba(236, 232, 223, .25); stroke-width: .8; }
+.car .intake { fill: #000; stroke: rgba(236, 232, 223, .18); stroke-width: .8; }
+.car .caliper { fill: #c8a86b; }
+.car .head { fill: #ffffff; }
+.car .head-glow { fill: #ffffff; opacity: .5; filter: blur(3px); }
+.car .tail { fill: #d81f2a; }
+.car .mirror { fill: #0a0a0c; stroke: rgba(236, 232, 223, .3); stroke-width: .8; }
+.car .skirt { fill: #0a0a0c; stroke: rgba(200, 168, 107, .35); stroke-width: .6; }
+.car .diffuser { stroke: #2a2b30; stroke-width: 1.4; }
+.car .disc { fill: #1a1b1f; stroke: #3a3b41; }
+.car .arch { fill: #000; }
+.car .shadow { fill: #000; opacity: .9; }
+.car .reflection { fill: rgba(200, 168, 107, .07); }
+.car .tire { fill: #050506; stroke: #1d1e22; stroke-width: 2; }
+.car .rim { fill: #2b2c31; stroke: #8c8a84; stroke-width: 1; }
+.car .spoke { stroke: #a9a69e; stroke-width: 1.6; }
+.car .hub { fill: #c8a86b; }
+.car .wheel { transform-box: fill-box; transform-origin: center; animation: spin .5s linear infinite; }
+.car .beam { animation: breathe 4s ease-in-out infinite; }
+
+@keyframes scroll { to { transform: translateX(-50%); } }
+@keyframes lane { to { background-position: -170px 0; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
+@keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: .82; } }
+@keyframes drive-in { from { transform: translateX(-120vw); } to { transform: translateX(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .lights, .lane, .car-move, .car .body, .car .wheel, .car .beam { animation: none; }
+}
+
+
+
+/* ---------- FAQET E ERRËTA (Rreth nesh, Karriera, Pyetje) ---------- */
+.dk {
+  display: block;
+  margin-bottom: -64px;
+  padding-bottom: 96px;
+  background: #050506;
+  color: #ece8df;
+}
+.dk-hero {
+  border-bottom: 1px solid #26272c;
+  background: radial-gradient(ellipse 60% 90% at 100% 0%, rgba(200, 168, 107, .12), transparent 70%);
+}
+.dk-hero .container { padding-top: 52px; padding-bottom: 40px; }
+.dk-label { margin: 0 0 10px; color: #c8a86b; font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; }
+.dk-title { margin: 0; color: #ece8df; font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.08; }
+.dk-lead { max-width: 42em; margin: 14px 0 0; color: #b9b5ad; font-size: 1.08rem; }
+.dk h2 { color: #ece8df; font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.dk h3 { color: #ece8df; }
+.dk-section { padding-top: 56px; }
+.dk-muted { color: #8d8a84; }
+.dk-card { padding: 22px; border: 1px solid #26272c; background: #0e0f12; }
+.dk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.dk-btn {
+  display: inline-block;
+  padding: .9em 1.6em;
+  border: 1px solid #c8a86b;
+  background: #c8a86b;
+  color: #050506;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.dk-btn:hover { background: #dcc08a; }
+.dk-btn.ghost { background: transparent; color: #ece8df; }
+.dk-btn.ghost:hover { color: #c8a86b; }
+.dk a:not(.dk-btn) { color: #c8a86b; }

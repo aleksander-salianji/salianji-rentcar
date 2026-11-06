@@ -1,0 +1,171 @@
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px;
+}
+
+.kpi-title {
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 600;
+}
+
+.kpi-value {
+  color: var(--navy);
+  font-size: 1.7rem;
+  line-height: 1.2;
+}
+
+.delta {
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.delta .muted { font-weight: 400; }
+.delta.up { color: var(--success); }
+.delta.down { color: var(--error); }
+.delta.same { color: var(--muted); }
+
+.fleet-kpi {
+  color: inherit;
+  text-decoration: none;
+  transition: box-shadow .15s;
+}
+
+.fleet-kpi:hover { box-shadow: 0 6px 20px rgba(15, 31, 61, .12); }
+
+.fleet-split {
+  display: flex;
+  gap: 20px;
+}
+
+.fleet-split div {
+  display: flex;
+  flex-direction: column;
+}
+
+.fleet-split strong { font-size: 1.7rem; line-height: 1.2; }
+.fleet-split span { color: var(--muted); font-size: .82rem; }
+.free { color: var(--success); }
+.busy { color: var(--error); }
+.link { color: var(--navy-2); font-weight: 600; }
+
+/* ---------- GRAFIKU ---------- */
+
+.chart-card { margin-bottom: 20px; }
+
+.chart-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.chart-head h2 { margin: 0; font-size: 1.2rem; }
+
+.tabs {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.tabs button {
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background: var(--card);
+  color: var(--navy);
+  box-shadow: 0 1px 4px rgba(15, 31, 61, .12);
+}
+
+.chart-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin-bottom: 8px;
+}
+
+.chart-summary > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-summary strong { color: var(--navy); font-size: 1.1rem; }
+
+.chart-wrap { transition: opacity .2s; }
+.chart-wrap.dim { opacity: .45; }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 0;
+}
+
+.legend .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-left: 8px;
+  border-radius: 50%;
+}
+
+.legend .dot.up { background: var(--success); }
+.legend .dot.down { background: var(--error); }
+.legend .dot.same { background: #9aa3b5; }
+
+/* ---------- TË TJERAT ---------- */
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.mini {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px;
+}
+
+.mini strong { color: var(--navy); font-size: 1.35rem; }
+.mini.attention { box-shadow: inset 4px 0 0 var(--accent), var(--shadow); }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-head h2 { margin: 0; font-size: 1.2rem; }
+
+@media (max-width: 1000px) {
+  .kpis, .mini-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .kpis, .mini-stats { grid-template-columns: 1fr; }
+}

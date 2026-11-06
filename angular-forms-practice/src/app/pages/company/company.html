@@ -1,0 +1,85 @@
+@if (loading()) {
+  <div class="container page"><div class="loading"><span class="spinner"></span> Duke ngarkuar...</div></div>
+} @else if (error() && !company()) {
+  <div class="container page">
+    <div class="alert alert-error">{{ error() }}</div>
+    <a routerLink="/" class="btn btn-primary">Kthehu në kryefaqe</a>
+  </div>
+} @else {
+  @if (company(); as co) {
+
+    <!-- KOKA E KOMPANISË -->
+    <section class="company-hero">
+      <div class="container hero-inner">
+        <a routerLink="/" class="back">← Bookers Car Albania</a>
+
+        <div class="identity">
+          <span class="monogram">{{ initials() }}</span>
+          <div>
+            <p class="label">Kompani partnere · {{ co.city }}</p>
+            <h1>{{ co.name }}</h1>
+          </div>
+        </div>
+
+        @if (co.description) {
+          <p class="about">{{ co.description }}</p>
+        }
+
+        <dl class="contact">
+          @if (co.address) { <div><dt>Adresa</dt><dd>{{ co.address }}</dd></div> }
+          @if (co.phone) { <div><dt>Telefoni</dt><dd>{{ co.phone }}</dd></div> }
+          @if (co.email) { <div><dt>Email</dt><dd>{{ co.email }}</dd></div> }
+          <div><dt>Makina</dt><dd>{{ co.carCount }}</dd></div>
+        </dl>
+
+        <!-- datat -->
+        <form class="search" (submit)="$event.preventDefault()">
+          <label>
+            <span>Marrja</span>
+            <input type="date" [min]="today" [value]="from()" (change)="setFrom(value($event))">
+          </label>
+          <label>
+            <span>Kthimi</span>
+            <input type="date" [min]="minReturn()" [value]="to()" (change)="setTo(value($event))">
+          </label>
+          <button type="button" class="clear" (click)="clearDates()" [disabled]="!from() && !to()">Pastro datat</button>
+        </form>
+        @if (from() && to() && !datesValid()) {
+          <p class="warn">Qiraja minimale është 3 ditë.</p>
+        }
+      </div>
+    </section>
+
+    <!-- MAKINAT E KOMPANISË -->
+    <section class="container fleet">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" [class.active]="category() === ''" (click)="category.set('')">
+          Të gjitha <span>{{ count('') }}</span>
+        </button>
+        @for (c of categories; track c) {
+          @if (count(c) > 0) {
+            <button type="button" role="tab" [class.active]="category() === c" (click)="category.set(c)">
+              {{ categoryLabels[c] }} <span>{{ count(c) }}</span>
+            </button>
+          }
+        }
+      </div>
+
+      @if (datesValid()) {
+        <p class="result">Të lira nga {{ from() }} deri {{ to() }} · {{ days() }} ditë</p>
+      }
+
+      @if (carsLoading()) {
+        <div class="loading"><span class="spinner"></span> Duke ngarkuar makinat...</div>
+      } @else {
+        <div class="car-grid">
+          @for (car of shown(); track car.id) {
+            <app-car-card [car]="car" [dates]="bookingDates()" />
+          } @empty {
+            <p class="empty">Nuk ka makina të lira për këtë zgjedhje.</p>
+          }
+        </div>
+      }
+    </section>
+  }
+}

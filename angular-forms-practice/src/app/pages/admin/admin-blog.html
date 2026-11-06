@@ -1,0 +1,138 @@
+<div class="page-head">
+  <div>
+    <h1>Blogu</h1>
+    <p>Artikujt që shfaqen te faqja publike <a routerLink="/blog">/blog</a>.</p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="newPost()">+ Artikull i ri</button>
+</div>
+
+@if (message()) {
+  <div class="alert alert-success">{{ message() }}</div>
+}
+@if (error()) {
+  <div class="alert alert-error">{{ error() }}</div>
+}
+
+<div class="layout">
+  <div>
+    @if (loading()) {
+      <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+    } @else {
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th></th><th>Artikulli</th><th>Statusi</th><th></th></tr>
+          </thead>
+          <tbody>
+            @for (p of posts(); track p.id) {
+              <tr>
+                <td>
+                  @if (imageSrc(p.coverImageUrl); as src) { <img class="thumb" [src]="src" alt=""> }
+                  @else { <span class="thumb"></span> }
+                </td>
+                <td>
+                  <strong>{{ p.title }}</strong>
+                  <div class="muted small">{{ p.category }} · {{ p.readMinutes }} min · /blog/{{ p.slug }}</div>
+                </td>
+                <td class="nowrap">
+                  @if (p.published) {
+                    <span class="badge badge-active">Publikuar</span>
+                    <div class="muted small">{{ p.publishedAt | date:'dd/MM/yyyy' }}</div>
+                  } @else {
+                    <span class="badge badge-inactive">Draft</span>
+                  }
+                </td>
+                <td>
+                  <div class="row-actions">
+                    @if (p.published) {
+                      <a class="btn btn-ghost btn-sm" [routerLink]="['/blog', p.slug]" target="_blank">Shiko</a>
+                    }
+                    <button type="button" class="btn btn-ghost btn-sm" (click)="edit(p)">Ndrysho</button>
+                    <button type="button" class="btn btn-ghost btn-sm" (click)="togglePublished(p)">
+                      {{ p.published ? 'Fshihe' : 'Publiko' }}
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="remove(p)">Fshi</button>
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="4" class="muted">Ende nuk ka artikuj.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+
+  <form class="card editor" [formGroup]="form" (ngSubmit)="save()" novalidate>
+    <h2>{{ editingId() === null ? 'Artikull i ri' : 'Ndrysho artikullin' }}</h2>
+
+    @if (formError()) {
+      <div class="alert alert-error">{{ formError() }}</div>
+    }
+
+    <label class="field">
+      <span>Titulli</span>
+      <input type="text" formControlName="title" [class.invalid]="isInvalid('title')">
+      @if (isInvalid('title')) { <small class="error">Shkruaj titullin.</small> }
+    </label>
+
+    <div class="grid-2 mt">
+      <label class="field">
+        <span>Kategoria</span>
+        <select formControlName="category">
+          @for (c of categories; track c) { <option [value]="c">{{ c }}</option> }
+        </select>
+      </label>
+      <label class="field">
+        <span>Adresa <span class="muted">(opsionale)</span></span>
+        <input type="text" formControlName="slug" placeholder="krijohet nga titulli" [class.invalid]="isInvalid('slug')">
+        @if (isInvalid('slug')) { <small class="error">Vetëm a-z, 0-9 dhe "-".</small> }
+      </label>
+    </div>
+
+    <label class="field mt">
+      <span>Përmbledhja</span>
+      <textarea formControlName="excerpt" rows="2" maxlength="300" [class.invalid]="isInvalid('excerpt')"></textarea>
+      @if (isInvalid('excerpt')) { <small class="error">Shkruaj 1–2 fjali (maks. 300 karaktere).</small> }
+    </label>
+
+    <label class="field mt">
+      <span>Përmbajtja</span>
+      <textarea class="content" formControlName="content" rows="14" [class.invalid]="isInvalid('content')"
+                placeholder="Paragrafi i parë...&#10;&#10;## Nëntitull&#10;- pikë e listës"></textarea>
+      @if (isInvalid('content')) { <small class="error">Shkruaj përmbajtjen.</small> }
+      <small class="muted help">"## " = nëntitull · "- " = listë · rresht bosh = paragraf i ri</small>
+    </label>
+
+    <div class="field mt">
+      <span>Foto kryesore</span>
+      <div class="cover-box">
+        @if (photoPreview(); as src) { <img [src]="src" alt=""> } @else { <span class="cover-empty">Pa foto</span> }
+        <div class="cover-actions">
+          <label class="btn btn-ghost btn-sm">
+            Ngarko foto
+            <input type="file" accept="image/jpeg,image/png,image/webp" hidden (change)="onPhoto($event)">
+          </label>
+        </div>
+      </div>
+      <input class="mt" type="url" formControlName="coverImageUrl" placeholder="ose adresë https://..."
+             [class.invalid]="isInvalid('coverImageUrl')">
+      @if (isInvalid('coverImageUrl')) { <small class="error">Adresa duhet të fillojë me https://</small> }
+    </div>
+
+    <label class="check mt">
+      <input type="checkbox" formControlName="published">
+      <span>Publikuar (shfaqet te blogu)</span>
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="saving()">
+        {{ saving() ? 'Duke ruajtur...' : (editingId() === null ? 'Krijo artikullin' : 'Ruaj ndryshimet') }}
+      </button>
+      @if (editingId() !== null) {
+        <button type="button" class="btn btn-ghost" (click)="newPost()">Anulo</button>
+      }
+    </div>
+  </form>
+</div>

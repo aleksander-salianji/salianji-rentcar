@@ -10,6 +10,14 @@ export function todayISO(): string {
   return toISODate(new Date());
 }
 
+// E hëna e javës së datës
+export function startOfWeek(date: Date): Date {
+  const copy = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const day = copy.getDay();                 // 0 = e diel
+  copy.setDate(copy.getDate() - (day === 0 ? 6 : day - 1));
+  return copy;
+}
+
 export function addDays(date: Date, days: number): Date {
   const copy = new Date(date);
   copy.setDate(copy.getDate() + days);

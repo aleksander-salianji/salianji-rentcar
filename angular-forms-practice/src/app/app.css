@@ -48,14 +48,10 @@
 .logo strong { color: var(--accent); }
 
 .logo-mark {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
+  display: block;
+  width: 42px;
+  height: 42px;
   border-radius: 10px;
-  background: var(--accent);
-  color: var(--navy);
-  font-weight: 800;
 }
 
 .nav {
@@ -132,7 +128,7 @@
 
 .footer-inner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.4fr repeat(3, 1fr);
   gap: 24px;
   padding-top: 40px;
   padding-bottom: 32px;
@@ -157,6 +153,9 @@
   border-top: 1px solid rgba(255, 255, 255, .1);
   font-size: .8rem;
 }
+
+.footer-bottom .credit { display: block; margin-top: 4px; opacity: .7; }
+.footer-bottom .credit a { color: inherit; }
 
 /* ---------- MOBILE ---------- */
 
@@ -189,3 +188,32 @@
 
   .footer-inner { grid-template-columns: 1fr; }
 }
+
+/* butoni i ndihmës */
+.support-fab {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 10px 10px;
+  border: 1px solid #c8a86b;
+  border-radius: 999px;
+  background: #050506;
+  color: #ece8df;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
+}
+.support-fab span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #c8a86b;
+  color: #050506;
+}
+.support-fab:hover { background: #111215; }

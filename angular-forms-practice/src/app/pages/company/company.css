@@ -1,0 +1,185 @@
+:host {
+  --ink: #050506;
+  --onyx: #0e0f12;
+  --hair: #26272c;
+  --pearl: #ece8df;
+  --smoke: #8d8a84;
+  --gold: #c8a86b;
+  --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+
+  /* për kartat e makinave */
+  --bg: #0b0b0d;
+  --card: #111215;
+  --text: #ece8df;
+  --muted: #8d8a84;
+  --border: #26272c;
+  --navy: #ece8df;
+  --accent: #c8a86b;
+  --accent-dark: #b3935a;
+  --shadow: 0 0 0 1px #1d1e22;
+
+  display: block;
+  margin-bottom: -64px;
+  padding-bottom: 96px;
+  background: var(--ink);
+  color: var(--pearl);
+}
+
+.label {
+  margin: 0 0 6px;
+  font-size: .78rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ---------- KOKA ---------- */
+
+.company-hero {
+  border-bottom: 1px solid var(--hair);
+  background: radial-gradient(ellipse 60% 80% at 100% 0%, rgba(200, 168, 107, .09), transparent 70%), var(--ink);
+}
+
+.hero-inner {
+  display: grid;
+  gap: 22px;
+  padding-top: 36px;
+  padding-bottom: 40px;
+}
+
+.back {
+  justify-self: start;
+  color: var(--smoke);
+  font-size: .85rem;
+  letter-spacing: .08em;
+  text-decoration: none;
+}
+.back:hover { color: var(--gold); }
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.monogram {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font: italic 400 1.9rem/1 var(--serif);
+}
+
+.identity h1 {
+  margin: 0;
+  color: var(--pearl);
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 1.05;
+}
+
+.about {
+  max-width: 44em;
+  margin: 0;
+  color: #cfcac0;
+  font-size: 1.05rem;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 40px;
+  margin: 0;
+}
+.contact div { display: grid; gap: 2px; }
+.contact dt { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--smoke); }
+.contact dd { margin: 0; color: var(--pearl); }
+
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: min(620px, 100%);
+  border: 1px solid var(--gold);
+  background: rgba(14, 15, 18, .9);
+}
+.search label {
+  display: grid;
+  flex: 1 1 160px;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px 16px;
+  border-right: 1px solid var(--hair);
+}
+.search span { font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
+.search input {
+  width: 100%;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: var(--pearl);
+  font: inherit;
+  color-scheme: dark;
+}
+.search input:focus { outline: none; box-shadow: none; }
+.clear {
+  padding: 0 18px;
+  border: 0;
+  background: transparent;
+  color: var(--smoke);
+  font: inherit;
+  font-size: .78rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.clear:hover:not(:disabled) { color: var(--gold); }
+.clear:disabled { opacity: .4; cursor: default; }
+
+.warn { margin: 0; color: #e3b56a; font-size: .9rem; }
+
+/* ---------- MAKINAT ---------- */
+
+.fleet { padding-top: 40px; }
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.tabs button {
+  padding: .7em 1.3em;
+  border: 1px solid var(--hair);
+  background: transparent;
+  color: var(--smoke);
+  font: inherit;
+  font-size: .8rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.tabs button span { margin-left: 6px; color: var(--gold); }
+.tabs button.active { border-color: var(--gold); color: var(--pearl); }
+
+.result { margin: 0 0 16px; color: var(--smoke); }
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.loading { color: var(--smoke); }
+.empty { background: transparent; }
+
+@media (max-width: 540px) {
+  .identity { align-items: flex-start; }
+  .monogram { width: 56px; height: 56px; font-size: 1.5rem; }
+  .search label { border-right: 0; border-bottom: 1px solid var(--hair); }
+  .clear { padding: 12px 16px; text-align: left; }
+}

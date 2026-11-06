@@ -1,0 +1,112 @@
+.date-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.date-picker input { width: auto; }
+
+.date-line { margin: -8px 0 16px; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip strong {
+  min-width: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--bg);
+  text-align: center;
+}
+
+.chip.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+.chip.active strong { background: rgba(255, 255, 255, .2); }
+.chip-FREE strong { color: var(--success); }
+.chip-OCCUPIED strong { color: var(--error); }
+.chip.active strong { color: #fff; }
+
+.fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 14px;
+}
+
+.fleet-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.fleet-card.state-FREE { border-left-color: var(--success); }
+.fleet-card.state-OCCUPIED { border-left-color: var(--error); }
+.fleet-card.state-INACTIVE { opacity: .7; }
+
+.fleet-card header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fleet-card h3 { margin: 0; font-size: 1.05rem; }
+
+.state {
+  font-size: .82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.state.free { color: var(--success); }
+.state.busy { color: var(--error); }
+.state.off { color: var(--muted); }
+
+.who {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fdf2f2;
+}
+
+.who p { margin: 0 0 2px; }
+.who-name { font-weight: 700; color: var(--navy); }
+.who a { color: var(--navy-2); }
+
+.free-note {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #e9f7ef;
+  color: #1d6b3e;
+  font-size: .9rem;
+}
+
+.fleet-card footer {
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
+.fleet-card footer p { margin: 2px 0 0; }
+
+.company-name { margin: 0; color: var(--accent); font-weight: 600; }

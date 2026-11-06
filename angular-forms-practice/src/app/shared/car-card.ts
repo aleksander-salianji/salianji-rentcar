@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
+import { imageSrc } from '../core/images';
 import { Car } from '../core/models';
 import { LabelPipe } from './label.pipe';
 
@@ -11,8 +12,8 @@ import { LabelPipe } from './label.pipe';
   template: `
     <article class="car-card">
       <div class="car-visual" [attr.data-category]="car().category">
-        @if (car().imageUrl) {
-          <img [src]="car().imageUrl" [alt]="car().brand + ' ' + car().model" loading="lazy">
+        @if (photo(); as src) {
+          <img [src]="src" [alt]="car().brand + ' ' + car().model" loading="lazy">
         } @else {
           <span class="car-brand">{{ car().brand }}</span>
         }
@@ -21,6 +22,11 @@ import { LabelPipe } from './label.pipe';
 
       <div class="car-body">
         <h3>{{ car().brand }} {{ car().model }}</h3>
+        @if (car().companyName) {
+          <a class="company" [routerLink]="['/kompania', car().companyId]">
+            {{ car().companyName }}<span> · {{ car().companyCity }}</span>
+          </a>
+        }
         <p class="muted small">{{ car().year }}</p>
 
         <ul class="car-specs">
@@ -38,7 +44,7 @@ import { LabelPipe } from './label.pipe';
             <strong>{{ car().pricePerDay | number:'1.0-2' }} €</strong>
             <span class="muted"> / ditë</span>
           </p>
-          <a class="btn btn-primary btn-sm" [routerLink]="['/rezervo', car().id]">Rezervo</a>
+          <a class="btn btn-primary btn-sm" [routerLink]="['/rezervo', car().id]" [queryParams]="dates()">Rezervo</a>
         </div>
       </div>
     </article>
@@ -66,7 +72,8 @@ import { LabelPipe } from './label.pipe';
       position: relative;
       display: grid;
       place-items: center;
-      height: 150px;
+      overflow: hidden;
+      height: 170px;
       background: linear-gradient(135deg, #3b4f8f, #5d74c2);
       color: #fff;
     }
@@ -77,10 +84,15 @@ import { LabelPipe } from './label.pipe';
     .car-visual[data-category="LUXURY"]  { background: linear-gradient(135deg, #1f1f2e, #4a4a66); }
 
     .car-visual img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform .3s;
     }
+
+    .car-card:hover .car-visual img { transform: scale(1.04); }
 
     .car-brand {
       font-size: 1.5rem;
@@ -94,7 +106,9 @@ import { LabelPipe } from './label.pipe';
       left: 10px;
       padding: 2px 10px;
       border-radius: 999px;
-      background: rgba(0, 0, 0, .25);
+      z-index: 1;
+      background: rgba(0, 0, 0, .55);
+      backdrop-filter: blur(2px);
       font-size: .75rem;
       font-weight: 600;
     }
@@ -107,6 +121,17 @@ import { LabelPipe } from './label.pipe';
     }
 
     .car-body h3 { margin: 0; font-size: 1.08rem; }
+
+    .company {
+      align-self: flex-start;
+      margin-top: 2px;
+      color: var(--accent);
+      font-size: .85rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .company span { color: var(--muted); font-weight: 400; }
+    .company:hover { text-decoration: underline; }
 
     .car-specs {
       display: flex;
@@ -145,4 +170,7 @@ import { LabelPipe } from './label.pipe';
 })
 export class CarCard {
   readonly car = input.required<Car>();
+  // datat e kërkimit kalojnë te rezervimi (opsionale)
+  readonly dates = input<{ nga?: string; deri?: string; marrja?: string; kthimi?: string }>({});
+  readonly photo = computed(() => imageSrc(this.car().imageUrl));
 }

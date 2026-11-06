@@ -20,11 +20,11 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
-import { AuthService } from '../../core/auth.service';
 import { BookingService } from '../../core/booking.service';
 import { CarService } from '../../core/car.service';
-import { periodsOverlap, todayISO } from '../../core/date.utils';
+import { addDays, periodsOverlap, toISODate, todayISO } from '../../core/date.utils';
 import { errorMessage } from '../../core/http-error';
+import { imageSrc } from '../../core/images';
 import { EXTRAS_OPTIONS, LOCATIONS, RENTAL_RULES } from '../../core/labels';
 import { BookedPeriod, BookingRequest, Car } from '../../core/models';
 import { calculatePrice } from '../../core/pricing';
@@ -50,16 +50,22 @@ export class BookingPage implements OnInit {
   private bookingService = inject(BookingService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
-  readonly auth = inject(AuthService);
 
   // Parametri nga URL-ja: /rezervo/:carId
   readonly carId = input.required<string>();
+  // datat nga kërkimi: /rezervo/3?nga=2026-11-10&deri=2026-11-14
+  readonly nga = input<string>();
+  readonly deri = input<string>();
+  // vendet nga kërkimi: ?marrja=Aeroporti Rinas&kthimi=Durrës
+  readonly marrja = input<string>();
+  readonly kthimi = input<string>();
 
   readonly today = todayISO();
   readonly locations = LOCATIONS;
   readonly extrasOptions = EXTRAS_OPTIONS;
   readonly rules = RENTAL_RULES;
   readonly maxPhones = MAX_PHONES;
+  readonly imageSrc = imageSrc;
 
   car = signal<Car | null>(null);
   bookedPeriods = signal<BookedPeriod[]>([]);
@@ -102,11 +108,23 @@ export class BookingPage implements OnInit {
           }),
           returnDate: new FormControl('', { nonNullable: true, validators: [Validators.required] })
         },
-        { validators: dateRangeValidator(RENTAL_RULES.maxDays) }
+        { validators: dateRangeValidator(RENTAL_RULES.minDays, RENTAL_RULES.maxDays) }
       ),
 
-      // SHOFERI
+      // SHOFERI (klienti rezervon pa llogari)
       driver: new FormGroup({
+        firstName: new FormControl('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.maxLength(50)]
+        }),
+        lastName: new FormControl('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.maxLength(50)]
+        }),
+        email: new FormControl('', {
+          nonNullable: true,
+          validators: [Validators.required, Validators.email, Validators.maxLength(120)]
+        }),
         age: new FormControl<number | null>(null, [
           Validators.required,
           Validators.min(RENTAL_RULES.minDriverAge),
@@ -185,7 +203,23 @@ export class BookingPage implements OnInit {
     });
 
     this.loadBookedPeriods(id);
-    this.prefillFromAccount();
+
+    // PATCH VALUE: datat që klienti zgjodhi te kërkimi
+    const from = this.nga();
+    const to = this.deri();
+    if (from && to && from >= this.today && to > from) {
+      this.form.controls.rental.patchValue({ pickupDate: from, returnDate: to });
+    }
+
+    // PATCH VALUE: vendi i marrjes / kthimit nga kërkimi
+    const pickup = this.marrja();
+    const dropoff = this.kthimi();
+    if (pickup && LOCATIONS.includes(pickup)) {
+      this.form.controls.rental.patchValue({ pickupLocation: pickup });
+    }
+    if (dropoff && LOCATIONS.includes(dropoff)) {
+      this.form.controls.rental.patchValue({ returnLocation: dropoff });
+    }
   }
 
 
@@ -210,8 +244,10 @@ export class BookingPage implements OnInit {
     return r.pickupDate.touched && r.returnDate.touched;
   }
 
+  // Data e kthimit duhet të jetë të paktën minDays pas marrjes
   minReturnDate(): string {
-    return this.form.controls.rental.controls.pickupDate.value || this.today;
+    const pickup = this.form.controls.rental.controls.pickupDate.value || this.today;
+    return toISODate(addDays(new Date(pickup + 'T00:00:00'), RENTAL_RULES.minDays));
   }
 
 
@@ -241,7 +277,6 @@ export class BookingPage implements OnInit {
     this.phoneNumbers.clear();
     this.phoneNumbers.push(this.createPhoneControl());
     this.form.reset();
-    this.prefillFromAccount();
     this.submitAttempted.set(false);
     this.submitError.set(null);
   }
@@ -264,6 +299,9 @@ export class BookingPage implements OnInit {
 
     const request: BookingRequest = {
       carId: car.id,
+      firstName: v.driver.firstName.trim(),
+      lastName: v.driver.lastName.trim(),
+      email: v.driver.email.trim(),
       pickupLocation: v.rental.pickupLocation,
       returnLocation: v.rental.returnLocation,
       pickupDate: v.rental.pickupDate,
@@ -284,7 +322,8 @@ export class BookingPage implements OnInit {
     this.bookingService.create(request).subscribe({
       next: booking => {
         this.submitting.set(false);
-        this.router.navigate(['/rezervimet'], { queryParams: { sukses: booking.code } });
+        // rezervimi kalon te faqja "Rezervimi im" pa e kërkuar përsëri
+        this.router.navigate(['/rezervimi'], { queryParams: { sukses: booking.code }, state: { booking } });
       },
       error: err => {
         this.submitting.set(false);
@@ -303,14 +342,6 @@ export class BookingPage implements OnInit {
       nonNullable: true,
       validators: [Validators.required, Validators.pattern(PHONE_PATTERN)]
     });
-  }
-
-  // PATCH VALUE: plotëson telefonin me numrin e llogarisë
-  private prefillFromAccount() {
-    const user = this.auth.user();
-    if (user?.phone) {
-      this.form.patchValue({ phoneNumbers: [user.phone] });
-    }
   }
 
   private loadBookedPeriods(carId: number) {

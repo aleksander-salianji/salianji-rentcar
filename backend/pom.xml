@@ -14,8 +14,8 @@
     <groupId>com.salianji</groupId>
     <artifactId>rentcar-backend</artifactId>
     <version>1.0.0</version>
-    <name>Salianji Rent Car - Backend</name>
-    <description>REST API për Salianji Rent Car</description>
+    <name>Bookers Car Albania - Backend</name>
+    <description>REST API për Bookers Car Albania</description>
 
     <properties>
         <java.version>17</java.version>
@@ -45,6 +45,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Email (njoftimet për kompanitë dhe klientët) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
         <!-- MySQL -->

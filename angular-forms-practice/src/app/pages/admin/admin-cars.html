@@ -3,7 +3,15 @@
     <h1>Makinat</h1>
     <p>Shto, ndrysho ose çaktivizo makinat e flotës.</p>
   </div>
-  <button type="button" class="btn btn-primary" (click)="newCar()">+ Makinë e re</button>
+  <div class="head-actions">
+    <select [value]="companyFilter() || kompania() || ''" (change)="setCompanyFilter($any($event.target).value)">
+      <option value="">Të gjitha kompanitë</option>
+      @for (co of companies(); track co.id) {
+        <option [value]="co.id">{{ co.name }}</option>
+      }
+    </select>
+    <button type="button" class="btn btn-primary" (click)="newCar()">+ Makinë e re</button>
+  </div>
 </div>
 
 @if (message()) {
@@ -24,6 +32,7 @@
         <table class="table">
           <thead>
             <tr>
+              <th></th>
               <th>Makina</th>
               <th>Kategoria</th>
               <th class="text-right">€ / ditë</th>
@@ -32,11 +41,19 @@
             </tr>
           </thead>
           <tbody>
-            @for (car of cars(); track car.id) {
+            @for (car of shownCars(); track car.id) {
               <tr [class.inactive]="!car.active">
+                <td class="thumb-cell">
+                  @if (imageSrc(car.imageUrl); as src) {
+                    <img class="thumb" [src]="src" [alt]="car.brand + ' ' + car.model" loading="lazy">
+                  } @else {
+                    <span class="thumb thumb-empty" title="Pa foto">📷</span>
+                  }
+                </td>
                 <td>
                   <strong>{{ car.brand }} {{ car.model }}</strong>
                   <div class="muted small">{{ car.year }} · {{ car.transmission | label:'transmission' }} · {{ car.fuel | label:'fuel' }}</div>
+                  <div class="small company-name">{{ car.companyName ?? 'Pa kompani' }}</div>
                 </td>
                 <td>{{ car.category | label:'category' }}</td>
                 <td class="text-right">{{ car.pricePerDay | number:'1.0-2' }}</td>
@@ -56,7 +73,7 @@
                 </td>
               </tr>
             } @empty {
-              <tr><td colspan="5" class="muted">Nuk ka makina.</td></tr>
+              <tr><td colspan="6" class="muted">Nuk ka makina.</td></tr>
             }
           </tbody>
         </table>
@@ -74,6 +91,16 @@
     }
 
     <div class="grid-2">
+      <label class="field span-2">
+        <span>Kompania</span>
+        <select formControlName="companyId" [class.invalid]="isInvalid('companyId')">
+          @for (co of companies(); track co.id) {
+            <option [ngValue]="co.id">{{ co.name }} · {{ co.city }}</option>
+          }
+        </select>
+        @if (isInvalid('companyId')) { <small class="error">Zgjidh kompaninë.</small> }
+      </label>
+
       <label class="field">
         <span>Marka</span>
         <input type="text" formControlName="brand" [class.invalid]="isInvalid('brand')">
@@ -131,11 +158,30 @@
         @if (isInvalid('pricePerDay')) { <small class="error">1 – 1000 €</small> }
       </label>
 
-      <label class="field span-2">
-        <span>Foto (URL, opsionale)</span>
-        <input type="url" formControlName="imageUrl" placeholder="https://..." [class.invalid]="isInvalid('imageUrl')">
-        @if (isInvalid('imageUrl')) { <small class="error">Duhet të fillojë me http:// ose https://</small> }
-      </label>
+      <div class="field span-2">
+        <span>Foto e makinës</span>
+        <div class="photo-box">
+          @if (photoPreview(); as src) {
+            <img [src]="src" alt="Parapamja e fotos">
+          } @else {
+            <div class="photo-empty">Pa foto</div>
+          }
+        </div>
+        <div class="photo-actions">
+          <label class="btn btn-ghost btn-sm">
+            {{ photoPreview() ? 'Ndrysho foton' : 'Zgjidh foto' }}
+            <input type="file" accept="image/jpeg,image/png,image/webp" (change)="onPhotoSelected($event)" hidden>
+          </label>
+          @if (photoPreview()) {
+            <button type="button" class="btn btn-danger btn-sm" (click)="clearPhoto()">Hiq foton</button>
+          }
+        </div>
+        @if (photoFile()) {
+          <small class="hint">Foto do të ngarkohet kur shtyp "{{ editingId() === null ? 'Shto makinën' : 'Ruaj ndryshimet' }}".</small>
+        } @else {
+          <small class="hint">JPG, PNG ose WEBP. Zvogëlohet automatikisht para ngarkimit.</small>
+        }
+      </div>
 
       <label class="field span-2">
         <span>Përshkrimi (opsional)</span>

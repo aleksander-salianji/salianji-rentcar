@@ -1,0 +1,68 @@
+/* blogu në stilin e errët/të artë të kryefaqes */
+:host {
+  display: block;
+  margin-bottom: -64px;
+  padding-bottom: 96px;
+  background: #050506;
+  color: #ece8df;
+}
+.label {
+  margin: 0 0 8px;
+  color: #c8a86b;
+  font-size: .76rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+}
+.serif { font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; color: #ece8df; }
+.muted { color: #8d8a84; }
+
+.blog-hero { padding-top: 48px; padding-bottom: 28px; border-bottom: 1px solid #26272c; }
+.blog-hero h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 3.6rem); }
+.blog-hero p { max-width: 40em; margin: 10px 0 0; color: #b9b5ad; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 22px; }
+.tabs button {
+  padding: .6em 1.2em;
+  border: 1px solid #26272c;
+  background: transparent;
+  color: #8d8a84;
+  font: inherit;
+  font-size: .78rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.tabs button.active { border-color: #c8a86b; color: #ece8df; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+.post-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #26272c;
+  background: #0e0f12;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .2s;
+}
+.post-card:hover { border-color: #c8a86b; }
+.post-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.3fr 1fr; }
+.cover { aspect-ratio: 16 / 9; background: linear-gradient(150deg, #1c1d22, #0a0a0c); overflow: hidden; }
+.featured .cover { aspect-ratio: auto; min-height: 280px; }
+.cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+.post-card:hover .cover img { transform: scale(1.03); }
+.cover-empty { display: grid; place-items: center; height: 100%; color: #c8a86b; font: italic 3rem "Bodoni Moda", Georgia, serif; }
+.card-body { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 18px 20px 20px; }
+.featured .card-body { justify-content: center; padding: 28px 32px; }
+.card-body h2 { margin: 0; font-size: 1.35rem; line-height: 1.2; }
+.featured .card-body h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.card-body p { margin: 0; color: #b9b5ad; }
+.meta { color: #8d8a84; font-size: .82rem; }
+.more { margin-top: auto; color: #c8a86b; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; }
+
+.loading, .empty { padding: 30px 0; color: #8d8a84; }
+
+@media (max-width: 760px) {
+  .post-card.featured { grid-template-columns: 1fr; }
+  .featured .cover { min-height: 0; aspect-ratio: 16 / 9; }
+}

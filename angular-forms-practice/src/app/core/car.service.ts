@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { API_URL } from './config';
-import { BookedPeriod, Car, CarRequest } from './models';
+import { BookedPeriod, Car, CarRequest, CarSearch } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class CarService {
@@ -12,9 +12,13 @@ export class CarService {
 
   // ---------- PUBLIKE ----------
 
-  // Vetëm makinat aktive
-  list(): Observable<Car[]> {
-    return this.http.get<Car[]>(`${API_URL}/cars`);
+  // Makinat aktive; filtrat (qyteti, datat, kompania) janë opsionalë
+  list(search: CarSearch = {}): Observable<Car[]> {
+    const params: Record<string, string> = {};
+    if (search.city) { params['city'] = search.city; }
+    if (search.from && search.to) { params['from'] = search.from; params['to'] = search.to; }
+    if (search.companyId) { params['companyId'] = String(search.companyId); }
+    return this.http.get<Car[]>(`${API_URL}/cars`, { params });
   }
 
   get(id: number): Observable<Car> {
@@ -44,5 +48,16 @@ export class CarService {
 
   remove(id: number): Observable<void> {
     return this.http.delete<void>(`${API_URL}/admin/cars/${id}`);
+  }
+
+  // Ngarkon foton e makinës (multipart/form-data, fusha "file")
+  uploadImage(id: number, image: Blob, fileName = 'foto.jpg'): Observable<Car> {
+    const form = new FormData();
+    form.append('file', image, fileName);
+    return this.http.post<Car>(`${API_URL}/admin/cars/${id}/image`, form);
+  }
+
+  removeImage(id: number): Observable<Car> {
+    return this.http.delete<Car>(`${API_URL}/admin/cars/${id}/image`);
   }
 }

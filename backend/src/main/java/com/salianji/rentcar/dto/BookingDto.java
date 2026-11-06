@@ -14,6 +14,7 @@ public record BookingDto(
     String code,
     CarSummary car,
     CustomerSummary customer,
+    CompanySummary company,
     String pickupLocation,
     String returnLocation,
     LocalDate pickupDate,
@@ -29,6 +30,7 @@ public record BookingDto(
     BigDecimal extrasPrice,
     BigDecimal discount,
     BigDecimal totalPrice,
+    BigDecimal platformFee,
     BookingStatus status,
     Instant createdAt
 ) {
@@ -39,15 +41,19 @@ public record BookingDto(
     public record CustomerSummary(Long id, String firstName, String lastName, String email) {
     }
 
-    // Duhet thirrur brenda një transaksioni (car, user dhe phoneNumbers ngarkohen me vonesë)
+    public record CompanySummary(Long id, String name, String city, String phone) {
+    }
+
+    // Duhet thirrur brenda një transaksioni (car dhe phoneNumbers ngarkohen me vonesë)
     public static BookingDto from(Booking b) {
         var c = b.getCar();
-        var u = b.getUser();
+        var co = c.getCompany();
         return new BookingDto(
             b.getId(),
             b.getCode(),
             new CarSummary(c.getId(), c.getBrand(), c.getModel(), c.getYear(), c.getCategory()),
-            new CustomerSummary(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail()),
+            new CustomerSummary(null, b.getCustomerFirstName(), b.getCustomerLastName(), b.getCustomerEmail()),
+            co == null ? null : new CompanySummary(co.getId(), co.getName(), co.getCity(), co.getPhone()),
             b.getPickupLocation(),
             b.getReturnLocation(),
             b.getPickupDate(),
@@ -63,6 +69,7 @@ public record BookingDto(
             b.getExtrasPrice(),
             b.getDiscount(),
             b.getTotalPrice(),
+            b.getPlatformFee() == null ? BigDecimal.ZERO : b.getPlatformFee(),
             b.getStatus(),
             b.getCreatedAt()
         );

@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
 
+import { AuthService } from '../../core/auth.service';
 import { BookingService } from '../../core/booking.service';
 import { errorMessage } from '../../core/http-error';
 import { EXTRAS_OPTIONS, STATUSES, STATUS_LABELS } from '../../core/labels';
@@ -35,6 +36,7 @@ import { LabelPipe } from '../../shared/label.pipe';
     }
     .details-grid p { margin: 0; }
     .row-actions { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+    .company-name { color: var(--accent); font-weight: 600; }
     @media (max-width: 760px) {
       .filters, .details-grid { grid-template-columns: 1fr; }
     }
@@ -43,6 +45,7 @@ import { LabelPipe } from '../../shared/label.pipe';
 export class AdminBookings {
 
   private bookingService = inject(BookingService);
+  readonly auth = inject(AuthService);
 
   readonly statuses = STATUSES;
   readonly statusLabels = STATUS_LABELS;
@@ -54,6 +57,11 @@ export class AdminBookings {
   expandedId = signal<number | null>(null);
 
   search = signal('');
+  companyFilter = signal('');
+
+  companyNames = computed(() =>
+    [...new Set(this.bookings().map(b => b.company?.name).filter((n): n is string => !!n))].sort()
+  );
   statusFilter = signal<BookingStatus | ''>('');
 
   counts = computed(() => {
@@ -67,11 +75,14 @@ export class AdminBookings {
   filtered = computed(() => {
     const term = this.search().trim().toLowerCase();
     const status = this.statusFilter();
+    const company = this.companyFilter();
 
     return this.bookings().filter(b =>
       (!status || b.status === status) &&
+      (!company || b.company?.name === company) &&
       (!term ||
         b.code.toLowerCase().includes(term) ||
+        (b.company?.name ?? '').toLowerCase().includes(term) ||
         `${b.customer.firstName} ${b.customer.lastName}`.toLowerCase().includes(term) ||
         b.customer.email.toLowerCase().includes(term) ||
         `${b.car.brand} ${b.car.model}`.toLowerCase().includes(term))

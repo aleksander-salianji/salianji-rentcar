@@ -18,6 +18,6 @@ public final class ValidationPatterns {
     // bosh ose 4 shifra
     public static final String ZIP_CODE = "^(\\d{4})?$";
 
-    // bosh ose adresë http(s)
-    public static final String URL = "^(https?://.+)?$";
+    // bosh, adresë http(s), ose foto e ngarkuar në server (/uploads/...)
+    public static final String URL = "^((https?://|/uploads/).+)?$";
 }

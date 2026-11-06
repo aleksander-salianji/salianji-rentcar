@@ -20,9 +20,20 @@ public class Booking {
     @Column(unique = true, length = 20)
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    // Rezervimet e vjetra (kur klientët kishin llogari). Të rejat nuk kanë user.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
+    // Klienti rezervon pa llogari: të dhënat ruhen te rezervimi
+    @Column(length = 50)
+    private String customerFirstName;
+
+    @Column(length = 50)
+    private String customerLastName;
+
+    @Column(length = 120)
+    private String customerEmail;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "car_id", nullable = false)
@@ -78,6 +89,10 @@ public class Booking {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
+    // Pjesa e platformës (komisioni) — ruhet në momentin e rezervimit
+    @Column(precision = 10, scale = 2)
+    private BigDecimal platformFee;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private BookingStatus status = BookingStatus.PENDING;
@@ -97,6 +112,20 @@ public class Booking {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+    public String getCustomerFirstName() { return customerFirstName; }
+    public void setCustomerFirstName(String customerFirstName) { this.customerFirstName = customerFirstName; }
+
+    public String getCustomerLastName() { return customerLastName; }
+    public void setCustomerLastName(String customerLastName) { this.customerLastName = customerLastName; }
+
+    public String getCustomerEmail() { return customerEmail; }
+    public void setCustomerEmail(String customerEmail) { this.customerEmail = customerEmail; }
+
+    public String getCustomerName() {
+        return ((customerFirstName == null ? "" : customerFirstName) + " "
+            + (customerLastName == null ? "" : customerLastName)).trim();
+    }
 
     public Car getCar() { return car; }
     public void setCar(Car car) { this.car = car; }
@@ -148,6 +177,9 @@ public class Booking {
 
     public BigDecimal getTotalPrice() { return totalPrice; }
     public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
+
+    public BigDecimal getPlatformFee() { return platformFee; }
+    public void setPlatformFee(BigDecimal platformFee) { this.platformFee = platformFee; }
 
     public BookingStatus getStatus() { return status; }
     public void setStatus(BookingStatus status) { this.status = status; }

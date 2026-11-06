@@ -67,12 +67,24 @@
 
 .summary h3 { color: #fff; }
 
+.summary-photo {
+  width: calc(100% + 44px);
+  max-width: none;
+  margin: -22px -22px 16px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
 .summary-car {
   font-size: 1.1rem;
   font-weight: 700;
 }
 
 .summary-car span { color: #a9b4cc; font-weight: 400; }
+.summary-company { color: var(--accent); font-size: .9rem; }
+.company-line { color: var(--muted); }
+.company-line a { color: var(--accent); font-weight: 600; text-decoration: none; }
 
 .summary dl { margin: 16px 0; }
 
@@ -100,6 +112,13 @@
 
 .summary-note {
   color: #a9b4cc;
+  font-size: .82rem;
+}
+
+.rules {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: #d4dbea;
   font-size: .82rem;
 }
 

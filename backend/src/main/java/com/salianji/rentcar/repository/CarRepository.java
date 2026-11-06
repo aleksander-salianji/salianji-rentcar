@@ -2,6 +2,7 @@ package com.salianji.rentcar.repository;
 
 import com.salianji.rentcar.model.Car;
 import jakarta.persistence.LockModeType;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -12,11 +13,20 @@ import java.util.Optional;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
 
+    @EntityGraph(attributePaths = "company")
     List<Car> findByActiveTrueOrderByPricePerDayAsc();
 
+    @EntityGraph(attributePaths = "company")
     Optional<Car> findByIdAndActiveTrue(Long id);
 
+    @EntityGraph(attributePaths = "company")
     List<Car> findAllByOrderByIdAsc();
+
+    List<Car> findByCompanyIsNull();
+
+    long countByCompanyId(Long companyId);
+
+    long countByCompanyIdAndActiveTrue(Long companyId);
 
     long countByActiveTrue();
 

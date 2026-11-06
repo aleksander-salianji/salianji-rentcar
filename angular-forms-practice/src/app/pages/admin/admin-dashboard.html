@@ -1,0 +1,182 @@
+<div class="page-head">
+  <div>
+    <h1>{{ auth.isCompany() ? auth.displayName() : 'Përmbledhja' }}</h1>
+    <p>Xhiroja dhe gjendja e flotës me një shikim.</p>
+  </div>
+</div>
+
+@if (error()) {
+  <div class="alert alert-error">{{ error() }}</div>
+}
+
+@if (loading()) {
+  <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+} @else {
+  @if (stats(); as s) {
+
+    <!-- XHIRO: SOT / JAVË / MUAJ -->
+    <div class="kpis">
+      @for (k of kpis(); track k.title) {
+        <div class="card kpi">
+          <span class="kpi-title">Xhiro · {{ k.title }}</span>
+          <strong class="kpi-value">{{ k.value | number:'1.0-2' }} €</strong>
+          @let c = change(k);
+          @if (c === null) {
+            <span class="delta up">▲ e re <span class="muted">{{ k.compareLabel }}</span></span>
+          } @else if (c > 0) {
+            <span class="delta up">▲ +{{ c | number:'1.0-0' }}% <span class="muted">{{ k.compareLabel }}</span></span>
+          } @else if (c < 0) {
+            <span class="delta down">▼ {{ c | number:'1.0-0' }}% <span class="muted">{{ k.compareLabel }}</span></span>
+          } @else {
+            <span class="delta same">= 0% <span class="muted">{{ k.compareLabel }}</span></span>
+          }
+          <span class="muted small">më parë: {{ k.previous | number:'1.0-2' }} €</span>
+        </div>
+      }
+
+      <a class="card kpi fleet-kpi" [routerLink]="base + '/flota'">
+        <span class="kpi-title">Flota sot</span>
+        <div class="fleet-split">
+          <div><strong class="free">{{ s.freeCarsToday }}</strong><span>të lira</span></div>
+          <div><strong class="busy">{{ s.occupiedCarsToday }}</strong><span>të zëna</span></div>
+        </div>
+        <span class="small link">Shiko kush i ka →</span>
+      </a>
+    </div>
+
+
+    <!-- GRAFIKU -->
+    <section class="card chart-card">
+      <div class="chart-head">
+        <div>
+          <h2>Lëvizja e xhiros</h2>
+          <p class="muted small">{{ periodHint() }} · sipas datës së marrjes së makinës · vetëm rezervimet e konfirmuara</p>
+        </div>
+        <div class="tabs" role="tablist">
+          @for (p of periods; track p.key) {
+            <button type="button" role="tab" [class.active]="period() === p.key"
+                    [attr.aria-selected]="period() === p.key" (click)="selectPeriod(p.key)">
+              {{ p.label }}
+            </button>
+          }
+        </div>
+      </div>
+
+      @if (report(); as r) {
+        <div class="chart-summary">
+          <div>
+            <span class="muted small">Gjithsej</span>
+            <strong>{{ r.total | number:'1.0-2' }} €</strong>
+          </div>
+          <div>
+            <span class="muted small">Rezervime</span>
+            <strong>{{ r.bookings }}</strong>
+          </div>
+          @if (reportSummary(); as sum) {
+            <div>
+              <span class="muted small">Mesatarja</span>
+              <strong>{{ sum.average | number:'1.0-2' }} €</strong>
+            </div>
+            <div>
+              <span class="muted small">Periudha e fundit</span>
+              <strong>
+                {{ sum.last.revenue | number:'1.0-2' }} €
+                @if (sum.change === null) { <span class="delta up">▲</span> }
+                @else if (sum.change > 0) { <span class="delta up">▲ {{ sum.change | number:'1.0-0' }}%</span> }
+                @else if (sum.change < 0) { <span class="delta down">▼ {{ -sum.change | number:'1.0-0' }}%</span> }
+              </strong>
+            </div>
+            @if (sum.best) {
+              <div>
+                <span class="muted small">Më e mira</span>
+                <strong>{{ sum.best.revenue | number:'1.0-2' }} €</strong>
+                <span class="muted small">{{ sum.best.start | date:(period() === 'MONTH' ? 'MMMM yyyy' : 'dd/MM/yyyy') }}</span>
+              </div>
+            }
+          }
+        </div>
+
+        <div class="chart-wrap" [class.dim]="reportLoading()">
+          <app-revenue-chart [points]="r.points" [period]="r.period" />
+        </div>
+
+        <p class="legend small muted">
+          <span class="dot up"></span> rritje kundrejt periudhës së mëparshme
+          <span class="dot down"></span> rënie
+          <span class="dot same"></span> pa ndryshim
+          · Kalo me miun mbi grafik për detajet.
+        </p>
+      } @else {
+        <div class="loading"><span class="spinner"></span> Duke ngarkuar grafikun...</div>
+      }
+    </section>
+
+
+    <!-- PËRMBLEDHJE TË TJERA -->
+    <div class="mini-stats">
+      <div class="card mini" [class.attention]="s.pendingBookings > 0">
+        <span class="muted small">Në pritje</span>
+        <strong>{{ s.pendingBookings }}</strong>
+        <a [routerLink]="base + '/rezervimet'" class="small">Shqyrto →</a>
+      </div>
+      <div class="card mini">
+        <span class="muted small">Rezervime aktive</span>
+        <strong>{{ s.activeBookings }}</strong>
+        <span class="muted small">nga {{ s.totalBookings }} gjithsej</span>
+      </div>
+      <div class="card mini">
+        <span class="muted small">Xhiro gjithsej</span>
+        <strong>{{ s.totalRevenue | number:'1.0-2' }} €</strong>
+      </div>
+      @if (auth.isCompany()) {
+        <div class="card mini">
+          <span class="muted small">Komisioni për Bookers</span>
+          <strong>{{ s.platformFeeTotal | number:'1.0-2' }} €</strong>
+        </div>
+      } @else {
+        <a class="card mini" routerLink="/admin/kompanite">
+          <span class="muted small">Komisioni yt · {{ s.totalCompanies }} kompani</span>
+          <strong>{{ s.platformFeeTotal | number:'1.0-2' }} €</strong>
+        </a>
+      }
+    </div>
+
+
+    <!-- REZERVIMET E FUNDIT -->
+    <div class="section-head">
+      <h2>Rezervimet e fundit</h2>
+      <a [routerLink]="base + '/rezervimet'">Të gjitha →</a>
+    </div>
+
+    @if (latest().length) {
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Kodi</th>
+              <th>Klienti</th>
+              <th>Makina</th>
+              <th>Datat</th>
+              <th class="text-right">Totali</th>
+              <th>Statusi</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (b of latest(); track b.id) {
+              <tr>
+                <td class="nowrap"><strong>{{ b.code }}</strong></td>
+                <td>{{ b.customer.firstName }} {{ b.customer.lastName }}</td>
+                <td>{{ b.car.brand }} {{ b.car.model }}</td>
+                <td class="nowrap">{{ b.pickupDate | date:'dd/MM' }} – {{ b.returnDate | date:'dd/MM/yyyy' }}</td>
+                <td class="text-right nowrap">{{ b.totalPrice | number:'1.0-2' }} €</td>
+                <td><span class="badge badge-{{ b.status }}">{{ b.status | label:'status' }}</span></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="empty">Ende nuk ka rezervime.</p>
+    }
+  }
+}

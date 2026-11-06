@@ -2,64 +2,91 @@
 
   <div class="page-head">
     <div>
-      <h1>Flota jonë</h1>
-      <p>Zgjidh makinën dhe rezervoje online.</p>
+      <h1>{{ activeCompany()?.name ?? 'Makinat' }}</h1>
+      <p>
+        {{ filtered().length }} makina
+        @if (city()) { në {{ city() }} }
+        @if (marrja()) { · marrja: {{ marrja() }}@if (kthimi() && kthimi() !== marrja()) { → kthimi: {{ kthimi() }} } }
+        @if (datesValid()) { · të lira {{ from() }} → {{ to() }} ({{ days() }} ditë) }
+      </p>
     </div>
   </div>
 
-  <div class="card filters">
-    <label class="field search">
-      <span>Kërko</span>
-      <input type="search" placeholder="Markë ose model..."
-             [value]="search()" (input)="search.set(value($event))">
-    </label>
-
+  <!-- KËRKIMI (si në Booking) -->
+  <div class="card searchbar">
     <label class="field">
-      <span>Kategoria</span>
-      <select [value]="category()" (change)="setCategory(value($event))">
-        <option value="">Të gjitha</option>
-        @for (cat of categories; track cat) {
-          <option [value]="cat">{{ categoryLabels[cat] }}</option>
+      <span>Qyteti</span>
+      <select [value]="city()" (change)="updateSearch({ qyteti: value($event) || null })">
+        <option value="">Të gjitha qytetet</option>
+        @for (c of cities; track c) {
+          <option [value]="c">{{ c }}</option>
         }
       </select>
     </label>
 
     <label class="field">
-      <span>Kambio</span>
-      <select [value]="transmission()" (change)="setTransmission(value($event))">
-        <option value="">Të gjitha</option>
-        @for (t of transmissions; track t) {
-          <option [value]="t">{{ transmissionLabels[t] }}</option>
-        }
-      </select>
+      <span>Marrja</span>
+      <input type="date" [min]="today" [value]="from()" (change)="setFrom(value($event))">
     </label>
 
     <label class="field">
-      <span>Rendit</span>
-      <select [value]="sort()" (change)="setSort(value($event))">
-        <option value="price-asc">Çmimi: nga më i ulëti</option>
-        <option value="price-desc">Çmimi: nga më i larti</option>
-        <option value="newest">Më të rejat</option>
-      </select>
+      <span>Kthimi</span>
+      <input type="date" [min]="minReturn()" [value]="to()" (change)="updateSearch({ deri: value($event) || null })">
     </label>
 
-    <button type="button" class="btn btn-ghost" [disabled]="!hasFilters()" (click)="clearFilters()">
-      Pastro
-    </button>
+    <label class="field">
+      <span>Kompania</span>
+      <select [value]="companyId() || ''" (change)="updateSearch({ kompania: value($event) || null })">
+        <option value="">Të gjitha kompanitë</option>
+        @for (co of companies(); track co.id) {
+          <option [value]="co.id">{{ co.name }} ({{ co.carCount }})</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  @if (from() && to() && !datesValid()) {
+    <div class="alert alert-error">Qiraja minimale është 3 ditë. Zgjidh një datë kthimi më të vonë.</div>
+  }
+
+  <!-- FILTRAT -->
+  <div class="filters">
+    <input type="search" placeholder="Kërko markë, model ose kompani..."
+           [value]="search()" (input)="search.set(value($event))">
+
+    <select [value]="category()" (change)="setCategory(value($event))">
+      <option value="">Të gjitha kategoritë</option>
+      @for (cat of categories; track cat) {
+        <option [value]="cat">{{ categoryLabels[cat] }}</option>
+      }
+    </select>
+
+    <select [value]="transmission()" (change)="setTransmission(value($event))">
+      <option value="">Çdo kambio</option>
+      @for (t of transmissions; track t) {
+        <option [value]="t">{{ transmissionLabels[t] }}</option>
+      }
+    </select>
+
+    <select [value]="sort()" (change)="setSort(value($event))">
+      <option value="price-asc">Më të lirat</option>
+      <option value="price-desc">Më të shtrenjtat</option>
+      <option value="newest">Më të rejat</option>
+    </select>
+
+    <button type="button" class="btn btn-ghost" (click)="clearAll()">Pastro</button>
   </div>
 
   @if (loading()) {
-    <div class="loading"><span class="spinner"></span> Duke ngarkuar makinat...</div>
+    <div class="loading"><span class="spinner"></span> Duke kërkuar...</div>
   } @else if (error()) {
     <div class="alert alert-error">{{ error() }}</div>
   } @else {
-    <p class="muted result-count">{{ filtered().length }} makina</p>
-
     <div class="car-grid">
       @for (car of filtered(); track car.id) {
-        <app-car-card [car]="car" />
+        <app-car-card [car]="car" [dates]="bookingDates()" />
       } @empty {
-        <p class="empty">Asnjë makinë nuk përputhet me filtrat.</p>
+        <p class="empty">Asnjë makinë e lirë për këtë kërkim. Provo data ose qytet tjetër.</p>
       }
     </div>
   }

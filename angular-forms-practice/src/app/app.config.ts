@@ -14,8 +14,6 @@ import {
 
 import { routes } from './app.routes';
 import { authInterceptor } from './core/auth.interceptor';
-import { USE_MOCK_API } from './core/config';
-import { mockBackendInterceptor } from './mock/mock-backend.interceptor';
 
 // Datat dhe numrat formatohen në shqip
 registerLocaleData(localeSq);
@@ -31,11 +29,7 @@ export const appConfig: ApplicationConfig = {
     ),
 
     provideHttpClient(
-      withInterceptors(
-        USE_MOCK_API
-          ? [authInterceptor, mockBackendInterceptor]
-          : [authInterceptor]
-      )
+      withInterceptors([authInterceptor])
     ),
 
     { provide: LOCALE_ID, useValue: 'sq' }

@@ -1,11 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
-import { AuthService } from '../../core/auth.service';
 import { CarService } from '../../core/car.service';
+import { CompanyService } from '../../core/company.service';
+import { addDays, toISODate, todayISO } from '../../core/date.utils';
 import { errorMessage } from '../../core/http-error';
 import { CATEGORIES, CATEGORY_LABELS, LOCATIONS, RENTAL_RULES } from '../../core/labels';
-import { Car, CarCategory } from '../../core/models';
+import { Car, CarCategory, Company } from '../../core/models';
 import { CarCard } from '../../shared/car-card';
 
 @Component({
@@ -16,51 +17,70 @@ import { CarCard } from '../../shared/car-card';
 })
 export class HomePage {
 
-  readonly auth = inject(AuthService);
   private carService = inject(CarService);
+  private companyService = inject(CompanyService);
+  private router = inject(Router);
 
   readonly locations = LOCATIONS;
-  readonly discountPercent = RENTAL_RULES.longRentalDiscount * 100;
-  readonly discountDays = RENTAL_RULES.longRentalDays;
+  readonly today = todayISO();
+
+  // kërkimi (si në Booking)
+  pickup = signal('');    // vendi i marrjes
+  dropoff = signal('');   // vendi i kthimit (bosh = i njëjti)
+  from = signal(toISODate(addDays(new Date(), 1)));
+  to = signal(toISODate(addDays(new Date(), 1 + RENTAL_RULES.minDays)));
+
+  companies = signal<Company[]>([]);
+
+  readonly categories = CATEGORIES;
+  readonly categoryLabels = CATEGORY_LABELS;
 
   cars = signal<Car[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
+  category = signal<CarCategory | ''>('');
 
-  // 3 makinat më të lira, një nga secila kategori e ndryshme kur është e mundur
-  featured = computed(() => {
-    const sorted = [...this.cars()].sort((a, b) => a.pricePerDay - b.pricePerDay);
-    const picked: Car[] = [];
-    const seen = new Set<CarCategory>();
-
-    for (const car of sorted) {
-      if (!seen.has(car.category)) {
-        picked.push(car);
-        seen.add(car.category);
-      }
-      if (picked.length === 3) {
-        break;
-      }
-    }
-    return picked;
+  // Të gjitha makinat, nga më e lira te më e shtrenjta
+  shown = computed(() => {
+    const c = this.category();
+    return this.cars()
+      .filter(car => !c || car.category === c)
+      .sort((a, b) => a.pricePerDay - b.pricePerDay);
   });
 
-  // Çmimi më i ulët për çdo kategori
-  categories = computed(() =>
-    CATEGORIES.map(category => {
-      const prices = this.cars()
-        .filter(c => c.category === category)
-        .map(c => c.pricePerDay);
-      return {
-        key: category,
-        label: CATEGORY_LABELS[category],
-        count: prices.length,
-        fromPrice: prices.length ? Math.min(...prices) : null
-      };
-    })
-  );
+  count(c: CarCategory | ''): number {
+    return c ? this.cars().filter(car => car.category === c).length : this.cars().length;
+  }
+
+  minReturn(): string {
+    return toISODate(addDays(new Date(this.from() + 'T00:00:00'), RENTAL_RULES.minDays));
+  }
+
+  setFrom(value: string) {
+    this.from.set(value);
+    if (this.to() < this.minReturn()) {
+      this.to.set(this.minReturn());
+    }
+  }
+
+  searchCars() {
+    this.router.navigate(['/makinat'], {
+      queryParams: {
+        marrja: this.pickup() || null,
+        kthimi: this.dropoff() || this.pickup() || null,
+        nga: this.from(),
+        deri: this.to()
+      }
+    });
+  }
+
+  value(event: Event): string {
+    return (event.target as HTMLInputElement).value;
+  }
 
   constructor() {
+    this.companyService.list().subscribe({ next: list => this.companies.set(list) });
+
     this.carService.list().subscribe({
       next: cars => {
         this.cars.set(cars);

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { API_URL } from './config';
-import { AuthResponse, LoginRequest, RegisterRequest, User } from './models';
+import { AuthResponse, LoginRequest, User } from './models';
 
 const TOKEN_KEY = 'salianji.token';
 const USER_KEY = 'salianji.user';
@@ -37,13 +37,16 @@ function readUser(): User | null {
     return null;
   }
   try {
-    return JSON.parse(raw) as User;
+    const user = JSON.parse(raw) as User;
+    // llogaritë e vjetra të klientëve nuk hyjnë më
+    return user.role === 'ADMIN' || user.role === 'COMPANY' ? user : null;
   } catch {
     return null;
   }
 }
 
 
+// Login vetëm për bizneset partnere dhe adminin. Klientët rezervojnë pa llogari.
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
@@ -55,10 +58,26 @@ export class AuthService {
   readonly user = this._user.asReadonly();
   readonly isLoggedIn = computed(() => this._user() !== null);
   readonly isAdmin = computed(() => this._user()?.role === 'ADMIN');
-  readonly fullName = computed(() => {
+  readonly isCompany = computed(() => this._user()?.role === 'COMPANY');
+
+  // Ku të shkojë përdoruesi pas login-it
+  readonly panelUrl = computed(() => (this.isAdmin() ? '/admin' : this.isCompany() ? '/paneli' : '/'));
+
+  readonly displayName = computed(() => {
     const u = this._user();
-    return u ? `${u.firstName} ${u.lastName}` : '';
+    if (!u) {
+      return '';
+    }
+    return u.role === 'COMPANY' ? (u.companyName ?? u.firstName) : `${u.firstName} ${u.lastName}`.trim();
   });
+
+  constructor() {
+    // token i mbetur nga një llogari e vjetër klienti → pastroje
+    if (this.token && !this._user()) {
+      writeStorage(TOKEN_KEY, null);
+      writeStorage(USER_KEY, null);
+    }
+  }
 
   get token(): string | null {
     return readStorage(TOKEN_KEY);
@@ -70,19 +89,6 @@ export class AuthService {
       tap(res => this.startSession(res)),
       map(res => res.user)
     );
-  }
-
-  register(request: RegisterRequest): Observable<User> {
-    return this.http.post<AuthResponse>(`${API_URL}/auth/register`, request).pipe(
-      tap(res => this.startSession(res)),
-      map(res => res.user)
-    );
-  }
-
-  emailExists(email: string): Observable<boolean> {
-    return this.http
-      .get<{ exists: boolean }>(`${API_URL}/auth/email-exists`, { params: { email } })
-      .pipe(map(res => res.exists));
   }
 
   // Rifreskon të dhënat e përdoruesit nga serveri (thirret kur hapet aplikacioni)

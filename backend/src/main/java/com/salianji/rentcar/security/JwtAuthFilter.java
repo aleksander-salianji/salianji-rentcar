@@ -42,7 +42,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             jwtService.parseUserId(token)
                 .flatMap(userRepository::findById)
                 .ifPresent(user -> {
-                    AuthUser principal = new AuthUser(user.getId(), user.getEmail(), user.getRole());
+                    // getId() te proxy-ja e kompanisë nuk kërkon query shtesë
+                    Long companyId = user.getCompany() == null ? null : user.getCompany().getId();
+                    AuthUser principal = new AuthUser(user.getId(), user.getEmail(), user.getRole(), companyId);
                     var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
                     var authentication = new UsernamePasswordAuthenticationToken(principal, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authentication);

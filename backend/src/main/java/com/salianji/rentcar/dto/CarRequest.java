@@ -49,6 +49,9 @@ public record CarRequest(
     @Size(max = 300, message = "Përshkrimi mund të ketë maksimumi 300 karaktere.")
     String description,
 
+    @NotNull(message = "Zgjidh kompaninë.")
+    Long companyId,
+
     boolean active
 ) {
 }

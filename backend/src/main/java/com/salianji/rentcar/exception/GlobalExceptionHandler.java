@@ -12,6 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.LinkedHashMap;
@@ -44,6 +46,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ApiError> handleBadInput(Exception ex) {
         return ResponseEntity.badRequest().body(new ApiError("Të dhënat e dërguara nuk janë në formatin e duhur.", null));
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiError> handleTooLarge(MaxUploadSizeExceededException ex) {
+        return ResponseEntity.badRequest().body(new ApiError("Foto është shumë e madhe (maksimumi 5 MB).", null));
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<ApiError> handleMissingPart(MissingServletRequestPartException ex) {
+        return ResponseEntity.badRequest().body(new ApiError("Zgjidh një foto.", null));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)

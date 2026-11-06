@@ -15,6 +15,9 @@
     <div class="page-head">
       <div>
         <h1>Rezervo {{ car.brand }} {{ car.model }}</h1>
+        @if (car.companyName) {
+          <p class="company-line">nga <a [routerLink]="['/makinat']" [queryParams]="{ kompania: car.companyId }">{{ car.companyName }}</a> · {{ car.companyCity }}</p>
+        }
         <p>{{ car.category | label:'category' }} · {{ car.transmission | label:'transmission' }} · {{ car.fuel | label:'fuel' }} · {{ car.seats }} vende</p>
       </div>
     </div>
@@ -89,6 +92,9 @@
             @if (hasError('rental', 'invalidRange')) {
               <small class="error">Data e kthimit duhet të jetë pas datës së marrjes.</small>
             }
+            @if (hasError('rental', 'tooShort')) {
+              <small class="error">Qiraja minimale është {{ rules.minDays }} ditë.</small>
+            }
             @if (hasError('rental', 'tooLong')) {
               <small class="error">Qiraja nuk mund të zgjasë më shumë se {{ rules.maxDays }} ditë.</small>
             }
@@ -101,14 +107,37 @@
 
         <!-- 2. SHOFERI -->
         <fieldset formGroupName="driver">
-          <legend>2. Shoferi</legend>
-
-          <p class="driver-account">
-            <strong>{{ auth.fullName() }}</strong>
-            <span class="muted"> · {{ auth.user()?.email }}</span>
-          </p>
+          <legend>2. Të dhënat e tua</legend>
+          <p class="muted small">Nuk të duhet llogari. Kompania të kontakton në email dhe telefon.</p>
 
           <div class="grid-2">
+            <label class="field">
+              <span>Emri</span>
+              <input type="text" formControlName="firstName" autocomplete="given-name"
+                     [class.invalid]="isInvalid('driver.firstName')">
+              @if (isInvalid('driver.firstName')) {
+                <small class="error">Shkruaj emrin.</small>
+              }
+            </label>
+
+            <label class="field">
+              <span>Mbiemri</span>
+              <input type="text" formControlName="lastName" autocomplete="family-name"
+                     [class.invalid]="isInvalid('driver.lastName')">
+              @if (isInvalid('driver.lastName')) {
+                <small class="error">Shkruaj mbiemrin.</small>
+              }
+            </label>
+
+            <label class="field span-2">
+              <span>Email</span>
+              <input type="email" formControlName="email" autocomplete="email" placeholder="emri@shembull.al"
+                     [class.invalid]="isInvalid('driver.email')">
+              @if (isInvalid('driver.email')) {
+                <small class="error">Shkruaj një email të vlefshëm.</small>
+              }
+            </label>
+
             <label class="field">
               <span>Mosha</span>
               <input type="number" formControlName="age" min="18" max="99"
@@ -227,8 +256,14 @@
 
       <!-- PËRMBLEDHJA -->
       <aside class="summary">
+        @if (imageSrc(car.imageUrl); as src) {
+          <img class="summary-photo" [src]="src" [alt]="car.brand + ' ' + car.model">
+        }
         <h3>Përmbledhja</h3>
         <p class="summary-car">{{ car.brand }} {{ car.model }} <span>({{ car.year }})</span></p>
+        @if (car.companyName) {
+          <p class="summary-company">Kompania: {{ car.companyName }}</p>
+        }
 
         <dl>
           <div><dt>Ditë</dt><dd>{{ price().days }}</dd></div>
@@ -251,6 +286,11 @@
           Zbritje {{ rules.longRentalDiscount * 100 }}% për {{ rules.longRentalDays }} ditë e më shumë.
           Pagesa bëhet në momentin e marrjes së makinës.
         </p>
+
+        <ul class="rules">
+          <li>Qiraja minimale: <strong>{{ rules.minDays }} ditë</strong></li>
+          <li>Anulim falas vetëm brenda <strong>{{ rules.cancelWindowHours }} orëve</strong> nga rezervimi</li>
+        </ul>
 
         @if (bookedPeriods().length) {
           <div class="booked">

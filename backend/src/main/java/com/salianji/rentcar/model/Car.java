@@ -46,6 +46,11 @@ public class Car {
     @Column(length = 300)
     private String description;
 
+    // Kompania që e ofron makinën
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     // false = nuk shfaqet te klientët (p.sh. në servis)
     @Column(nullable = false)
     private boolean active = true;
@@ -97,6 +102,9 @@ public class Car {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public Company getCompany() { return company; }
+    public void setCompany(Company company) { this.company = company; }
 
     public boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }

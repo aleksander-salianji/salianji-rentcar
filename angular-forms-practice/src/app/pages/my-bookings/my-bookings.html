@@ -1,74 +1,88 @@
-<div class="container page">
+<div class="container page narrow">
 
   <div class="page-head">
     <div>
-      <h1>Rezervimet e mia</h1>
-      <p>Këtu shikon statusin e çdo rezervimi.</p>
+      <h1>Rezervimi im</h1>
+      <p>Nuk të duhet llogari. Shkruaj kodin e rezervimit dhe numrin e telefonit që dhe.</p>
     </div>
-    <a routerLink="/makinat" class="btn btn-primary">+ Rezervim i ri</a>
+    <a routerLink="/makinat" class="btn btn-ghost">+ Rezervim i ri</a>
   </div>
 
   @if (sukses()) {
     <div class="alert alert-success">
-      <strong>Rezervimi u dërgua!</strong>
-      Kodi yt është <strong>{{ sukses() }}</strong>. Do të të njoftojmë sapo ta konfirmojmë.
+      <strong>Rezervimi u dërgua te kompania!</strong>
+      Kodi yt është <strong>{{ sukses() }}</strong> — ruaje. Kompania do të të kontaktojë për konfirmim.
     </div>
   }
 
-  @if (actionError()) {
-    <div class="alert alert-error">{{ actionError() }}</div>
+  <form class="card lookup" [formGroup]="form" (ngSubmit)="search()" novalidate>
+    <label class="field">
+      <span>Kodi i rezervimit</span>
+      <input type="text" formControlName="code" placeholder="BCA-2026-0001" autocomplete="off"
+             [class.invalid]="isInvalid('code')">
+      @if (isInvalid('code')) { <small class="error">Shkruaj kodin.</small> }
+    </label>
+    <label class="field">
+      <span>Telefoni</span>
+      <input type="tel" formControlName="phone" placeholder="06XXXXXXXX" autocomplete="tel"
+             [class.invalid]="isInvalid('phone')">
+      @if (isInvalid('phone')) { <small class="error">Shkruaj numrin e telefonit.</small> }
+    </label>
+    <button type="submit" class="btn btn-primary" [disabled]="loading()">
+      {{ loading() ? 'Duke kërkuar...' : 'Gjej rezervimin' }}
+    </button>
+  </form>
+
+  @if (error()) {
+    <div class="alert alert-error">{{ error() }}</div>
   }
 
-  @if (loading()) {
-    <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
-  } @else if (error()) {
-    <div class="alert alert-error">{{ error() }}</div>
-  } @else {
-    @for (b of bookings(); track b.id) {
-      <article class="booking-item" [class.highlight]="b.code === sukses()">
-        <div class="booking-main">
-          <div class="booking-title">
-            <h3>{{ b.car.brand }} {{ b.car.model }}</h3>
-            <span class="badge badge-{{ b.status }}">{{ b.status | label:'status' }}</span>
-          </div>
-
-          <p class="muted small">Kodi: <strong>{{ b.code }}</strong> · krijuar më {{ b.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
-
-          <div class="booking-route">
-            <div>
-              <span class="muted small">Marrja</span>
-              <strong>{{ b.pickupDate | date:'dd/MM/yyyy' }}</strong>
-              <span>{{ b.pickupLocation }}</span>
-            </div>
-            <span class="arrow">→</span>
-            <div>
-              <span class="muted small">Kthimi</span>
-              <strong>{{ b.returnDate | date:'dd/MM/yyyy' }}</strong>
-              <span>{{ b.returnLocation }}</span>
-            </div>
-          </div>
-
-          @if (extrasText(b)) {
-            <p class="muted small">Shtesat: {{ extrasText(b) }}</p>
-          }
+  @if (booking(); as b) {
+    <article class="booking-item" [class.highlight]="b.code === sukses()">
+      <div class="booking-main">
+        <div class="booking-title">
+          <h3>{{ b.car.brand }} {{ b.car.model }}</h3>
+          <span class="badge badge-{{ b.status }}">{{ b.status | label:'status' }}</span>
         </div>
 
-        <div class="booking-side">
-          <p class="muted small">{{ b.days }} ditë</p>
-          <p class="booking-price">{{ b.totalPrice | number:'1.0-2' }} €</p>
-          @if (canCancel(b)) {
-            <button type="button" class="btn btn-danger btn-sm"
-                    [disabled]="cancellingId() === b.id" (click)="cancel(b)">
-              {{ cancellingId() === b.id ? 'Duke anuluar...' : 'Anulo' }}
-            </button>
-          }
+        @if (b.company) {
+          <p class="small company">{{ b.company.name }}@if (b.company.phone) { · {{ b.company.phone }} }</p>
+        }
+        <p class="muted small">Kodi: <strong>{{ b.code }}</strong> · krijuar më {{ b.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p class="muted small">{{ b.customer.firstName }} {{ b.customer.lastName }} · {{ b.customer.email }}</p>
+
+        <div class="booking-route">
+          <div>
+            <span class="muted small">Marrja</span>
+            <strong>{{ b.pickupDate | date:'dd/MM/yyyy' }}</strong>
+            <span>{{ b.pickupLocation }}</span>
+          </div>
+          <span class="arrow">→</span>
+          <div>
+            <span class="muted small">Kthimi</span>
+            <strong>{{ b.returnDate | date:'dd/MM/yyyy' }}</strong>
+            <span>{{ b.returnLocation }}</span>
+          </div>
         </div>
-      </article>
-    } @empty {
-      <div class="empty">
-        <p>Nuk ke ende asnjë rezervim.</p>
-        <a routerLink="/makinat" class="btn btn-primary">Shiko makinat</a>
+
+        @if (extrasText(b)) {
+          <p class="muted small">Shtesat: {{ extrasText(b) }}</p>
+        }
       </div>
-    }
+
+      <div class="booking-side">
+        <p class="muted small">{{ b.days }} ditë</p>
+        <p class="booking-price">{{ b.totalPrice | number:'1.0-2' }} €</p>
+        @if (canCancel(b)) {
+          <button type="button" class="btn btn-danger btn-sm" [disabled]="cancelling()" (click)="cancel(b)">
+            {{ cancelling() ? 'Duke anuluar...' : 'Anulo' }}
+          </button>
+          <span class="muted small">deri më {{ cancelDeadline(b) | date:'dd/MM HH:mm' }}</span>
+        } @else if (isActive(b)) {
+          <span class="muted small cancel-note">Afati {{ cancelWindowHours }}-orësh i anulimit ka kaluar. Për ndryshime telefono kompaninë.</span>
+        }
+        <a class="small" routerLink="/ndihme" [queryParams]="{ kodi: b.code }">Ke problem? Shkruaji supportit</a>
+      </div>
+    </article>
   }
 </div>

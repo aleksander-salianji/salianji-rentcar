@@ -1,17 +1,15 @@
 package com.salianji.rentcar.controller;
 
 import com.salianji.rentcar.dto.BookingDto;
+import com.salianji.rentcar.dto.BookingLookupRequest;
 import com.salianji.rentcar.dto.BookingRequest;
-import com.salianji.rentcar.security.AuthUser;
 import com.salianji.rentcar.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-// Kërkon login (shih SecurityConfig)
+// Publike: klienti rezervon pa llogari.
+// Për ta parë ose anuluar rezervimin i duhen kodi + numri i telefonit.
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
@@ -24,18 +22,18 @@ public class BookingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookingDto create(@AuthenticationPrincipal AuthUser user,
-                             @Valid @RequestBody BookingRequest request) {
-        return bookingService.create(user.id(), request);
+    public BookingDto create(@Valid @RequestBody BookingRequest request) {
+        return bookingService.create(request);
     }
 
-    @GetMapping("/my")
-    public List<BookingDto> myBookings(@AuthenticationPrincipal AuthUser user) {
-        return bookingService.myBookings(user.id());
+    // POST (jo GET) që telefoni të mos dalë në URL / log-e
+    @PostMapping("/lookup")
+    public BookingDto lookup(@Valid @RequestBody BookingLookupRequest request) {
+        return bookingService.lookup(request.code(), request.phone());
     }
 
-    @PatchMapping("/{id}/cancel")
-    public BookingDto cancel(@AuthenticationPrincipal AuthUser user, @PathVariable Long id) {
-        return bookingService.cancel(user.id(), id);
+    @PostMapping("/cancel")
+    public BookingDto cancel(@Valid @RequestBody BookingLookupRequest request) {
+        return bookingService.cancel(request.code(), request.phone());
     }
 }

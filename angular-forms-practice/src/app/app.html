@@ -8,8 +8,8 @@
   <div class="container topbar-inner">
 
     <a class="logo" routerLink="/" (click)="closeMenu()">
-      <span class="logo-mark">S</span>
-      <span>Salianji <strong>Rent Car</strong></span>
+      <img class="logo-mark" src="/bookers-logo-ikona.svg" alt="" width="42" height="42">
+      <span>Bookers <strong>Car Albania</strong></span>
     </a>
 
     <button
@@ -25,23 +25,26 @@
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Kryefaqja</a>
       <a routerLink="/makinat" routerLinkActive="active" (click)="closeMenu()">Makinat</a>
 
+      <a routerLink="/rezervimi" routerLinkActive="active" (click)="closeMenu()">Rezervimi im</a>
+      <a routerLink="/blog" routerLinkActive="active" (click)="closeMenu()">Blogu</a>
+      <a routerLink="/ndihme" routerLinkActive="active" (click)="closeMenu()">Ndihmë</a>
+      <a routerLink="/rreth-nesh" routerLinkActive="active" (click)="closeMenu()">Rreth nesh</a>
+      <a routerLink="/karriera" routerLinkActive="active" (click)="closeMenu()">Karriera</a>
       @if (auth.isLoggedIn()) {
-        <a routerLink="/rezervimet" routerLinkActive="active" (click)="closeMenu()">Rezervimet e mia</a>
-      }
-      @if (auth.isAdmin()) {
-        <a routerLink="/admin" routerLinkActive="active" (click)="closeMenu()">Paneli i adminit</a>
+        <a [routerLink]="auth.panelUrl()" routerLinkActive="active" (click)="closeMenu()">
+          {{ auth.isAdmin() ? 'Paneli i adminit' : 'Paneli' }}
+        </a>
       }
 
       <div class="nav-account">
-        @if (auth.user(); as user) {
+        @if (auth.isLoggedIn()) {
           <span class="nav-user">
-            <span class="avatar">{{ user.firstName.charAt(0) }}</span>
-            {{ user.firstName }}
+            <span class="avatar">{{ initial() }}</span>
+            {{ auth.displayName() }}
           </span>
           <button type="button" class="btn btn-light btn-sm" (click)="logout()">Dil</button>
         } @else {
-          <a routerLink="/hyr" class="btn btn-ghost-light btn-sm" (click)="closeMenu()">Hyr</a>
-          <a routerLink="/regjistrohu" class="btn btn-primary btn-sm" (click)="closeMenu()">Regjistrohu</a>
+          <a routerLink="/hyr" class="btn btn-ghost-light btn-sm" (click)="closeMenu()">Hyr · Biznese</a>
         }
       </div>
     </nav>
@@ -52,29 +55,44 @@
   <router-outlet />
 </main>
 
+<!-- butoni i ndihmës (në çdo faqe, përveç panelit dhe vetë faqes së ndihmës) -->
+@if (showSupportButton()) {
+  <a class="support-fab" routerLink="/ndihme" aria-label="Ndihmë">
+    <span aria-hidden="true">?</span> Ndihmë
+  </a>
+}
+
 <footer class="footer">
   <div class="container footer-inner">
     <div>
-      <p class="footer-logo">Salianji <strong>Rent Car</strong></p>
-      <p>Rruga e Elbasanit, Tiranë</p>
-      <p>+355 69 000 0000 · info&#64;salianjirent.al</p>
+      <p class="footer-logo">Bookers <strong>Car Albania</strong></p>
+      <p>Qira makinash nga kompanitë më të mira në Shqipëri.</p>
+            <p>{{ contact.phoneLabel }} · {{ contact.email }}</p>
     </div>
     <div>
       <p class="footer-title">Navigimi</p>
       <a routerLink="/makinat">Makinat</a>
-      @if (auth.isLoggedIn()) {
-        <a routerLink="/rezervimet">Rezervimet e mia</a>
-      } @else {
-        <a routerLink="/hyr">Hyr në llogari</a>
-      }
+      <a routerLink="/rezervimi">Rezervimi im</a>
+      <a routerLink="/ndihme">Ndihmë / Support</a>
+      <a routerLink="/hyr">Hyr · Biznese</a>
     </div>
     <div>
-      <p class="footer-title">Orari</p>
-      <p>E hënë – E shtunë: 08:00 – 20:00</p>
-      <p>E diel: 09:00 – 14:00</p>
+      <p class="footer-title">Kompania</p>
+      <a routerLink="/rreth-nesh">Rreth nesh</a>
+      <a routerLink="/karriera">Karriera</a>
+      <a routerLink="/pyetje">Pyetje të shpeshta</a>
+      <a routerLink="/blog">Blogu</a>
+    </div>
+    <div>
+      <p class="footer-title">Support</p>
+      <p>Rezervime online 24/7</p>
+      <a [href]="'tel:' + contact.phone">{{ contact.phoneLabel }}</a>
+      <a [href]="'https://wa.me/' + contact.whatsapp" target="_blank" rel="noopener">WhatsApp</a>
+      <a [href]="'mailto:' + contact.email">{{ contact.email }}</a>
     </div>
   </div>
   <div class="container footer-bottom">
-    © {{ year }} Salianji Rent Car. Të gjitha të drejtat të rezervuara.
+    © {{ year }} Bookers Car Albania. Të gjitha të drejtat të rezervuara.
+    <span class="credit">Fotot e makinave: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (licenca CC).</span>
   </div>
 </footer>

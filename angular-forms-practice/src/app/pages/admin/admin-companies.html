@@ -1,0 +1,179 @@
+<div class="page-head">
+  <div>
+    <h1>Kompanitë</h1>
+    <p>Kompanitë partnere që ofrojnë makina në platformë.</p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="newCompany()">+ Kompani e re</button>
+</div>
+
+@if (message()) {
+  <div class="alert alert-success">{{ message() }}</div>
+}
+@if (error()) {
+  <div class="alert alert-error">{{ error() }}</div>
+}
+
+<div class="totals">
+  <div class="card total"><span class="muted small">Kompani</span><strong>{{ companies().length }}</strong></div>
+  <div class="card total"><span class="muted small">Rezervime të konfirmuara</span><strong>{{ totals().bookings }}</strong></div>
+  <div class="card total"><span class="muted small">Xhiro e kompanive</span><strong>{{ totals().revenue | number:'1.0-2' }} €</strong></div>
+  <div class="card total"><span class="muted small">Komisioni yt</span><strong>{{ totals().fee | number:'1.0-2' }} €</strong></div>
+</div>
+
+<div class="layout">
+  <div>
+    @if (loading()) {
+      <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+    } @else {
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Kompania</th>
+              <th class="text-right">Makina</th>
+              <th class="text-right">Rezervime</th>
+              <th class="text-right">Xhiro</th>
+              <th class="text-right">Komisioni</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows(); track row.company.id) {
+              <tr [class.inactive]="!row.company.active">
+                <td>
+                  <strong>{{ row.company.name }}</strong>
+                  @if (!row.company.active) { <span class="badge badge-inactive">Joaktive</span> }
+                  <div class="muted small">{{ row.company.city }}@if (row.company.phone) { · {{ row.company.phone }} }</div>
+                  @if (row.company.email) { <div class="muted small">{{ row.company.email }}</div> }
+                  @if (row.company.accountEmail) {
+                    <div class="small login-line">Login: {{ row.company.accountEmail }}</div>
+                  } @else {
+                    <span class="badge badge-inactive">Pa login</span>
+                  }
+                </td>
+                <td class="text-right">
+                  <a [routerLink]="['/admin/makinat']" [queryParams]="{ kompania: row.company.id }">{{ row.company.carCount }}</a>
+                </td>
+                <td class="text-right">{{ row.report?.bookings ?? 0 }}</td>
+                <td class="text-right nowrap">{{ (row.report?.revenue ?? 0) | number:'1.0-2' }} €</td>
+                <td class="text-right nowrap">
+                  {{ (row.report?.platformFee ?? 0) | number:'1.0-2' }} €
+                  <div class="muted small">{{ row.company.commissionPercent | number:'1.0-2' }}%</div>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button type="button" class="btn btn-ghost btn-sm" (click)="edit(row.company)">Ndrysho</button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="remove(row.company)">Fshi</button>
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="6" class="muted">Nuk ka kompani.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="muted small mt">Xhiroja dhe komisioni llogariten nga rezervimet e konfirmuara dhe të përfunduara.</p>
+    }
+  </div>
+
+  <div class="company-form">
+  <form class="card" [formGroup]="form" (ngSubmit)="save()" novalidate>
+    <h2>{{ editingId() === null ? 'Kompani e re' : 'Ndrysho kompaninë' }}</h2>
+
+    @if (formError()) {
+      <div class="alert alert-error">{{ formError() }}</div>
+    }
+
+    <div class="grid-2">
+      <label class="field span-2">
+        <span>Emri</span>
+        <input type="text" formControlName="name" [class.invalid]="isInvalid('name')">
+        @if (isInvalid('name')) { <small class="error">Shkruaj emrin e kompanisë.</small> }
+      </label>
+
+      <label class="field">
+        <span>Qyteti</span>
+        <select formControlName="city">
+          @for (c of cities; track c) { <option [value]="c">{{ c }}</option> }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Komisioni (%)</span>
+        <input type="number" formControlName="commissionPercent" step="0.5" [class.invalid]="isInvalid('commissionPercent')">
+        @if (isInvalid('commissionPercent')) { <small class="error">0 – 50%</small> }
+      </label>
+
+      <label class="field span-2">
+        <span>Adresa</span>
+        <input type="text" formControlName="address">
+      </label>
+
+      <label class="field">
+        <span>Telefoni</span>
+        <input type="tel" formControlName="phone" placeholder="06XXXXXXXX">
+      </label>
+
+      <label class="field">
+        <span>Email</span>
+        <input type="email" formControlName="email" [class.invalid]="isInvalid('email')">
+        @if (isInvalid('email')) { <small class="error">Email jo i vlefshëm.</small> }
+      </label>
+
+      <label class="field span-2">
+        <span>Përshkrimi</span>
+        <textarea formControlName="description" rows="3"></textarea>
+      </label>
+    </div>
+
+    <label class="check mt">
+      <input type="checkbox" formControlName="active">
+      <span>Aktive (makinat e saj shfaqen te klientët)</span>
+    </label>
+
+    <p class="muted small">Email-i i kompanisë përdoret për njoftimin e rezervimeve të reja.</p>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="saving()">
+        {{ saving() ? 'Duke ruajtur...' : (editingId() === null ? 'Shto kompaninë' : 'Ruaj ndryshimet') }}
+      </button>
+      @if (editingId() !== null) {
+        <button type="button" class="btn btn-ghost" (click)="newCompany()">Anulo</button>
+      }
+    </div>
+  </form>
+
+    <!-- LOGIN-I I KOMPANISË (vetëm kur ndryshon një kompani ekzistuese) -->
+    @if (editingCompany(); as ec) {
+      <form class="card account" [formGroup]="accountForm" (ngSubmit)="saveAccount()" novalidate>
+        <h3>Login-i i kompanisë</h3>
+        <p class="muted small">
+          @if (ec.accountEmail) { Ka llogari: <strong>{{ ec.accountEmail }}</strong>. Shkruaj fjalëkalim të ri për ta ndryshuar. }
+          @else { Kompania nuk ka ende login. Krijoja që të shohë rezervimet e veta te Paneli. }
+        </p>
+
+        @if (accountError()) {
+          <div class="alert alert-error">{{ accountError() }}</div>
+        }
+
+        <label class="field">
+          <span>Email i hyrjes</span>
+          <input type="email" formControlName="email" autocomplete="off" [class.invalid]="isAccountInvalid('email')">
+          @if (isAccountInvalid('email')) { <small class="error">Email jo i vlefshëm.</small> }
+        </label>
+        <label class="field mt">
+          <span>Fjalëkalimi</span>
+          <input type="text" formControlName="password" autocomplete="new-password" [class.invalid]="isAccountInvalid('password')">
+          @if (isAccountInvalid('password')) { <small class="error">Të paktën 8 karaktere, me shkronja dhe shifra.</small> }
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-navy" [disabled]="savingAccount()">
+            {{ savingAccount() ? 'Duke ruajtur...' : (ec.accountEmail ? 'Ndrysho login-in' : 'Krijo login-in') }}
+          </button>
+        </div>
+      </form>
+    }
+  </div>
+</div>

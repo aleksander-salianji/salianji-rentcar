@@ -21,8 +21,14 @@
 </div>
 
 <div class="card filters">
-  <input type="search" placeholder="Kërko sipas kodit, klientit, email-it ose makinës..."
+  <input type="search" placeholder="Kërko sipas kodit, klientit, kompanisë ose makinës..."
          [value]="search()" (input)="search.set(value($event))">
+  @if (!auth.isCompany()) {
+    <select [value]="companyFilter()" (change)="companyFilter.set(value($event))">
+      <option value="">Të gjitha kompanitë</option>
+      @for (n of companyNames(); track n) { <option [value]="n">{{ n }}</option> }
+    </select>
+  }
 </div>
 
 @if (loading()) {
@@ -34,7 +40,7 @@
         <tr>
           <th>Kodi</th>
           <th>Klienti</th>
-          <th>Makina</th>
+          <th>Makina / Kompania</th>
           <th>Datat</th>
           <th class="text-right">Totali</th>
           <th>Statusi</th>
@@ -52,8 +58,14 @@
             <td>
               {{ b.customer.firstName }} {{ b.customer.lastName }}
               <div class="muted small">{{ b.customer.email }}</div>
+              @if (b.phoneNumbers.length) { <div class="muted small">{{ b.phoneNumbers[0] }}</div> }
             </td>
-            <td>{{ b.car.brand }} {{ b.car.model }}</td>
+            <td>
+              {{ b.car.brand }} {{ b.car.model }}
+              @if (b.company) {
+                <div class="small company-name">{{ b.company.name }}@if (b.company.phone) { · {{ b.company.phone }} }</div>
+              }
+            </td>
             <td class="nowrap">
               {{ b.pickupDate | date:'dd/MM/yyyy' }} – {{ b.returnDate | date:'dd/MM/yyyy' }}
               <div class="muted small">{{ b.days }} ditë</div>
@@ -96,6 +108,7 @@
                     <p><strong>Adresa:</strong> {{ b.address.street }}, {{ b.address.city }} {{ b.address.zipCode }}</p>
                     <p><strong>Qiraja:</strong> {{ b.basePrice | number:'1.0-2' }} € · Shtesat: {{ b.extrasPrice | number:'1.0-2' }} €
                       @if (b.discount > 0) { · Zbritje: −{{ b.discount | number:'1.0-2' }} € }</p>
+                    <p><strong>Komisioni:</strong> {{ b.platformFee | number:'1.0-2' }} €</p>
                     <p><strong>Krijuar:</strong> {{ b.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import {
   BookingStatus,
   CarCategory,
   FuelType,
+  SupportTopic,
   Transmission
 } from './models';
 
@@ -49,6 +50,11 @@ export const LOCATIONS: readonly string[] = [
   'Sarandë'
 ];
 
+// Qytetet ku mund të ndodhet një kompani (për kërkimin)
+export const CITIES: readonly string[] = [
+  'Tiranë', 'Durrës', 'Vlorë', 'Shkodër', 'Sarandë', 'Elbasan', 'Korçë', 'Fier', 'Berat', 'Gjirokastër'
+];
+
 export interface ExtraOption {
   key: keyof BookingExtras;
   label: string;
@@ -65,7 +71,35 @@ export const EXTRAS_OPTIONS: readonly ExtraOption[] = [
 export const RENTAL_RULES = {
   minDriverAge: 21,
   maxDriverAge: 75,
+  minDays: 3,              // qiraja minimale
   maxDays: 30,
+  cancelWindowHours: 24,   // anulimi lejohet vetëm brenda 24 orëve nga krijimi
   longRentalDays: 7,       // nga sa ditë fillon zbritja
   longRentalDiscount: 0.1  // 10%
 } as const;
+
+
+// ---------- NDIHMA / SUPPORT ----------
+// Ndrysho këtu numrin, WhatsApp-in dhe email-in e vërtetë të supportit.
+export const SUPPORT_CONTACT = {
+  phone: '+355690000000',
+  phoneLabel: '+355 69 000 0000',
+  whatsapp: '355690000000',          // pa "+" dhe pa hapësira
+  email: 'info@bookerscar.al',
+  hours: 'Online 24/7'
+} as const;
+
+export const SUPPORT_TOPIC_LABELS: Record<SupportTopic, string> = {
+  BOOKING: 'Rezervimi',
+  CANCELLATION: 'Anulim / ndryshim',
+  PAYMENT: 'Pagesa / çmimi',
+  CAR: 'Problem me makinën',
+  PARTNER: 'Dua të bëhem partner',
+  CAREER: 'Karriera / aplikim për punë',
+  OTHER: 'Tjetër'
+};
+
+export const SUPPORT_TOPICS = Object.keys(SUPPORT_TOPIC_LABELS) as SupportTopic[];
+
+// ---------- BLOGU ----------
+export const BLOG_CATEGORIES: readonly string[] = ['Udhëtime', 'Këshilla', 'Lajme', 'Oferta'];

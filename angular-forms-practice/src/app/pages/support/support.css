@@ -1,0 +1,104 @@
+/* koka e errët në stilin e kryefaqes */
+.support-hero {
+  background: radial-gradient(ellipse 60% 90% at 100% 0%, rgba(200, 168, 107, .12), transparent 70%), #050506;
+  color: #ece8df;
+}
+.hero-inner { padding-top: 40px; padding-bottom: 40px; }
+.label {
+  margin: 0 0 8px;
+  color: #c8a86b;
+  font-size: .76rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+}
+.support-hero h1 {
+  margin: 0;
+  color: #ece8df;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+}
+.lead { max-width: 40em; margin: 10px 0 24px; color: #b9b5ad; }
+
+.channels {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.channel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #2a2b30;
+  background: #0e0f12;
+  color: #ece8df;
+  text-decoration: none;
+  transition: border-color .2s;
+}
+.channel:hover { border-color: #c8a86b; }
+.channel strong { display: block; font-weight: 600; }
+.channel small { color: #8d8a84; }
+.ico {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #c8a86b;
+  color: #c8a86b;
+  font-size: 1.1rem;
+}
+
+/* trupi */
+.support-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 28px;
+  align-items: start;
+}
+.support-body h2 { font-size: 1.3rem; }
+
+.faq { display: grid; gap: 8px; }
+.faq-item { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+.faq-item.open { border-color: var(--navy-2); }
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  background: none;
+  color: var(--navy);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.sign { color: var(--accent); font-size: 1.2rem; line-height: 1; }
+.faq-a { margin: 0; padding: 0 16px 16px; color: var(--muted); }
+
+.form-card textarea { resize: vertical; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.sent { text-align: center; padding: 10px 0; }
+.check {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background: #e4f6ec;
+  color: var(--success);
+  font-size: 1.6rem;
+}
+
+@media (max-width: 960px) {
+  .channels { grid-template-columns: 1fr 1fr; }
+  .support-body { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .channels { grid-template-columns: 1fr; }
+}

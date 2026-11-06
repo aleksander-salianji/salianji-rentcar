@@ -1,105 +1,161 @@
 <!-- HERO -->
 <section class="hero">
-  <div class="container hero-inner">
-    <div class="hero-text">
-      <p class="eyebrow">Qira makinash në Shqipëri</p>
-      <h1>Makina e duhur, kur të duhet.</h1>
-      <p class="lead">
-        Rezervo online në pak minuta. Merr makinën në Tiranë, Rinas, Durrës, Vlorë,
-        Shkodër ose Sarandë, me çmim të qartë që në fillim.
-      </p>
-      <div class="hero-actions">
-        <a routerLink="/makinat" class="btn btn-primary btn-lg">Shiko makinat</a>
-        @if (!auth.isLoggedIn()) {
-          <a routerLink="/regjistrohu" class="btn btn-ghost-light btn-lg">Krijo llogari</a>
-        }
-      </div>
+  <div class="container hero-copy">
+    <p class="label">Makina me qira nga kompanitë më të mira në Shqipëri</p>
+    <h1>Bookers <em>Car Albania</em></h1>
+    <span class="rule-line" aria-hidden="true"></span>
+    <!-- KËRKIMI -->
+    <form class="search" (submit)="$event.preventDefault(); searchCars()">
+      <label class="loc">
+        <span>Vendi i marrjes</span>
+        <select [value]="pickup()" (change)="pickup.set(value($event))">
+          <option value="">Zgjidh vendin</option>
+          @for (l of locations; track l) {
+            <option [value]="l">{{ l }}</option>
+          }
+        </select>
+      </label>
+      <label class="loc">
+        <span>Vendi i kthimit</span>
+        <select [value]="dropoff()" (change)="dropoff.set(value($event))">
+          <option value="">I njëjti vend</option>
+          @for (l of locations; track l) {
+            <option [value]="l">{{ l }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        <span>Marrja</span>
+        <input type="date" [min]="today" [value]="from()" (change)="setFrom(value($event))">
+      </label>
+      <label>
+        <span>Kthimi</span>
+        <input type="date" [min]="minReturn()" [value]="to()" (change)="to.set(value($event))">
+      </label>
+      <button type="submit" class="lux-btn solid">Kërko</button>
+    </form>
+  </div>
+
+  <div class="scene" aria-hidden="true">
+    <div class="lights">
+      <svg viewBox="0 0 800 60" preserveAspectRatio="none"><circle cx="40" cy="44" r="2" opacity=".5"/><circle cx="96" cy="30" r="1.4" opacity=".35"/><circle cx="150" cy="48" r="2.4" opacity=".45"/><circle cx="220" cy="36" r="1.6" opacity=".3"/><circle cx="290" cy="50" r="2" opacity=".5"/><circle cx="350" cy="26" r="1.2" opacity=".3"/><circle cx="420" cy="44" r="2.6" opacity=".4"/><circle cx="500" cy="34" r="1.5" opacity=".35"/><circle cx="560" cy="50" r="2" opacity=".5"/><circle cx="630" cy="28" r="1.3" opacity=".3"/><circle cx="700" cy="46" r="2.2" opacity=".45"/><circle cx="770" cy="36" r="1.5" opacity=".3"/></svg>
+      <svg viewBox="0 0 800 60" preserveAspectRatio="none"><circle cx="40" cy="44" r="2" opacity=".5"/><circle cx="96" cy="30" r="1.4" opacity=".35"/><circle cx="150" cy="48" r="2.4" opacity=".45"/><circle cx="220" cy="36" r="1.6" opacity=".3"/><circle cx="290" cy="50" r="2" opacity=".5"/><circle cx="350" cy="26" r="1.2" opacity=".3"/><circle cx="420" cy="44" r="2.6" opacity=".4"/><circle cx="500" cy="34" r="1.5" opacity=".35"/><circle cx="560" cy="50" r="2" opacity=".5"/><circle cx="630" cy="28" r="1.3" opacity=".3"/><circle cx="700" cy="46" r="2.2" opacity=".45"/><circle cx="770" cy="36" r="1.5" opacity=".3"/></svg>
     </div>
 
-    <ul class="hero-facts">
-      <li><strong>{{ cars().length }}</strong><span>makina në flotë</span></li>
-      <li><strong>{{ locations.length }}</strong><span>pika marrjeje</span></li>
-      <li><strong>−{{ discountPercent }}%</strong><span>për {{ discountDays }}+ ditë</span></li>
-    </ul>
+    <div class="road"><div class="lane"></div></div>
+
+    <div class="car-wrap">
+      <div class="car-move">
+        <svg class="car" viewBox="0 0 440 136">
+          <defs>
+            <linearGradient id="paint" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3a3c43"/>
+              <stop offset="38%" stop-color="#17181c"/>
+              <stop offset="100%" stop-color="#050506"/>
+            </linearGradient>
+            <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="55%" stop-color="#ffffff" stop-opacity=".22"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon class="beam" points="414,93 440,76 440,112" fill="url(#beam)"/>
+          <ellipse class="shadow" cx="220" cy="130" rx="200" ry="5"/>
+          <ellipse class="reflection" cx="220" cy="134" rx="186" ry="3"/>
+          <g class="body">
+            <!-- karroceria: supermakinë moderne me motor në mes, e ulët dhe në formë pyke -->
+            <path fill="url(#paint)" d="M30 106 L24 88 C23 80 27 75 36 73 L96 66 C146 57 184 45 220 44 C244 44 260 50 274 57 L316 75 C336 73 360 74 380 80 C398 85 414 90 420 96 C423 99 423 102 421 105 L418 110 L30 110 C27 110 26 108 26 104 Z"/>
+            <path class="paint-edge" d="M30 106 L24 88 C23 80 27 75 36 73 L96 66 C146 57 184 45 220 44 C244 44 260 50 274 57 L316 75 C336 73 360 74 380 80 C398 85 414 90 420 96 C423 99 423 102 421 105 L418 110 L30 110 C27 110 26 108 26 104 Z"/>
+            <!-- reflektimi i dritës mbi çati dhe kofano -->
+            <path fill="none" stroke="url(#sheen)" stroke-width="1.4" d="M60 69 C130 58 180 46 220 46 C244 46 258 51 272 58 M318 77 C340 75 362 76 382 82"/>
+            <!-- xhami anësor (pikë loti) -->
+            <path class="glass" d="M178 66 C196 56 214 51 230 51 C248 51 262 57 276 64 L294 74 Z"/>
+            <path class="chrome" d="M176 66.5 C195 55 213 49 230 49 C249 49 264 55 279 63 L297 74.5"/>
+            <!-- pasqyra -->
+            <path class="mirror" d="M286 67 L300 64 L302 70 L291 72 Z"/>
+            <!-- hyrja e madhe e ajrit para rrotës së pasme -->
+            <path class="intake" d="M148 88 C158 79 176 74 198 74 L186 94 C174 96 158 95 148 88 Z"/>
+            <!-- vija karakteristike nga rrota e përparme drejt hyrjes së ajrit -->
+            <path class="shoulder" d="M316 96 C276 92 236 85 198 75"/>
+            <!-- spoileri / ducktail -->
+            <path class="spoiler" d="M22 73 L52 68 L54 71 L24 76 Z"/>
+            <!-- pragu anësor, splitter-i dhe difuzori -->
+            <path class="skirt" d="M134 108 L312 108 L310 111 L136 111 Z"/>
+            <path class="skirt" d="M362 110 L422 110 L420 113 L366 113 Z"/>
+            <path class="diffuser" d="M26 104 L60 104 M30 108 L62 108"/>
+            <!-- dritat: LED e hollë përpara, shirit i kuq mbrapa -->
+            <path class="head-glow" d="M380 84 L414 93 L411 97 L376 88 Z"/>
+            <path class="head" d="M384 85 L413 93.5 L411.5 95.5 L381 87.5 Z"/>
+            <path class="tail" d="M24 81 L44 78 L44 81.5 L25 84.5 Z"/>
+            <!-- harqet e rrotave -->
+            <circle class="arch" cx="102" cy="106" r="28"/>
+            <circle class="arch" cx="346" cy="106" r="28"/>
+          </g>
+          <g transform="translate(102 106)"><circle class="tire" r="24"/><circle class="disc" r="15"/><path class="caliper" d="M-10 -11 A15 15 0 0 1 10 -11 L8 -8 A11 11 0 0 0 -8 -8 Z"/><g class="wheel"><circle class="rim" r="19"/><path class="spoke" d="M0.0 -4.0 L-2.2 -17.9 M0.0 -4.0 L2.2 -17.9 M3.8 -1.2 L16.3 -7.6 M3.8 -1.2 L17.7 -3.4 M2.4 3.2 L12.3 13.2 M2.4 3.2 L8.7 15.7 M-2.4 3.2 L-8.7 15.7 M-2.4 3.2 L-12.3 13.2 M-3.8 -1.2 L-17.7 -3.4 M-3.8 -1.2 L-16.3 -7.6"/><circle class="hub" r="3.2"/></g></g>
+          <g transform="translate(346 106)"><circle class="tire" r="24"/><circle class="disc" r="15"/><path class="caliper" d="M-10 -11 A15 15 0 0 1 10 -11 L8 -8 A11 11 0 0 0 -8 -8 Z"/><g class="wheel"><circle class="rim" r="19"/><path class="spoke" d="M0.0 -4.0 L-2.2 -17.9 M0.0 -4.0 L2.2 -17.9 M3.8 -1.2 L16.3 -7.6 M3.8 -1.2 L17.7 -3.4 M2.4 3.2 L12.3 13.2 M2.4 3.2 L8.7 15.7 M-2.4 3.2 L-8.7 15.7 M-2.4 3.2 L-12.3 13.2 M-3.8 -1.2 L-17.7 -3.4 M-3.8 -1.2 L-16.3 -7.6"/><circle class="hub" r="3.2"/></g></g>
+        </svg>
+      </div>
+    </div>
   </div>
 </section>
 
 
-<div class="container">
-
-  <!-- KATEGORITË -->
-  <section class="section">
-    <h2>Zgjidh sipas kategorisë</h2>
-    <div class="category-grid">
-      @for (cat of categories(); track cat.key) {
-        <a class="category-tile" [attr.data-category]="cat.key"
-           routerLink="/makinat" [queryParams]="{ kategoria: cat.key }">
-          <strong>{{ cat.label }}</strong>
-          <span>
-            @if (cat.fromPrice !== null) {
-              nga {{ cat.fromPrice }} € / ditë
-            } @else {
-              së shpejti
-            }
+<!-- KOMPANITË PARTNERE -->
+@if (companies().length) {
+  <section class="container companies" id="kompanite">
+    <div class="fleet-head">
+      <p class="label">Kompanitë partnere</p>
+      <h2>Zgjidh kompaninë</h2>
+    </div>
+    <div class="company-grid">
+      @for (co of companies(); track co.id) {
+        <a class="company-card" [routerLink]="['/kompania', co.id]">
+          <span class="company-mono">{{ co.name.charAt(0) }}</span>
+          <span class="company-info">
+            <strong>{{ co.name }}</strong>
+            <small>{{ co.city }} · {{ co.carCount }} makina</small>
           </span>
+          <span class="arrow" aria-hidden="true">→</span>
         </a>
       }
     </div>
   </section>
+}
 
 
-  <!-- MAKINAT E ZGJEDHURA -->
-  <section class="section">
-    <div class="section-head">
-      <h2>Makinat më të kërkuara</h2>
-      <a routerLink="/makinat">Shiko të gjitha →</a>
-    </div>
+<!-- TË GJITHA MAKINAT -->
+<section class="container fleet" id="flota">
+  <div class="fleet-head">
+    <p class="label">Flota</p>
+    <h2>Të gjitha makinat</h2>
+  </div>
 
-    @if (loading()) {
-      <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
-    } @else if (error()) {
-      <div class="alert alert-error">{{ error() }}</div>
-    } @else {
-      <div class="car-grid">
-        @for (car of featured(); track car.id) {
-          <app-car-card [car]="car" />
-        }
-      </div>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" [class.active]="category() === ''" (click)="category.set('')">
+      Të gjitha <span>{{ count('') }}</span>
+    </button>
+    @for (c of categories; track c) {
+      <button type="button" role="tab" [class.active]="category() === c" (click)="category.set(c)">
+        {{ categoryLabels[c] }} <span>{{ count(c) }}</span>
+      </button>
     }
-  </section>
+  </div>
 
-
-  <!-- SI FUNKSIONON -->
-  <section class="section">
-    <h2>Si funksionon</h2>
-    <ol class="steps">
-      <li>
-        <span class="step-num">1</span>
-        <h3>Zgjidh makinën</h3>
-        <p class="muted">Krahaso makinat sipas kategorisë, kambios dhe çmimit.</p>
-      </li>
-      <li>
-        <span class="step-num">2</span>
-        <h3>Rezervo online</h3>
-        <p class="muted">Zgjidh datat dhe vendin. Çmimi llogaritet menjëherë, pa surpriza.</p>
-      </li>
-      <li>
-        <span class="step-num">3</span>
-        <h3>Merr çelësat</h3>
-        <p class="muted">Pasi konfirmojmë rezervimin, të presim në pikën që zgjodhe.</p>
-      </li>
-    </ol>
-  </section>
-
-
-  <!-- PIKAT E MARRJES -->
-  <section class="section">
-    <h2>Pikat e marrjes</h2>
-    <ul class="locations">
-      @for (loc of locations; track loc) {
-        <li>{{ loc }}</li>
+  @if (loading()) {
+    <div class="loading"><span class="spinner"></span> Duke ngarkuar makinat...</div>
+  } @else if (error()) {
+    <div class="alert alert-error">{{ error() }}</div>
+  } @else {
+    <div class="car-grid">
+      @for (car of shown(); track car.id) {
+        <app-car-card [car]="car" />
+      } @empty {
+        <p class="empty">Nuk ka makina në këtë kategori.</p>
       }
-    </ul>
-  </section>
-
-</div>
+    </div>
+  }
+</section>

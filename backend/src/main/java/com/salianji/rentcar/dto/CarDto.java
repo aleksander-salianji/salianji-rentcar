@@ -19,12 +19,20 @@ public record CarDto(
     BigDecimal pricePerDay,
     String imageUrl,
     String description,
-    boolean active
+    boolean active,
+    Long companyId,
+    String companyName,
+    String companyCity
 ) {
 
+    // Duhet thirrur brenda një transaksioni (kompania ngarkohet me vonesë)
     public static CarDto from(Car c) {
+        var company = c.getCompany();
         return new CarDto(c.getId(), c.getBrand(), c.getModel(), c.getYear(), c.getCategory(),
             c.getTransmission(), c.getFuel(), c.getSeats(), c.getPricePerDay(),
-            c.getImageUrl(), c.getDescription(), c.isActive());
+            c.getImageUrl(), c.getDescription(), c.isActive(),
+            company == null ? null : company.getId(),
+            company == null ? null : company.getName(),
+            company == null ? null : company.getCity());
     }
 }

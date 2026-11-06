@@ -3,8 +3,10 @@ package com.salianji.rentcar.controller;
 import com.salianji.rentcar.dto.BookedPeriodDto;
 import com.salianji.rentcar.dto.CarDto;
 import com.salianji.rentcar.service.CarService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 // Publike: nuk kërkon login
@@ -18,9 +20,14 @@ public class CarController {
         this.carService = carService;
     }
 
+    // Kërkimi: /api/cars?city=Tiranë&from=2026-11-10&to=2026-11-14&companyId=2 (të gjitha opsionale)
     @GetMapping
-    public List<CarDto> list() {
-        return carService.listActive();
+    public List<CarDto> list(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+            @RequestParam(required = false) Long companyId) {
+        return carService.search(city, from, to, companyId);
     }
 
     @GetMapping("/{id}")

@@ -11,6 +11,19 @@ public record BookingRequest(
     @NotNull(message = "Zgjidh makinën.")
     Long carId,
 
+    @NotBlank(message = "Shkruaj emrin.")
+    @Size(max = 50, message = "Emri është shumë i gjatë.")
+    String firstName,
+
+    @NotBlank(message = "Shkruaj mbiemrin.")
+    @Size(max = 50, message = "Mbiemri është shumë i gjatë.")
+    String lastName,
+
+    @NotBlank(message = "Shkruaj email-in.")
+    @Email(message = "Email nuk është i vlefshëm.")
+    @Size(max = 120)
+    String email,
+
     @NotBlank(message = "Zgjidh vendin e marrjes.")
     String pickupLocation,
 

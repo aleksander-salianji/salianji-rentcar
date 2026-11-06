@@ -1,0 +1,97 @@
+<div class="page-head">
+  <div>
+    <h1>Gjendja e flotës</h1>
+    <p>Cila makinë është e lirë, cila e zënë dhe nga kush.</p>
+  </div>
+
+  <div class="date-picker">
+    <button type="button" class="btn btn-ghost btn-sm" (click)="shiftDate(-1)" aria-label="Dita e mëparshme">‹</button>
+    <input type="date" [value]="date()" (change)="setDate(value($event))">
+    <button type="button" class="btn btn-ghost btn-sm" (click)="shiftDate(1)" aria-label="Dita tjetër">›</button>
+    @if (!isToday()) {
+      <button type="button" class="btn btn-ghost btn-sm" (click)="setDate(today)">Sot</button>
+    }
+  </div>
+</div>
+
+<p class="muted date-line">
+  Gjendja më <strong>{{ date() | date:'EEEE, dd MMMM yyyy' }}</strong>
+  @if (isToday()) { <span class="badge badge-active">sot</span> }
+</p>
+
+@if (error()) {
+  <div class="alert alert-error">{{ error() }}</div>
+}
+
+<div class="filters">
+  @for (f of filters; track f.key) {
+    <button type="button" class="chip chip-{{ f.key }}" [class.active]="filter() === f.key" (click)="filter.set(f.key)">
+      {{ f.label }} <strong>{{ counts()[f.key] }}</strong>
+    </button>
+  }
+</div>
+
+@if (loading()) {
+  <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+} @else {
+  <div class="fleet-grid">
+    @for (f of filtered(); track f.car.id) {
+      <article class="fleet-card state-{{ f.state }}">
+        <header>
+          <div>
+            <h3>{{ f.car.brand }} {{ f.car.model }}</h3>
+            <p class="muted small">{{ f.car.year }} · {{ f.car.category | label:'category' }} · {{ f.car.pricePerDay | number:'1.0-2' }} €/ditë</p>
+            @if (f.car.companyName) { <p class="small company-name">{{ f.car.companyName }}</p> }
+          </div>
+          @switch (f.state) {
+            @case ('FREE') { <span class="state free">● E lirë</span> }
+            @case ('OCCUPIED') { <span class="state busy">● E zënë</span> }
+            @case ('INACTIVE') { <span class="state off">● Joaktive</span> }
+          }
+        </header>
+
+        @if (f.current; as c) {
+          <div class="who">
+            <p class="who-name">{{ c.customerName }}</p>
+            <p class="small">
+              <a [href]="'tel:' + c.phone">{{ c.phone }}</a> ·
+              <a [href]="'mailto:' + c.customerEmail">{{ c.customerEmail }}</a>
+            </p>
+            <p class="small">
+              {{ c.pickupDate | date:'dd/MM' }} → <strong>{{ c.returnDate | date:'dd/MM/yyyy' }}</strong>
+              · kthehet në {{ c.returnLocation }}
+            </p>
+            <p class="small muted">
+              {{ c.code }} · <span class="badge badge-{{ c.status }}">{{ c.status | label:'status' }}</span>
+              @if (daysUntil(c.returnDate) === 1) { · kthehet nesër }
+              @else { · edhe {{ daysUntil(c.returnDate) }} ditë }
+            </p>
+          </div>
+        } @else if (f.state === 'FREE') {
+          <p class="free-note">
+            @if (f.next; as n) {
+              E lirë për <strong>{{ daysUntil(n.pickupDate) }} ditë</strong>, deri më {{ n.pickupDate | date:'dd/MM' }}
+            } @else {
+              E lirë, pa rezervime të ardhshme
+            }
+          </p>
+        } @else {
+          <p class="muted small">Nuk shfaqet te klientët.</p>
+        }
+
+        @if (f.next; as n) {
+          <footer>
+            <span class="muted small">Rezervimi i radhës</span>
+            <p class="small">
+              <strong>{{ n.pickupDate | date:'dd/MM' }} – {{ n.returnDate | date:'dd/MM' }}</strong>
+              · {{ n.customerName }}
+              <span class="badge badge-{{ n.status }}">{{ n.status | label:'status' }}</span>
+            </p>
+          </footer>
+        }
+      </article>
+    } @empty {
+      <p class="empty">Asnjë makinë për këtë filtër.</p>
+    }
+  </div>
+}

@@ -29,7 +29,11 @@ public final class RentalRules {
 
     public static final int MIN_DRIVER_AGE = 21;
     public static final int MAX_DRIVER_AGE = 75;
+    public static final int MIN_DAYS = 3;   // qiraja minimale
     public static final int MAX_DAYS = 30;
+
+    // Klienti mund ta anulojë rezervimin vetëm brenda kaq orëve nga krijimi
+    public static final int CANCELLATION_WINDOW_HOURS = 24;
 
     public static final int LONG_RENTAL_DAYS = 7;
     public static final BigDecimal LONG_RENTAL_DISCOUNT = new BigDecimal("0.10");
