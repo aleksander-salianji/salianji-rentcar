@@ -1,0 +1,269 @@
+<div class="container page">
+
+  <a routerLink="/makinat" class="back-link">← Kthehu te makinat</a>
+
+  @if (loading()) {
+    <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+
+  } @else if (loadError()) {
+    <div class="alert alert-error">{{ loadError() }}</div>
+    <a routerLink="/makinat" class="btn btn-primary">Shiko makinat</a>
+
+  } @else {
+  @if (car(); as car) {
+
+    <div class="page-head">
+      <div>
+        <h1>Rezervo {{ car.brand }} {{ car.model }}</h1>
+        <p>{{ car.category | label:'category' }} · {{ car.transmission | label:'transmission' }} · {{ car.fuel | label:'fuel' }} · {{ car.seats }} vende</p>
+      </div>
+    </div>
+
+    @if (submitError()) {
+      <div class="alert alert-error">{{ submitError() }}</div>
+    } @else if (submitAttempted() && form.invalid) {
+      <div class="alert alert-error">Disa fusha nuk janë plotësuar saktë. Kontrollo fushat me të kuqe.</div>
+    }
+
+    <div class="booking-layout">
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="card" novalidate>
+
+        <!-- 1. DATAT DHE VENDI -->
+        <fieldset formGroupName="rental">
+          <legend>1. Datat dhe vendi</legend>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>Vendi i marrjes</span>
+              <select formControlName="pickupLocation" [class.invalid]="isInvalid('rental.pickupLocation')">
+                <option value="" disabled>-- Zgjidh --</option>
+                @for (loc of locations; track loc) {
+                  <option [value]="loc">{{ loc }}</option>
+                }
+              </select>
+              @if (isInvalid('rental.pickupLocation')) {
+                <small class="error">Zgjidh vendin e marrjes.</small>
+              }
+            </label>
+
+            <label class="field">
+              <span>Vendi i kthimit</span>
+              <select formControlName="returnLocation" [class.invalid]="isInvalid('rental.returnLocation')">
+                <option value="" disabled>-- Zgjidh --</option>
+                @for (loc of locations; track loc) {
+                  <option [value]="loc">{{ loc }}</option>
+                }
+              </select>
+              @if (isInvalid('rental.returnLocation')) {
+                <small class="error">Zgjidh vendin e kthimit.</small>
+              } @else {
+                <button type="button" class="link-btn" (click)="sameReturnLocation()">I njëjti me vendin e marrjes</button>
+              }
+            </label>
+
+            <label class="field">
+              <span>Data e marrjes</span>
+              <input type="date" formControlName="pickupDate" [min]="today"
+                     [class.invalid]="isInvalid('rental.pickupDate')">
+              @if (isInvalid('rental.pickupDate')) {
+                <small class="error">
+                  @if (hasError('rental.pickupDate', 'required')) { Zgjidh datën e marrjes. }
+                  @if (hasError('rental.pickupDate', 'pastDate')) { Data nuk mund të jetë në të kaluarën. }
+                </small>
+              }
+            </label>
+
+            <label class="field">
+              <span>Data e kthimit</span>
+              <input type="date" formControlName="returnDate" [min]="minReturnDate()"
+                     [class.invalid]="isInvalid('rental.returnDate') || (datesTouched() && form.controls.rental.invalid)">
+              @if (isInvalid('rental.returnDate')) {
+                <small class="error">Zgjidh datën e kthimit.</small>
+              }
+            </label>
+          </div>
+
+          <!-- gabimet e validatorit të grupit dhe të formës -->
+          @if (datesTouched()) {
+            @if (hasError('rental', 'invalidRange')) {
+              <small class="error">Data e kthimit duhet të jetë pas datës së marrjes.</small>
+            }
+            @if (hasError('rental', 'tooLong')) {
+              <small class="error">Qiraja nuk mund të zgjasë më shumë se {{ rules.maxDays }} ditë.</small>
+            }
+          }
+          @if (form.hasError('carUnavailable')) {
+            <small class="error">Makina është e zënë për disa nga këto data. Shiko periudhat e zëna në të djathtë.</small>
+          }
+        </fieldset>
+
+
+        <!-- 2. SHOFERI -->
+        <fieldset formGroupName="driver">
+          <legend>2. Shoferi</legend>
+
+          <p class="driver-account">
+            <strong>{{ auth.fullName() }}</strong>
+            <span class="muted"> · {{ auth.user()?.email }}</span>
+          </p>
+
+          <div class="grid-2">
+            <label class="field">
+              <span>Mosha</span>
+              <input type="number" formControlName="age" min="18" max="99"
+                     [class.invalid]="isInvalid('driver.age')">
+              @if (isInvalid('driver.age')) {
+                <small class="error">
+                  @if (hasError('driver.age', 'required')) { Shkruaj moshën. }
+                  @if (hasError('driver.age', 'min')) { Shoferi duhet të jetë të paktën {{ rules.minDriverAge }} vjeç. }
+                  @if (hasError('driver.age', 'max')) { Mosha maksimale është {{ rules.maxDriverAge }} vjeç. }
+                </small>
+              }
+            </label>
+
+            <label class="field">
+              <span>Numri i patentës</span>
+              <input type="text" formControlName="licenseNumber" placeholder="p.sh. AL1234567"
+                     [class.invalid]="isInvalid('driver.licenseNumber')">
+              @if (isInvalid('driver.licenseNumber')) {
+                <small class="error">Patenta duhet të ketë 6–12 shkronja ose shifra.</small>
+              }
+            </label>
+          </div>
+        </fieldset>
+
+
+        <!-- 3. ADRESA -->
+        <fieldset formGroupName="address">
+          <legend>3. Adresa</legend>
+          <div class="grid-3">
+            <label class="field span-3">
+              <span>Rruga</span>
+              <input type="text" formControlName="street" [class.invalid]="isInvalid('address.street')">
+              @if (isInvalid('address.street')) {
+                <small class="error">Shkruaj rrugën.</small>
+              }
+            </label>
+            <label class="field span-2">
+              <span>Qyteti</span>
+              <input type="text" formControlName="city" [class.invalid]="isInvalid('address.city')">
+              @if (isInvalid('address.city')) {
+                <small class="error">Shkruaj qytetin.</small>
+              }
+            </label>
+            <label class="field">
+              <span>Kodi postar <span class="muted">(opsional)</span></span>
+              <input type="text" formControlName="zipCode" placeholder="1001"
+                     [class.invalid]="isInvalid('address.zipCode')">
+              @if (isInvalid('address.zipCode')) {
+                <small class="error">4 shifra.</small>
+              }
+            </label>
+          </div>
+        </fieldset>
+
+
+        <!-- 4. TELEFONAT (FormArray) -->
+        <fieldset formArrayName="phoneNumbers">
+          <legend>4. Numrat e telefonit</legend>
+
+          @for (ctrl of phoneNumbers.controls; track ctrl; let i = $index) {
+            <div class="phone-row">
+              <input type="tel" [formControlName]="i" placeholder="06XXXXXXXX"
+                     [class.invalid]="ctrl.invalid && ctrl.touched">
+              @if (phoneNumbers.length > 1) {
+                <button type="button" class="btn btn-ghost btn-sm" (click)="removePhone(i)">Hiq</button>
+              }
+            </div>
+            @if (ctrl.invalid && ctrl.touched) {
+              <small class="error phone-error">
+                @if (ctrl.hasError('required')) { Shkruaj numrin. }
+                @if (ctrl.hasError('pattern')) { Formati: 067/068/069 + 7 shifra, ose +35569... }
+              </small>
+            }
+          }
+
+          @if (phoneNumbers.length < maxPhones) {
+            <button type="button" class="btn btn-ghost btn-sm" (click)="addPhone()">+ Shto numër tjetër</button>
+          }
+        </fieldset>
+
+
+        <!-- 5. SHTESAT -->
+        <fieldset formGroupName="extras">
+          <legend>5. Shtesat</legend>
+          @for (opt of extrasOptions; track opt.key) {
+            <label class="check extra">
+              <input type="checkbox" [formControlName]="opt.key">
+              <span class="extra-text">
+                <strong>{{ opt.label }}</strong>
+                <span class="muted small">{{ opt.description }}</span>
+              </span>
+              <span class="extra-price">+{{ opt.pricePerDay }} € / ditë</span>
+            </label>
+          }
+        </fieldset>
+
+
+        <label class="check">
+          <input type="checkbox" formControlName="acceptTerms">
+          <span>Pranoj kushtet e qirasë dhe politikën e privatësisë.</span>
+        </label>
+        @if (isInvalid('acceptTerms')) {
+          <small class="error">Duhet të pranosh kushtet.</small>
+        }
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-lg" [disabled]="submitting()">
+            {{ submitting() ? 'Duke dërguar...' : 'Konfirmo rezervimin' }}
+          </button>
+          <button type="button" class="btn btn-ghost btn-lg" (click)="resetForm()" [disabled]="submitting()">
+            Pastro
+          </button>
+        </div>
+      </form>
+
+
+      <!-- PËRMBLEDHJA -->
+      <aside class="summary">
+        <h3>Përmbledhja</h3>
+        <p class="summary-car">{{ car.brand }} {{ car.model }} <span>({{ car.year }})</span></p>
+
+        <dl>
+          <div><dt>Ditë</dt><dd>{{ price().days }}</dd></div>
+          <div>
+            <dt>Qiraja</dt>
+            <dd>{{ car.pricePerDay | number:'1.0-2' }} € × {{ price().days }}</dd>
+          </div>
+          <div><dt>Nëntotali</dt><dd>{{ price().basePrice | number:'1.0-2' }} €</dd></div>
+          <div><dt>Shtesat</dt><dd>{{ price().extrasPrice | number:'1.0-2' }} €</dd></div>
+          @if (price().discount > 0) {
+            <div class="discount">
+              <dt>Zbritje {{ rules.longRentalDiscount * 100 }}%</dt>
+              <dd>−{{ price().discount | number:'1.0-2' }} €</dd>
+            </div>
+          }
+          <div class="total"><dt>Totali</dt><dd>{{ price().totalPrice | number:'1.0-2' }} €</dd></div>
+        </dl>
+
+        <p class="summary-note">
+          Zbritje {{ rules.longRentalDiscount * 100 }}% për {{ rules.longRentalDays }} ditë e më shumë.
+          Pagesa bëhet në momentin e marrjes së makinës.
+        </p>
+
+        @if (bookedPeriods().length) {
+          <div class="booked">
+            <p class="booked-title">E zënë në këto data:</p>
+            <ul>
+              @for (p of bookedPeriods(); track p.pickupDate) {
+                <li>{{ p.pickupDate | date:'dd/MM/yyyy' }} – {{ p.returnDate | date:'dd/MM/yyyy' }}</li>
+              }
+            </ul>
+          </div>
+        }
+      </aside>
+    </div>
+  }
+  }
+</div>

@@ -1,0 +1,105 @@
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">Qira makinash në Shqipëri</p>
+      <h1>Makina e duhur, kur të duhet.</h1>
+      <p class="lead">
+        Rezervo online në pak minuta. Merr makinën në Tiranë, Rinas, Durrës, Vlorë,
+        Shkodër ose Sarandë, me çmim të qartë që në fillim.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/makinat" class="btn btn-primary btn-lg">Shiko makinat</a>
+        @if (!auth.isLoggedIn()) {
+          <a routerLink="/regjistrohu" class="btn btn-ghost-light btn-lg">Krijo llogari</a>
+        }
+      </div>
+    </div>
+
+    <ul class="hero-facts">
+      <li><strong>{{ cars().length }}</strong><span>makina në flotë</span></li>
+      <li><strong>{{ locations.length }}</strong><span>pika marrjeje</span></li>
+      <li><strong>−{{ discountPercent }}%</strong><span>për {{ discountDays }}+ ditë</span></li>
+    </ul>
+  </div>
+</section>
+
+
+<div class="container">
+
+  <!-- KATEGORITË -->
+  <section class="section">
+    <h2>Zgjidh sipas kategorisë</h2>
+    <div class="category-grid">
+      @for (cat of categories(); track cat.key) {
+        <a class="category-tile" [attr.data-category]="cat.key"
+           routerLink="/makinat" [queryParams]="{ kategoria: cat.key }">
+          <strong>{{ cat.label }}</strong>
+          <span>
+            @if (cat.fromPrice !== null) {
+              nga {{ cat.fromPrice }} € / ditë
+            } @else {
+              së shpejti
+            }
+          </span>
+        </a>
+      }
+    </div>
+  </section>
+
+
+  <!-- MAKINAT E ZGJEDHURA -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Makinat më të kërkuara</h2>
+      <a routerLink="/makinat">Shiko të gjitha →</a>
+    </div>
+
+    @if (loading()) {
+      <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+    } @else if (error()) {
+      <div class="alert alert-error">{{ error() }}</div>
+    } @else {
+      <div class="car-grid">
+        @for (car of featured(); track car.id) {
+          <app-car-card [car]="car" />
+        }
+      </div>
+    }
+  </section>
+
+
+  <!-- SI FUNKSIONON -->
+  <section class="section">
+    <h2>Si funksionon</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <h3>Zgjidh makinën</h3>
+        <p class="muted">Krahaso makinat sipas kategorisë, kambios dhe çmimit.</p>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <h3>Rezervo online</h3>
+        <p class="muted">Zgjidh datat dhe vendin. Çmimi llogaritet menjëherë, pa surpriza.</p>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <h3>Merr çelësat</h3>
+        <p class="muted">Pasi konfirmojmë rezervimin, të presim në pikën që zgjodhe.</p>
+      </li>
+    </ol>
+  </section>
+
+
+  <!-- PIKAT E MARRJES -->
+  <section class="section">
+    <h2>Pikat e marrjes</h2>
+    <ul class="locations">
+      @for (loc of locations; track loc) {
+        <li>{{ loc }}</li>
+      }
+    </ul>
+  </section>
+
+</div>

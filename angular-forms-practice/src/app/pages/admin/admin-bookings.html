@@ -1,0 +1,111 @@
+<div class="page-head">
+  <div>
+    <h1>Rezervimet</h1>
+    <p>Konfirmo, përfundo ose anulo rezervimet e klientëve.</p>
+  </div>
+</div>
+
+@if (error()) {
+  <div class="alert alert-error">{{ error() }}</div>
+}
+
+<div class="status-tabs">
+  <button type="button" class="btn btn-ghost btn-sm" [class.active]="statusFilter() === ''" (click)="statusFilter.set('')">
+    Të gjitha <span class="count">{{ counts()[''] }}</span>
+  </button>
+  @for (s of statuses; track s) {
+    <button type="button" class="btn btn-ghost btn-sm" [class.active]="statusFilter() === s" (click)="statusFilter.set(s)">
+      {{ statusLabels[s] }} <span class="count">{{ counts()[s] }}</span>
+    </button>
+  }
+</div>
+
+<div class="card filters">
+  <input type="search" placeholder="Kërko sipas kodit, klientit, email-it ose makinës..."
+         [value]="search()" (input)="search.set(value($event))">
+</div>
+
+@if (loading()) {
+  <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+} @else {
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Kodi</th>
+          <th>Klienti</th>
+          <th>Makina</th>
+          <th>Datat</th>
+          <th class="text-right">Totali</th>
+          <th>Statusi</th>
+          <th class="text-right">Veprime</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (b of filtered(); track b.id) {
+          <tr>
+            <td class="nowrap">
+              <button type="button" class="btn btn-ghost btn-sm" (click)="toggleDetails(b.id)">
+                {{ expandedId() === b.id ? '▾' : '▸' }} {{ b.code }}
+              </button>
+            </td>
+            <td>
+              {{ b.customer.firstName }} {{ b.customer.lastName }}
+              <div class="muted small">{{ b.customer.email }}</div>
+            </td>
+            <td>{{ b.car.brand }} {{ b.car.model }}</td>
+            <td class="nowrap">
+              {{ b.pickupDate | date:'dd/MM/yyyy' }} – {{ b.returnDate | date:'dd/MM/yyyy' }}
+              <div class="muted small">{{ b.days }} ditë</div>
+            </td>
+            <td class="text-right nowrap">{{ b.totalPrice | number:'1.0-2' }} €</td>
+            <td><span class="badge badge-{{ b.status }}">{{ b.status | label:'status' }}</span></td>
+            <td>
+              <div class="row-actions">
+                @if (b.status === 'PENDING') {
+                  <button type="button" class="btn btn-primary btn-sm" [disabled]="updatingId() === b.id"
+                          (click)="setStatus(b, 'CONFIRMED')">Konfirmo</button>
+                }
+                @if (b.status === 'CONFIRMED') {
+                  <button type="button" class="btn btn-navy btn-sm" [disabled]="updatingId() === b.id"
+                          (click)="setStatus(b, 'COMPLETED')">Përfundo</button>
+                }
+                @if (b.status === 'PENDING' || b.status === 'CONFIRMED') {
+                  <button type="button" class="btn btn-danger btn-sm" [disabled]="updatingId() === b.id"
+                          (click)="setStatus(b, 'CANCELLED')">Anulo</button>
+                }
+              </div>
+            </td>
+          </tr>
+
+          @if (expandedId() === b.id) {
+            <tr class="details">
+              <td colspan="7">
+                <div class="details-grid">
+                  <div>
+                    <p><strong>Marrja:</strong> {{ b.pickupLocation }}</p>
+                    <p><strong>Kthimi:</strong> {{ b.returnLocation }}</p>
+                    <p><strong>Shtesat:</strong> {{ extrasText(b) }}</p>
+                  </div>
+                  <div>
+                    <p><strong>Mosha:</strong> {{ b.driverAge }} vjeç</p>
+                    <p><strong>Patenta:</strong> {{ b.licenseNumber }}</p>
+                    <p><strong>Telefoni:</strong> {{ b.phoneNumbers.join(', ') }}</p>
+                  </div>
+                  <div>
+                    <p><strong>Adresa:</strong> {{ b.address.street }}, {{ b.address.city }} {{ b.address.zipCode }}</p>
+                    <p><strong>Qiraja:</strong> {{ b.basePrice | number:'1.0-2' }} € · Shtesat: {{ b.extrasPrice | number:'1.0-2' }} €
+                      @if (b.discount > 0) { · Zbritje: −{{ b.discount | number:'1.0-2' }} € }</p>
+                    <p><strong>Krijuar:</strong> {{ b.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          }
+        } @empty {
+          <tr><td colspan="7" class="muted">Nuk ka rezervime për këtë filtër.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

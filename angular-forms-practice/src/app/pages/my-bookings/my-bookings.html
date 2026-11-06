@@ -1,0 +1,74 @@
+<div class="container page">
+
+  <div class="page-head">
+    <div>
+      <h1>Rezervimet e mia</h1>
+      <p>Këtu shikon statusin e çdo rezervimi.</p>
+    </div>
+    <a routerLink="/makinat" class="btn btn-primary">+ Rezervim i ri</a>
+  </div>
+
+  @if (sukses()) {
+    <div class="alert alert-success">
+      <strong>Rezervimi u dërgua!</strong>
+      Kodi yt është <strong>{{ sukses() }}</strong>. Do të të njoftojmë sapo ta konfirmojmë.
+    </div>
+  }
+
+  @if (actionError()) {
+    <div class="alert alert-error">{{ actionError() }}</div>
+  }
+
+  @if (loading()) {
+    <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+  } @else if (error()) {
+    <div class="alert alert-error">{{ error() }}</div>
+  } @else {
+    @for (b of bookings(); track b.id) {
+      <article class="booking-item" [class.highlight]="b.code === sukses()">
+        <div class="booking-main">
+          <div class="booking-title">
+            <h3>{{ b.car.brand }} {{ b.car.model }}</h3>
+            <span class="badge badge-{{ b.status }}">{{ b.status | label:'status' }}</span>
+          </div>
+
+          <p class="muted small">Kodi: <strong>{{ b.code }}</strong> · krijuar më {{ b.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+
+          <div class="booking-route">
+            <div>
+              <span class="muted small">Marrja</span>
+              <strong>{{ b.pickupDate | date:'dd/MM/yyyy' }}</strong>
+              <span>{{ b.pickupLocation }}</span>
+            </div>
+            <span class="arrow">→</span>
+            <div>
+              <span class="muted small">Kthimi</span>
+              <strong>{{ b.returnDate | date:'dd/MM/yyyy' }}</strong>
+              <span>{{ b.returnLocation }}</span>
+            </div>
+          </div>
+
+          @if (extrasText(b)) {
+            <p class="muted small">Shtesat: {{ extrasText(b) }}</p>
+          }
+        </div>
+
+        <div class="booking-side">
+          <p class="muted small">{{ b.days }} ditë</p>
+          <p class="booking-price">{{ b.totalPrice | number:'1.0-2' }} €</p>
+          @if (canCancel(b)) {
+            <button type="button" class="btn btn-danger btn-sm"
+                    [disabled]="cancellingId() === b.id" (click)="cancel(b)">
+              {{ cancellingId() === b.id ? 'Duke anuluar...' : 'Anulo' }}
+            </button>
+          }
+        </div>
+      </article>
+    } @empty {
+      <div class="empty">
+        <p>Nuk ke ende asnjë rezervim.</p>
+        <a routerLink="/makinat" class="btn btn-primary">Shiko makinat</a>
+      </div>
+    }
+  }
+</div>

@@ -1,0 +1,125 @@
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.back-link:hover { color: var(--navy); }
+
+.booking-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 24px;
+  align-items: start;
+}
+
+.link-btn {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--navy-2);
+  font: inherit;
+  font-size: .8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.driver-account { margin-bottom: 14px; }
+
+.phone-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.phone-error { margin: -4px 0 8px; }
+
+.extra {
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--bg);
+}
+
+.extra-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.extra-price {
+  color: var(--navy);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- PËRMBLEDHJA ---------- */
+
+.summary {
+  position: sticky;
+  top: 88px;
+  padding: 22px;
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: #fff;
+}
+
+.summary h3 { color: #fff; }
+
+.summary-car {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.summary-car span { color: #a9b4cc; font-weight: 400; }
+
+.summary dl { margin: 16px 0; }
+
+.summary dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  font-size: .92rem;
+}
+
+.summary dt { color: #a9b4cc; }
+.summary dd { margin: 0; text-align: right; }
+.summary .discount dd { color: #7be0a4; }
+
+.summary .total {
+  border-bottom: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.summary .total dt { color: #fff; }
+.summary .total dd { color: var(--accent); }
+
+.summary-note {
+  color: #a9b4cc;
+  font-size: .82rem;
+}
+
+.booked {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .07);
+  font-size: .85rem;
+}
+
+.booked-title { font-weight: 600; }
+
+.booked ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #d4dbea;
+}
+
+@media (max-width: 900px) {
+  .booking-layout { grid-template-columns: 1fr; }
+  .summary { position: static; order: -1; }
+}

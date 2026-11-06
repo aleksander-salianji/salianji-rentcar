@@ -1,0 +1,161 @@
+<div class="page-head">
+  <div>
+    <h1>Makinat</h1>
+    <p>Shto, ndrysho ose çaktivizo makinat e flotës.</p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="newCar()">+ Makinë e re</button>
+</div>
+
+@if (message()) {
+  <div class="alert alert-success">{{ message() }}</div>
+}
+@if (error()) {
+  <div class="alert alert-error">{{ error() }}</div>
+}
+
+<div class="layout">
+
+  <!-- LISTA -->
+  <div>
+    @if (loading()) {
+      <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+    } @else {
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Makina</th>
+              <th>Kategoria</th>
+              <th class="text-right">€ / ditë</th>
+              <th>Statusi</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (car of cars(); track car.id) {
+              <tr [class.inactive]="!car.active">
+                <td>
+                  <strong>{{ car.brand }} {{ car.model }}</strong>
+                  <div class="muted small">{{ car.year }} · {{ car.transmission | label:'transmission' }} · {{ car.fuel | label:'fuel' }}</div>
+                </td>
+                <td>{{ car.category | label:'category' }}</td>
+                <td class="text-right">{{ car.pricePerDay | number:'1.0-2' }}</td>
+                <td>
+                  <span class="badge" [class.badge-active]="car.active" [class.badge-inactive]="!car.active">
+                    {{ car.active ? 'Aktive' : 'Joaktive' }}
+                  </span>
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <button type="button" class="btn btn-ghost btn-sm" (click)="edit(car)">Ndrysho</button>
+                    <button type="button" class="btn btn-ghost btn-sm" (click)="toggleActive(car)">
+                      {{ car.active ? 'Çaktivizo' : 'Aktivizo' }}
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="remove(car)">Fshi</button>
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="5" class="muted">Nuk ka makina.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+
+
+  <!-- FORMA -->
+  <form class="card car-form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+    <h2>{{ editingId() === null ? 'Makinë e re' : 'Ndrysho makinën' }}</h2>
+
+    @if (formError()) {
+      <div class="alert alert-error">{{ formError() }}</div>
+    }
+
+    <div class="grid-2">
+      <label class="field">
+        <span>Marka</span>
+        <input type="text" formControlName="brand" [class.invalid]="isInvalid('brand')">
+        @if (isInvalid('brand')) { <small class="error">E detyrueshme.</small> }
+      </label>
+
+      <label class="field">
+        <span>Modeli</span>
+        <input type="text" formControlName="model" [class.invalid]="isInvalid('model')">
+        @if (isInvalid('model')) { <small class="error">I detyrueshëm.</small> }
+      </label>
+
+      <label class="field">
+        <span>Viti</span>
+        <input type="number" formControlName="year" [class.invalid]="isInvalid('year')">
+        @if (isInvalid('year')) { <small class="error">2000 – {{ currentYear + 1 }}</small> }
+      </label>
+
+      <label class="field">
+        <span>Vende</span>
+        <input type="number" formControlName="seats" [class.invalid]="isInvalid('seats')">
+        @if (isInvalid('seats')) { <small class="error">2 – 9</small> }
+      </label>
+
+      <label class="field">
+        <span>Kategoria</span>
+        <select formControlName="category">
+          @for (c of categories; track c) {
+            <option [value]="c">{{ categoryLabels[c] }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Kambio</span>
+        <select formControlName="transmission">
+          @for (t of transmissions; track t) {
+            <option [value]="t">{{ transmissionLabels[t] }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Karburanti</span>
+        <select formControlName="fuel">
+          @for (f of fuels; track f) {
+            <option [value]="f">{{ fuelLabels[f] }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Çmimi / ditë (€)</span>
+        <input type="number" formControlName="pricePerDay" step="0.5" [class.invalid]="isInvalid('pricePerDay')">
+        @if (isInvalid('pricePerDay')) { <small class="error">1 – 1000 €</small> }
+      </label>
+
+      <label class="field span-2">
+        <span>Foto (URL, opsionale)</span>
+        <input type="url" formControlName="imageUrl" placeholder="https://..." [class.invalid]="isInvalid('imageUrl')">
+        @if (isInvalid('imageUrl')) { <small class="error">Duhet të fillojë me http:// ose https://</small> }
+      </label>
+
+      <label class="field span-2">
+        <span>Përshkrimi (opsional)</span>
+        <textarea formControlName="description" rows="3" [class.invalid]="isInvalid('description')"></textarea>
+        @if (isInvalid('description')) { <small class="error">Maksimumi 300 karaktere.</small> }
+      </label>
+    </div>
+
+    <label class="check mt">
+      <input type="checkbox" formControlName="active">
+      <span>Aktive (shfaqet te klientët)</span>
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="saving()">
+        {{ saving() ? 'Duke ruajtur...' : (editingId() === null ? 'Shto makinën' : 'Ruaj ndryshimet') }}
+      </button>
+      @if (editingId() !== null) {
+        <button type="button" class="btn btn-ghost" (click)="newCar()">Anulo</button>
+      }
+    </div>
+  </form>
+</div>

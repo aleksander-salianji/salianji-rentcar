@@ -1,0 +1,66 @@
+<div class="container page">
+
+  <div class="page-head">
+    <div>
+      <h1>Flota jonë</h1>
+      <p>Zgjidh makinën dhe rezervoje online.</p>
+    </div>
+  </div>
+
+  <div class="card filters">
+    <label class="field search">
+      <span>Kërko</span>
+      <input type="search" placeholder="Markë ose model..."
+             [value]="search()" (input)="search.set(value($event))">
+    </label>
+
+    <label class="field">
+      <span>Kategoria</span>
+      <select [value]="category()" (change)="setCategory(value($event))">
+        <option value="">Të gjitha</option>
+        @for (cat of categories; track cat) {
+          <option [value]="cat">{{ categoryLabels[cat] }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Kambio</span>
+      <select [value]="transmission()" (change)="setTransmission(value($event))">
+        <option value="">Të gjitha</option>
+        @for (t of transmissions; track t) {
+          <option [value]="t">{{ transmissionLabels[t] }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Rendit</span>
+      <select [value]="sort()" (change)="setSort(value($event))">
+        <option value="price-asc">Çmimi: nga më i ulëti</option>
+        <option value="price-desc">Çmimi: nga më i larti</option>
+        <option value="newest">Më të rejat</option>
+      </select>
+    </label>
+
+    <button type="button" class="btn btn-ghost" [disabled]="!hasFilters()" (click)="clearFilters()">
+      Pastro
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="loading"><span class="spinner"></span> Duke ngarkuar makinat...</div>
+  } @else if (error()) {
+    <div class="alert alert-error">{{ error() }}</div>
+  } @else {
+    <p class="muted result-count">{{ filtered().length }} makina</p>
+
+    <div class="car-grid">
+      @for (car of filtered(); track car.id) {
+        <app-car-card [car]="car" />
+      } @empty {
+        <p class="empty">Asnjë makinë nuk përputhet me filtrat.</p>
+      }
+    </div>
+  }
+</div>
