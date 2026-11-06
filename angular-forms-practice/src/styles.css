@@ -1,1 +1,348 @@
-/* You can add global styles to this file, and also import other style files */
+/* =====================================================
+   STILET GLOBALE — Salianji Rent Car
+   ===================================================== */
+
+:root {
+  --navy: #0f1f3d;
+  --navy-2: #1c3360;
+  --accent: #f28c28;
+  --accent-dark: #d97615;
+  --bg: #f4f6fa;
+  --card: #ffffff;
+  --text: #1b2333;
+  --muted: #6b7486;
+  --border: #dde2ec;
+  --error: #d64545;
+  --success: #2e9d5b;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(15, 31, 61, .07);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0 0 .5rem; line-height: 1.2; color: var(--navy); }
+p { margin: 0 0 .4rem; }
+a { color: var(--navy-2); }
+img { max-width: 100%; display: block; }
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.muted { color: var(--muted); }
+.small { font-size: .85rem; }
+.text-right { text-align: right; }
+.nowrap { white-space: nowrap; }
+
+
+/* ---------- FAQJA ---------- */
+
+.page { padding-top: 32px; }
+
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.page-head h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0; }
+.page-head p { margin: 4px 0 0; color: var(--muted); }
+
+.card {
+  padding: 24px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+
+/* ---------- BUTONAT ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+}
+
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+
+.btn-primary { background: var(--accent); color: var(--navy); }
+.btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
+
+.btn-navy { background: var(--navy); color: #fff; }
+.btn-navy:hover:not(:disabled) { background: var(--navy-2); }
+
+.btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
+.btn-ghost:hover:not(:disabled) { border-color: var(--navy-2); }
+
+.btn-light { background: #fff; color: var(--navy); }
+.btn-light:hover:not(:disabled) { background: #e9edf5; }
+
+.btn-ghost-light { background: transparent; border-color: rgba(255, 255, 255, .35); color: #fff; }
+.btn-ghost-light:hover:not(:disabled) { border-color: #fff; }
+
+.btn-danger { background: transparent; border-color: #f1c4c4; color: var(--error); }
+.btn-danger:hover:not(:disabled) { background: #fbe9e9; }
+
+.btn-sm { padding: 6px 12px; font-size: .88rem; }
+.btn-lg { padding: 14px 24px; font-size: 1.05rem; }
+.btn-block { width: 100%; }
+
+
+/* ---------- FORMAT ---------- */
+
+fieldset {
+  margin: 0 0 22px;
+  padding: 0 0 22px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+legend {
+  margin-bottom: 14px;
+  padding: 0;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.grid-2, .grid-3 { display: grid; gap: 14px 16px; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field > span { font-size: .85rem; font-weight: 600; color: var(--muted); }
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  color: var(--text);
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--navy-2);
+  box-shadow: 0 0 0 3px rgba(28, 51, 96, .12);
+}
+
+input.invalid, select.invalid, textarea.invalid { border-color: var(--error); }
+
+.error { display: block; color: var(--error); font-size: .8rem; }
+.hint { display: block; color: var(--muted); font-size: .8rem; }
+.checking { display: block; color: var(--navy-2); font-size: .8rem; }
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+.check input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+
+/* ---------- ALERTS ---------- */
+
+.alert {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.alert-success { background: #e4f6ec; color: #1d6b3e; border-color: #b8e5c9; }
+.alert-error   { background: #fbe9e9; color: #9b2c2c; border-color: #f1c4c4; }
+.alert-info    { background: #e8eefa; color: #1c3360; border-color: #c6d3ee; }
+
+
+/* ---------- STATUSET ---------- */
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-PENDING   { background: #fff4e5; color: #8a4b00; }
+.badge-CONFIRMED { background: #e4f6ec; color: #1d6b3e; }
+.badge-CANCELLED { background: #fbe9e9; color: #9b2c2c; }
+.badge-COMPLETED { background: #e8eefa; color: #1c3360; }
+.badge-active    { background: #e4f6ec; color: #1d6b3e; }
+.badge-inactive  { background: #eceff4; color: var(--muted); }
+
+
+/* ---------- TABELA ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .92rem;
+}
+
+.table th, .table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table th {
+  background: #f8f9fc;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.table tr:last-child td { border-bottom: 0; }
+
+
+/* ---------- GJENDJE ---------- */
+
+.empty {
+  padding: 32px 16px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--muted);
+  text-align: center;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 16px;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+/* ---------- AUTH (Hyr / Regjistrohu) ---------- */
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+}
+
+.auth-card.wide { max-width: 620px; }
+.auth-card h1 { font-size: 1.6rem; }
+
+.auth-switch {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.demo-accounts {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--bg);
+  font-size: .85rem;
+}
+
+.demo-accounts button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--navy-2);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .span-2, .span-3 { grid-column: auto; }
+  .card { padding: 18px; }
+}
