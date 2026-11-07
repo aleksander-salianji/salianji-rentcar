@@ -1,5 +1,9 @@
-// Adresa e backend-it Spring Boot
-export const SERVER_URL = 'http://localhost:8080';
+// Adresa e backend-it Spring Boot.
+// Lokalisht është http://localhost:8080. Online (Vercel) vendoset vetë nga
+// variabla BACKEND_URL, përmes scripts/set-server-url.mjs para build-it.
+import { BACKEND_URL } from './server-url';
+
+export const SERVER_URL = BACKEND_URL.replace(/\/+$/, '');
 export const API_URL = `${SERVER_URL}/api`;
 
 // true  = punon pa backend: një "server demo" brenda shfletuesit (të dhënat ruhen në localStorage)

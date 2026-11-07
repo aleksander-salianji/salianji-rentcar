@@ -1,0 +1,544 @@
+﻿{
+  "app": {
+    "demo": "Demo modu: veriler yalnızca bu tarayıcıda saklanır."
+  },
+  "nav": {
+    "menu": "Menü",
+    "home": "Ana sayfa",
+    "cars": "Araçlar",
+    "myBooking": "Rezervasyonum",
+    "blog": "Blog",
+    "help": "Yardım",
+    "about": "Hakkımızda",
+    "careers": "Kariyer",
+    "faq": "Sık sorulan sorular",
+    "adminPanel": "Yönetici paneli",
+    "panel": "Panel",
+    "logout": "Çıkış yap",
+    "login": "Giriş · İşletmeler",
+    "language": "Dil",
+    "lightTheme": "Açık tema",
+    "darkTheme": "Koyu tema"
+  },
+  "footer": {
+    "tagline": "Arnavutluk'un en iyi şirketlerinden araç kiralama.",
+    "navigation": "Gezinme",
+    "helpSupport": "Yardım / Destek",
+    "company": "Şirket",
+    "support": "Destek",
+    "online": "7/24 online rezervasyon",
+    "rights": "Tüm hakları saklıdır.",
+    "photos": "Araç fotoğrafları:",
+    "license": "CC lisansı"
+  },
+  "home": {
+    "kicker": "Arnavutluk'un en iyi şirketlerinden kiralık araçlar",
+    "partners": "Partner şirketler",
+    "chooseCompany": "Şirket seçin",
+    "fleet": "Filo",
+    "allCars": "Tüm araçlar",
+    "emptyCategory": "Bu kategoride araç yok."
+  },
+  "search": {
+    "pickupPlace": "Teslim alma yeri",
+    "choosePlace": "Yer seçin",
+    "returnPlace": "İade yeri",
+    "samePlace": "Aynı yer",
+    "pickupDate": "Teslim alma",
+    "returnDate": "İade",
+    "search": "Ara"
+  },
+  "common": {
+    "carsCount": "{n} araç",
+    "all": "Tümü",
+    "loadingCars": "Araçlar yükleniyor...",
+    "clear": "Temizle",
+    "searching": "Aranıyor...",
+    "loading": "Yükleniyor...",
+    "backHome": "Ana sayfaya dön",
+    "minDays": "Minimum kiralama süresi 3 gündür.",
+    "seeCars": "Araçları gör",
+    "choose": "Seçin",
+    "optional": "isteğe bağlı",
+    "remove": "Kaldır",
+    "sending": "Gönderiliyor..."
+  },
+  "cars": {
+    "inCity": "{city} içinde",
+    "pickupAt": "teslim alma: {place}",
+    "returnAt": "iade: {place}",
+    "freeBetween": "müsait {from} → {to} ({days} gün)",
+    "city": "Şehir",
+    "allCities": "Tüm şehirler",
+    "company": "Şirket",
+    "allCompanies": "Tüm şirketler",
+    "minDaysError": "Minimum kiralama süresi 3 gündür. Daha geç bir iade tarihi seçin.",
+    "searchPlaceholder": "Marka, model veya şirket ara...",
+    "allCategories": "Tüm kategoriler",
+    "anyGearbox": "Tüm vites türleri",
+    "cheapest": "En ucuzlar",
+    "priciest": "En pahalılar",
+    "newest": "En yeniler",
+    "empty": "Bu arama için müsait araç yok. Başka tarihler veya başka bir şehir deneyin."
+  },
+  "car": {
+    "seats": "{n} koltuk",
+    "perDay": "gün",
+    "book": "Rezervasyon yap"
+  },
+  "company": {
+    "partner": "Partner şirket",
+    "address": "Adres",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "cars": "Araçlar",
+    "clearDates": "Tarihleri temizle",
+    "freeBetween": "{from} – {to} arası müsait · {days} gün",
+    "empty": "Bu seçim için müsait araç yok."
+  },
+  "booking": {
+    "back": "Araçlara dön",
+    "title": "{car} rezervasyonu",
+    "by": "şirket:",
+    "formInvalid": "Bazı alanlar doğru doldurulmadı. Kırmızı alanları kontrol edin.",
+    "s1": "Tarihler ve yer",
+    "err": {
+      "pickupPlace": "Teslim alma yerini seçin.",
+      "returnPlace": "İade yerini seçin.",
+      "pickupDate": "Teslim alma tarihini seçin.",
+      "pastDate": "Tarih geçmişte olamaz.",
+      "returnDate": "İade tarihini seçin.",
+      "range": "İade tarihi teslim alma tarihinden sonra olmalıdır.",
+      "tooShort": "Minimum kiralama süresi {n} gündür.",
+      "tooLong": "Kiralama {n} günden uzun olamaz.",
+      "unavailable": "Araç bu tarihlerin bazılarında dolu. Dolu dönemleri sağda görebilirsiniz.",
+      "age": "Yaşınızı girin.",
+      "ageMin": "Sürücü en az {n} yaşında olmalıdır.",
+      "ageMax": "Maksimum yaş {n}.",
+      "license": "Ehliyet numarası 6–12 harf veya rakam içermelidir.",
+      "street": "Sokağı girin.",
+      "city": "Şehri girin.",
+      "zip": "4 rakam.",
+      "phone": "Numarayı girin.",
+      "phoneFormat": "Biçim: 067/068/069 + 7 rakam veya +35569...",
+      "terms": "Koşulları kabul etmelisiniz."
+    },
+    "samePlace": "Teslim alma yeriyle aynı",
+    "pickupDate": "Teslim alma tarihi",
+    "returnDate": "İade tarihi",
+    "s2": "Bilgileriniz",
+    "noAccount": "Hesap gerekmez. Şirket sizinle e-posta ve telefonla iletişime geçecek.",
+    "age": "Yaş",
+    "license": "Ehliyet numarası",
+    "licensePlaceholder": "örn. AL1234567",
+    "s3": "Adres",
+    "street": "Sokak",
+    "zip": "Posta kodu",
+    "s4": "Telefon numaraları",
+    "addPhone": "Başka numara ekle",
+    "s5": "Ekstralar",
+    "terms": "Kiralama koşullarını ve gizlilik politikasını kabul ediyorum.",
+    "confirm": "Rezervasyonu onayla",
+    "summary": "Özet",
+    "days": "Gün",
+    "rent": "Kira",
+    "subtotal": "Ara toplam",
+    "discount": "%{p} indirim",
+    "total": "Toplam",
+    "note": "{n} gün ve üzeri için %{p} indirim. Ödeme araç teslim alınırken yapılır.",
+    "ruleMin": "Minimum kiralama: {n} gün",
+    "ruleCancel": "Ücretsiz iptal yalnızca rezervasyondan sonraki {n} saat içinde",
+    "booked": "Bu tarihlerde dolu:"
+  },
+  "form": {
+    "firstName": "Ad",
+    "err": {
+      "firstName": "Adınızı girin.",
+      "lastName": "Soyadınızı girin.",
+      "email": "Geçerli bir e-posta girin."
+    },
+    "lastName": "Soyad",
+    "email": "E-posta",
+    "emailPlaceholder": "ad@ornek.com",
+    "name": "Ad"
+  },
+  "extras": {
+    "gps": {
+      "label": "GPS",
+      "desc": "Arnavutluk haritalı navigasyon"
+    },
+    "childSeat": {
+      "label": "Çocuk koltuğu",
+      "desc": "9–36 kg çocuklar için"
+    },
+    "fullInsurance": {
+      "label": "Tam sigorta",
+      "desc": "Hasarda muafiyet yok"
+    }
+  },
+  "lookup": {
+    "intro": "Hesap gerekmez. Rezervasyon kodunuzu ve verdiğiniz telefon numarasını girin.",
+    "newBooking": "Yeni rezervasyon",
+    "sentTitle": "Rezervasyon şirkete gönderildi!",
+    "sentText": "Kodunuz {code} — saklayın. Şirket onay için sizinle iletişime geçecek.",
+    "code": "Rezervasyon kodu",
+    "err": {
+      "code": "Kodu girin.",
+      "phone": "Telefon numarasını girin."
+    },
+    "find": "Rezervasyonu bul",
+    "codeLabel": "Kod",
+    "created": "oluşturulma:",
+    "days": "{n} gün",
+    "cancelling": "İptal ediliyor...",
+    "cancel": "İptal et",
+    "until": "son tarih:",
+    "windowPassed": "{n} saatlik iptal süresi doldu. Değişiklik için şirketi arayın.",
+    "problem": "Sorun mu var? Destek ekibine yazın",
+    "notFound": "Rezervasyon bulunamadı.",
+    "confirmCancel": "{code} rezervasyonunu iptal etmek istediğinizden emin misiniz?"
+  },
+  "support": {
+    "hours": "Online 7/24",
+    "title": "Size nasıl yardımcı olabiliriz?",
+    "lead": "Bize yazın veya bizi arayın. Rezervasyonlar için kodunuzu hazır tutun (örn. BCA-2026-0001).",
+    "call": "Ara",
+    "fastReply": "Hızlı yanıt",
+    "viewCancel": "Görüntüle veya iptal et",
+    "allQuestions": "Tüm sorular",
+    "sentTitle": "Mesaj gönderildi",
+    "sentText": "Talep numarası: #{id}. En kısa sürede {email} adresine yanıt vereceğiz.",
+    "urgent": "Acil durumlar için:",
+    "another": "Başka mesaj gönder",
+    "writeUs": "Bize yazın",
+    "noAccount": "Hesap gerekmez.",
+    "topic": "Konu",
+    "message": "Mesaj",
+    "messagePlaceholder": "Ne olduğunu anlatın...",
+    "err": {
+      "message": "En az 10 karakter yazın."
+    },
+    "send": "Mesajı gönder",
+    "error": "Mesaj gönderilemedi. Tekrar deneyin veya bizi arayın."
+  },
+  "enum": {
+    "supportTopic": {
+      "BOOKING": "Rezervasyon",
+      "CANCELLATION": "İptal / değişiklik",
+      "PAYMENT": "Ödeme / fiyat",
+      "CAR": "Araçla ilgili sorun",
+      "PARTNER": "Partner olmak istiyorum",
+      "CAREER": "Kariyer / iş başvurusu",
+      "OTHER": "Diğer"
+    },
+    "category": {
+      "ECONOMY": "Ekonomik",
+      "SEDAN": "Sedan",
+      "SUV": "SUV",
+      "LUXURY": "Lüks"
+    },
+    "transmission": {
+      "MANUAL": "Manuel",
+      "AUTOMATIC": "Otomatik"
+    },
+    "fuel": {
+      "PETROL": "Benzin",
+      "DIESEL": "Dizel",
+      "HYBRID": "Hibrit",
+      "ELECTRIC": "Elektrikli"
+    },
+    "status": {
+      "PENDING": "Beklemede",
+      "CONFIRMED": "Onaylandı",
+      "CANCELLED": "İptal edildi",
+      "COMPLETED": "Tamamlandı"
+    }
+  },
+  "faq": {
+    "title": "Bilmeniz gereken her şey",
+    "lead": "Rezervasyon, ödeme, iptal ve aracın teslim alınması. Cevabı bulamadınız mı?",
+    "searchPlaceholder": "Ara örn. iptal, ehliyet, indirim...",
+    "none": "\"{term}\" için soru bulunamadı.",
+    "askSupport": "Destek ekibine sorun",
+    "groups": [
+      {
+        "title": "Rezervasyon",
+        "items": [
+          {
+            "q": "Rezervasyon için hesap gerekir mi?",
+            "a": "Hayır. Aracı seçin, bilgilerinizi girin ve bir rezervasyon kodu alın. Kod ve telefon numaranızla rezervasyonu \"Rezervasyonum\" bölümünde bulursunuz."
+          },
+          {
+            "q": "Minimum kiralama süresi nedir?",
+            "a": "Minimum 3 gün, maksimum 30 gündür."
+          },
+          {
+            "q": "Rezervasyonumu kim onaylar?",
+            "a": "Aracın sahibi olan şirket. Rezervasyonu anında alır ve sizinle telefon veya e-posta ile iletişime geçer."
+          },
+          {
+            "q": "Aracın müsait olduğunu nasıl anlarım?",
+            "a": "Aramada tarih seçtiğinizde yalnızca müsait araçlar gösterilir. Rezervasyon sayfasında aracın dolu olduğu tarihleri de görürsünüz."
+          }
+        ]
+      },
+      {
+        "title": "Ödeme ve fiyatlar",
+        "items": [
+          {
+            "q": "Ne zaman ve nasıl öderim?",
+            "a": "Ödemeyi aracı teslim alırken şirkete yaparsınız. Özetteki fiyat nihai toplamdır."
+          },
+          {
+            "q": "Uzun kiralamalarda indirim var mı?",
+            "a": "Evet. 7 gün ve üzeri için otomatik olarak %10 indirim alırsınız."
+          },
+          {
+            "q": "Fiyata neler dahil?",
+            "a": "Günlük kira ve seçtiğiniz ekstralar (GPS, çocuk koltuğu, tam sigorta). Yakıt dahil değildir."
+          }
+        ]
+      },
+      {
+        "title": "İptal ve değişiklikler",
+        "items": [
+          {
+            "q": "Rezervasyonumu nasıl iptal ederim?",
+            "a": "\"Rezervasyonum\" bölümünde kodu ve telefonu girip \"İptal et\"e tıklayın. Ücretsiz iptal yalnızca rezervasyondan sonraki 24 saat içinde ve teslim alma gününden önce mümkündür."
+          },
+          {
+            "q": "24 saat geçti, ne yapabilirim?",
+            "a": "Şirketi doğrudan arayın (numara rezervasyonda yazar) veya Yardım sayfasından bize yazın."
+          },
+          {
+            "q": "Tarihleri nasıl değiştiririm?",
+            "a": "24 saat içinde iptal edip yeni rezervasyon yapın veya şirketle iletişime geçin."
+          }
+        ]
+      },
+      {
+        "title": "Aracın teslim alınması",
+        "items": [
+          {
+            "q": "Hangi belgeler gerekli?",
+            "a": "Geçerli bir sürücü belgesi ve kimlik belgesi. Sürücü 21–75 yaş arasında olmalıdır."
+          },
+          {
+            "q": "Aracı nereden teslim alırım?",
+            "a": "Rezervasyonda seçtiğiniz yerden, örn. Rinas Havalimanı, Tiran merkez, Dıraç, Avlonya, İşkodra veya Saranda."
+          },
+          {
+            "q": "Başka bir şehirde iade edebilir miyim?",
+            "a": "Evet, rezervasyon sırasında farklı bir iade yeri seçin. Şirketle teyit edin."
+          }
+        ]
+      },
+      {
+        "title": "İşletmeler için",
+        "items": [
+          {
+            "q": "Şirketim nasıl partner olur?",
+            "a": "Yardım sayfasından \"Partner olmak istiyorum\" konusuyla bize yazın. Şirketi ve araçlarını ekler, panel girişinizi oluştururuz."
+          },
+          {
+            "q": "İşletme panelde neleri görür?",
+            "a": "Kendi rezervasyonlarını, araçlarının durumunu (boş / dolu) ve günlük, haftalık ve aylık ciroyu."
+          }
+        ]
+      }
+    ]
+  },
+  "careers": {
+    "title": "Arnavutluk'ta seyahat etme şeklini bizimle birlikte inşa edin",
+    "lead": "Gezginleri en iyi kiralama şirketleriyle buluşturan küçük bir ekibiz. Yeni bir şey inşa etmek isteyen insanlar arıyoruz.",
+    "open": "Açık pozisyonlar",
+    "tasks": "Neler yapacaksınız",
+    "requirements": "Aradıklarımız",
+    "apply": "Başvur",
+    "thanks": "Teşekkürler!",
+    "sentText": "Başvuru gönderildi (no. #{id}). Profiliniz uygunsa e-posta ile iletişime geçeceğiz.",
+    "applyOther": "Başka pozisyona başvur",
+    "openApplicationHint": "Pozisyonunuzu göremiyor musunuz? \"Genel başvuru\"yu seçin ve neler yapabildiğinizi anlatın.",
+    "position": "Pozisyon",
+    "openApplication": "Genel başvuru",
+    "fullName": "Ad soyad",
+    "cv": "CV / LinkedIn bağlantısı",
+    "why": "Neden siz?",
+    "whyPlaceholder": "Deneyiminiz hakkında birkaç cümle...",
+    "err": "Ad, e-posta, CV bağlantısı (https://...) ve \"Neden siz?\" alanına en az 20 karakter girin.",
+    "send": "Başvuruyu gönder",
+    "error": "Başvuru gönderilemedi. Tekrar deneyin.",
+    "jobs": [
+      {
+        "id": "support",
+        "title": "Müşteri Destek Temsilcisi",
+        "team": "Destek",
+        "location": "Tiran",
+        "type": "Tam zamanlı · vardiyalı",
+        "summary": "Müşteriler için Bookers'ın sesisiniz: rezervasyonlarda, iptallerde ve yolculuk sırasındaki her sorunda yardımcı olursunuz.",
+        "tasks": [
+          "Telefon, WhatsApp ve e-postaları yanıtlamak",
+          "Destek panelindeki talepleri çözülene kadar takip etmek",
+          "Rezervasyon değişikliklerini partner şirketlerle koordine etmek"
+        ],
+        "requirements": [
+          "Çok iyi Arnavutça ve İngilizce (İtalyanca artı)",
+          "Müşterilere karşı sabır ve sakinlik",
+          "Yüksek sezonda hafta sonları dahil vardiyalı çalışabilmek"
+        ]
+      },
+      {
+        "id": "partner",
+        "title": "Partnerlik Yöneticisi",
+        "team": "İş Geliştirme",
+        "location": "Tiran · Dıraç, Avlonya, Saranda seyahatleri",
+        "type": "Tam zamanlı",
+        "summary": "Platforma yeni kiralama şirketleri kazandırır ve mevcut partnerlerin bizimle büyümesini sağlarsınız.",
+        "tasks": [
+          "Kiralama şirketleriyle görüşmek ve platformu tanıtmak",
+          "Yeni partnerlere araç, fotoğraf ve fiyat konusunda yardımcı olmak",
+          "Her partnerin sonuçlarını aylık takip etmek"
+        ],
+        "requirements": [
+          "Satış veya müşteri yönetimi deneyimi",
+          "B sınıfı ehliyet ve seyahat edebilmek",
+          "Turizm pazarı bilgisi artı"
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Frontend Geliştirici (Angular)",
+        "team": "Teknoloji",
+        "location": "Tiran · hibrit",
+        "type": "Tam zamanlı",
+        "summary": "Binlerce gezginin kullandığı web sitesini ve partner işletmelerin panelini geliştirirsiniz.",
+        "tasks": [
+          "Angular ve TypeScript ile yeni sayfalar geliştirmek",
+          "Hızı ve mobil deneyimi iyileştirmek",
+          "Backend (Spring Boot) ile birlikte çalışmak"
+        ],
+        "requirements": [
+          "Angular, TypeScript, HTML/CSS",
+          "Reactive Forms ve RxJS",
+          "Git ve ekip çalışması"
+        ]
+      },
+      {
+        "id": "marketing",
+        "title": "Dijital Pazarlama Stajyeri",
+        "team": "Pazarlama",
+        "location": "Tiran",
+        "type": "Staj · 3 ay",
+        "summary": "Blog ve sosyal medya için içerik üretir, bir online platformun pazarlamasını öğrenirsiniz.",
+        "tasks": [
+          "Blog yazıları yazmak (rotalar, ipuçları)",
+          "Instagram ve TikTok gönderileri hazırlamak",
+          "Kampanya sonuçlarını takip etmek"
+        ],
+        "requirements": [
+          "Öğrenci veya yeni mezun",
+          "Arnavutça iyi yazım",
+          "Seyahat ve fotoğrafçılık tutkusu"
+        ]
+      }
+    ],
+    "perks": [
+      {
+        "t": "Küçük ekip",
+        "d": "Fikriniz gelecek hafta sitede yayında olabilir."
+      },
+      {
+        "t": "Büyüme",
+        "d": "Arnavutluk'un her şehrine yayılan yeni bir platform."
+      },
+      {
+        "t": "Esneklik",
+        "d": "Uygun rollerde hibrit çalışma."
+      },
+      {
+        "t": "Seyahat",
+        "d": "Partner şirketlerin araçlarında indirim."
+      }
+    ]
+  },
+  "about": {
+    "title": "Arnavutluk'taki tüm kiralık araçlar tek bir yerde",
+    "lead": "Bookers Car Albania gezginleri yerel kiralama şirketleriyle buluşturur. Fiyatları karşılaştırır, hangi aracın müsait olduğunu görür ve hesap açmadan birkaç dakikada rezervasyon yaparsınız. Şirket rezervasyonu anında alır ve aracı hazır şekilde sizi bekler.",
+    "statCompanies": "partner şirket",
+    "statCars": "platformdaki araç",
+    "statCities": "şehir",
+    "statOnline": "online rezervasyon",
+    "how": "Nasıl çalışır",
+    "mission": "Misyonumuz",
+    "mission1": "Arnavutluk'ta araç kiralamak çoğu zaman telefonlar, mesajlar ve değişen fiyatlar demektir. Biz bunu basitleştiriyoruz: net fiyatlar, gerçek müsaitlik ve herkes için aynı kurallar — en az 3 gün, 24 saat içinde ücretsiz iptal, teslimatta ödeme.",
+    "mission2": "Yerel şirketler için çevrimiçi bir vitrin ve her gün rezervasyonları, müsait araçları ve cirolarını gördükleri bir paneliz.",
+    "partners": "Partnerlerimiz",
+    "ctaTitle": "Bir kiralama şirketiniz mi var?",
+    "ctaText": "Partner olun ve kendi panelinizle yeni müşterilerden rezervasyon alın.",
+    "becomePartner": "Partner olun",
+    "steps": [
+      {
+        "t": "Ara",
+        "d": "Şehir ve tarihleri seçin. Tüm şirketlerin yalnızca müsait araçları gösterilir."
+      },
+      {
+        "t": "Rezervasyon yap",
+        "d": "Bilgilerinizi girin, hesap gerekmez. Rezervasyon kodunuzu anında alın."
+      },
+      {
+        "t": "Aracı teslim al",
+        "d": "Şirket onaylar ve sizi bekler. Ödemeyi teslimatta yaparsınız."
+      }
+    ],
+    "values": [
+      {
+        "t": "Şeffaflık",
+        "d": "Gördüğünüz fiyat ödediğiniz fiyattır."
+      },
+      {
+        "t": "Yerel şirketler",
+        "d": "Arnavut kiralama işletmelerini destekliyoruz."
+      },
+      {
+        "t": "Sadelik",
+        "d": "Hesap yok, evrak yok, gereksiz telefon yok."
+      }
+    ]
+  },
+  "blog": {
+    "title": "Seyahat ve ipuçları",
+    "lead": "Arnavutluk rotaları, araç kiralama ipuçları ve partner şirketlerin teklifleri.",
+    "readMin": "{n} dk okuma",
+    "read": "Oku",
+    "empty": "Henüz makale yok.",
+    "allPosts": "Tüm makaleler",
+    "ctaTitle": "Yolculuğa hazır mısınız?",
+    "ctaText": "Partner şirketlerin araçlarını karşılaştırın ve hesap açmadan rezervasyon yapın.",
+    "alsoRead": "Bunları da okuyun",
+    "notFound": "Makale bulunamadı."
+  },
+  "login": {
+    "intro": "Yalnızca partner şirketler ve yönetici için. Müşteriler hesap açmadan rezervasyon yapar.",
+    "expired": "Oturumun süresi doldu. Tekrar giriş yapın.",
+    "needLogin": "Devam etmek için işletme hesabınızla giriş yapın.",
+    "password": "Şifre",
+    "err": {
+      "password": "Şifreyi girin."
+    },
+    "loggingIn": "Giriş yapılıyor...",
+    "submit": "Giriş yap",
+    "client": "Müşteri misiniz?",
+    "findBooking": "Rezervasyonunuzu kod ve telefonla bulun.",
+    "partner": "Partner olmak mı istiyorsunuz? Bize yazın:"
+  },
+  "errors": {
+    "offline": "Sunucu yanıt vermiyor. Backend'in çalıştığından emin olun.",
+    "unauthorized": "Giriş yapmanız gerekiyor.",
+    "forbidden": "Bu işlem için yetkiniz yok.",
+    "notFound": "Bulunamadı.",
+    "generic": "Bir hata oluştu. Tekrar deneyin.",
+    "loginFailed": "Giriş başarısız.",
+    "carNotFound": "Araç bulunamadı.",
+    "companyNotFound": "Şirket bulunamadı."
+  }
+}

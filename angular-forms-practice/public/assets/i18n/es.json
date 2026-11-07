@@ -1,0 +1,31 @@
+﻿{
+  "DEMO": {
+    "MESSAGE": "Modo demo: los datos se guardan solo en este navegador."
+  },
+  "NAV": {
+    "MENU": "Menú",
+    "HOME": "Inicio",
+    "CARS": "Coches",
+    "MY_BOOKING": "Mi reserva",
+    "BLOG": "Blog",
+    "HELP": "Ayuda",
+    "ABOUT": "Sobre nosotros",
+    "CAREERS": "Empleo",
+    "FAQ": "Preguntas frecuentes",
+    "ADMIN_PANEL": "Panel de administración",
+    "PANEL": "Panel",
+    "LOGOUT": "Cerrar sesión",
+    "BUSINESS_LOGIN": "Acceso · Empresas",
+    "LANGUAGE": "Idioma"
+  },
+  "FOOTER": {
+    "DESCRIPTION": "Alquiler de coches de las mejores empresas de Albania.",
+    "NAVIGATION": "Navegación",
+    "COMPANY": "Empresa",
+    "SUPPORT": "Soporte",
+    "ONLINE": "Reservas online 24/7",
+    "RIGHTS": "Todos los derechos reservados.",
+    "PHOTOS": "Fotos de los coches:",
+    "LICENSE": "licencia CC"
+  }
+}

@@ -1,0 +1,544 @@
+﻿{
+  "app": {
+    "demo": "Mode démo : les données sont enregistrées uniquement dans ce navigateur."
+  },
+  "nav": {
+    "menu": "Menu",
+    "home": "Accueil",
+    "cars": "Voitures",
+    "myBooking": "Ma réservation",
+    "blog": "Blog",
+    "help": "Aide",
+    "about": "À propos",
+    "careers": "Carrières",
+    "faq": "Questions fréquentes",
+    "adminPanel": "Espace admin",
+    "panel": "Tableau de bord",
+    "logout": "Se déconnecter",
+    "login": "Connexion · Entreprises",
+    "language": "Langue",
+    "lightTheme": "Thème clair",
+    "darkTheme": "Thème sombre"
+  },
+  "footer": {
+    "tagline": "Location de voitures auprès des meilleures agences d'Albanie.",
+    "navigation": "Navigation",
+    "helpSupport": "Aide / Support",
+    "company": "Entreprise",
+    "support": "Support",
+    "online": "Réservations en ligne 24h/24",
+    "rights": "Tous droits réservés.",
+    "photos": "Photos des voitures :",
+    "license": "licence CC"
+  },
+  "home": {
+    "kicker": "Voitures de location des meilleures agences d'Albanie",
+    "partners": "Agences partenaires",
+    "chooseCompany": "Choisissez une agence",
+    "fleet": "Flotte",
+    "allCars": "Toutes les voitures",
+    "emptyCategory": "Aucune voiture dans cette catégorie."
+  },
+  "search": {
+    "pickupPlace": "Lieu de prise en charge",
+    "choosePlace": "Choisir le lieu",
+    "returnPlace": "Lieu de restitution",
+    "samePlace": "Même lieu",
+    "pickupDate": "Prise en charge",
+    "returnDate": "Restitution",
+    "search": "Rechercher"
+  },
+  "common": {
+    "carsCount": "{n} voitures",
+    "all": "Toutes",
+    "loadingCars": "Chargement des voitures...",
+    "clear": "Effacer",
+    "searching": "Recherche...",
+    "loading": "Chargement...",
+    "backHome": "Retour à l'accueil",
+    "minDays": "La location minimale est de 3 jours.",
+    "seeCars": "Voir les voitures",
+    "choose": "Choisir",
+    "optional": "facultatif",
+    "remove": "Supprimer",
+    "sending": "Envoi en cours..."
+  },
+  "cars": {
+    "inCity": "à {city}",
+    "pickupAt": "prise en charge : {place}",
+    "returnAt": "restitution : {place}",
+    "freeBetween": "disponibles {from} → {to} ({days} jours)",
+    "city": "Ville",
+    "allCities": "Toutes les villes",
+    "company": "Agence",
+    "allCompanies": "Toutes les agences",
+    "minDaysError": "La location minimale est de 3 jours. Choisissez une date de restitution plus tardive.",
+    "searchPlaceholder": "Rechercher une marque, un modèle ou une agence...",
+    "allCategories": "Toutes les catégories",
+    "anyGearbox": "Toute boîte de vitesses",
+    "cheapest": "Les moins chères",
+    "priciest": "Les plus chères",
+    "newest": "Les plus récentes",
+    "empty": "Aucune voiture disponible pour cette recherche. Essayez d'autres dates ou une autre ville."
+  },
+  "car": {
+    "seats": "{n} places",
+    "perDay": "jour",
+    "book": "Réserver"
+  },
+  "company": {
+    "partner": "Agence partenaire",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "cars": "Voitures",
+    "clearDates": "Effacer les dates",
+    "freeBetween": "Disponibles du {from} au {to} · {days} jours",
+    "empty": "Aucune voiture disponible pour cette sélection."
+  },
+  "booking": {
+    "back": "Retour aux voitures",
+    "title": "Réserver {car}",
+    "by": "par",
+    "formInvalid": "Certains champs ne sont pas correctement remplis. Vérifiez les champs en rouge.",
+    "s1": "Dates et lieu",
+    "err": {
+      "pickupPlace": "Choisissez le lieu de prise en charge.",
+      "returnPlace": "Choisissez le lieu de restitution.",
+      "pickupDate": "Choisissez la date de prise en charge.",
+      "pastDate": "La date ne peut pas être dans le passé.",
+      "returnDate": "Choisissez la date de restitution.",
+      "range": "La date de restitution doit être après la date de prise en charge.",
+      "tooShort": "La location minimale est de {n} jours.",
+      "tooLong": "La location ne peut pas dépasser {n} jours.",
+      "unavailable": "La voiture est réservée à certaines de ces dates. Voir les périodes réservées à droite.",
+      "age": "Indiquez votre âge.",
+      "ageMin": "Le conducteur doit avoir au moins {n} ans.",
+      "ageMax": "L'âge maximal est de {n} ans.",
+      "license": "Le numéro de permis doit comporter 6 à 12 lettres ou chiffres.",
+      "street": "Indiquez la rue.",
+      "city": "Indiquez la ville.",
+      "zip": "4 chiffres.",
+      "phone": "Indiquez le numéro.",
+      "phoneFormat": "Format : 067/068/069 + 7 chiffres, ou +35569...",
+      "terms": "Vous devez accepter les conditions."
+    },
+    "samePlace": "Identique au lieu de prise en charge",
+    "pickupDate": "Date de prise en charge",
+    "returnDate": "Date de restitution",
+    "s2": "Vos informations",
+    "noAccount": "Aucun compte nécessaire. L'agence vous contactera par e-mail et téléphone.",
+    "age": "Âge",
+    "license": "Numéro de permis de conduire",
+    "licensePlaceholder": "ex. AL1234567",
+    "s3": "Adresse",
+    "street": "Rue",
+    "zip": "Code postal",
+    "s4": "Numéros de téléphone",
+    "addPhone": "Ajouter un autre numéro",
+    "s5": "Options",
+    "terms": "J'accepte les conditions de location et la politique de confidentialité.",
+    "confirm": "Confirmer la réservation",
+    "summary": "Récapitulatif",
+    "days": "Jours",
+    "rent": "Location",
+    "subtotal": "Sous-total",
+    "discount": "Remise {p}%",
+    "total": "Total",
+    "note": "Remise de {p}% à partir de {n} jours. Le paiement se fait à la prise en charge de la voiture.",
+    "ruleMin": "Location minimale : {n} jours",
+    "ruleCancel": "Annulation gratuite uniquement dans les {n} heures suivant la réservation",
+    "booked": "Réservée à ces dates :"
+  },
+  "form": {
+    "firstName": "Prénom",
+    "err": {
+      "firstName": "Indiquez votre prénom.",
+      "lastName": "Indiquez votre nom.",
+      "email": "Indiquez un e-mail valide."
+    },
+    "lastName": "Nom",
+    "email": "E-mail",
+    "emailPlaceholder": "nom@exemple.fr",
+    "name": "Nom"
+  },
+  "extras": {
+    "gps": {
+      "label": "GPS",
+      "desc": "Navigation avec cartes de l'Albanie"
+    },
+    "childSeat": {
+      "label": "Siège enfant",
+      "desc": "Pour enfants de 9 à 36 kg"
+    },
+    "fullInsurance": {
+      "label": "Assurance tous risques",
+      "desc": "Sans franchise en cas de dommage"
+    }
+  },
+  "lookup": {
+    "intro": "Aucun compte nécessaire. Saisissez votre code de réservation et le numéro de téléphone indiqué.",
+    "newBooking": "Nouvelle réservation",
+    "sentTitle": "La réservation a été envoyée à l'agence !",
+    "sentText": "Votre code est {code} — conservez-le. L'agence vous contactera pour confirmer.",
+    "code": "Code de réservation",
+    "err": {
+      "code": "Saisissez le code.",
+      "phone": "Saisissez le numéro de téléphone."
+    },
+    "find": "Trouver la réservation",
+    "codeLabel": "Code",
+    "created": "créée le",
+    "days": "{n} jours",
+    "cancelling": "Annulation...",
+    "cancel": "Annuler",
+    "until": "jusqu'au",
+    "windowPassed": "Le délai d'annulation de {n} heures est dépassé. Pour toute modification, appelez l'agence.",
+    "problem": "Un problème ? Écrivez au support",
+    "notFound": "Réservation introuvable.",
+    "confirmCancel": "Voulez-vous vraiment annuler la réservation {code} ?"
+  },
+  "support": {
+    "hours": "En ligne 24h/24",
+    "title": "Comment pouvons-nous vous aider ?",
+    "lead": "Écrivez-nous ou appelez-nous. Pour les réservations, ayez votre code à portée de main (ex. BCA-2026-0001).",
+    "call": "Appeler",
+    "fastReply": "Réponse rapide",
+    "viewCancel": "Voir ou annuler",
+    "allQuestions": "Toutes les questions",
+    "sentTitle": "Message envoyé",
+    "sentText": "Numéro de demande : #{id}. Nous répondrons à {email} dès que possible.",
+    "urgent": "Pour une urgence :",
+    "another": "Envoyer un autre message",
+    "writeUs": "Écrivez-nous",
+    "noAccount": "Aucun compte nécessaire.",
+    "topic": "Sujet",
+    "message": "Message",
+    "messagePlaceholder": "Dites-nous ce qui s'est passé...",
+    "err": {
+      "message": "Écrivez au moins 10 caractères."
+    },
+    "send": "Envoyer le message",
+    "error": "Le message n'a pas été envoyé. Réessayez ou appelez-nous."
+  },
+  "enum": {
+    "supportTopic": {
+      "BOOKING": "Réservation",
+      "CANCELLATION": "Annulation / modification",
+      "PAYMENT": "Paiement / prix",
+      "CAR": "Problème avec la voiture",
+      "PARTNER": "Je veux devenir partenaire",
+      "CAREER": "Carrières / candidature",
+      "OTHER": "Autre"
+    },
+    "category": {
+      "ECONOMY": "Économique",
+      "SEDAN": "Berline",
+      "SUV": "SUV",
+      "LUXURY": "Luxe"
+    },
+    "transmission": {
+      "MANUAL": "Manuelle",
+      "AUTOMATIC": "Automatique"
+    },
+    "fuel": {
+      "PETROL": "Essence",
+      "DIESEL": "Diesel",
+      "HYBRID": "Hybride",
+      "ELECTRIC": "Électrique"
+    },
+    "status": {
+      "PENDING": "En attente",
+      "CONFIRMED": "Confirmée",
+      "CANCELLED": "Annulée",
+      "COMPLETED": "Terminée"
+    }
+  },
+  "faq": {
+    "title": "Tout ce qu'il faut savoir",
+    "lead": "Réservation, paiement, annulation et prise en charge de la voiture. Vous ne trouvez pas la réponse ?",
+    "searchPlaceholder": "Rechercher ex. annulation, permis, remise...",
+    "none": "Aucune question pour « {term} ».",
+    "askSupport": "Demander au support",
+    "groups": [
+      {
+        "title": "Réservation",
+        "items": [
+          {
+            "q": "Faut-il un compte pour réserver ?",
+            "a": "Non. Choisissez la voiture, remplissez vos informations et recevez un code de réservation. Avec le code et votre téléphone, retrouvez la réservation dans « Ma réservation »."
+          },
+          {
+            "q": "Quelle est la durée minimale de location ?",
+            "a": "Le minimum est de 3 jours et le maximum de 30 jours."
+          },
+          {
+            "q": "Qui confirme ma réservation ?",
+            "a": "L'agence propriétaire de la voiture. Elle reçoit la réservation immédiatement et vous contacte par téléphone ou e-mail."
+          },
+          {
+            "q": "Comment savoir si la voiture est disponible ?",
+            "a": "Lorsque vous choisissez des dates dans la recherche, seules les voitures disponibles s'affichent. Sur la page de réservation, vous voyez aussi les dates déjà réservées."
+          }
+        ]
+      },
+      {
+        "title": "Paiement et prix",
+        "items": [
+          {
+            "q": "Quand et comment payer ?",
+            "a": "Vous payez l'agence lors de la prise en charge de la voiture. Le prix du récapitulatif est le total final."
+          },
+          {
+            "q": "Y a-t-il une remise pour les longues locations ?",
+            "a": "Oui. À partir de 7 jours, vous bénéficiez automatiquement de 10 % de remise."
+          },
+          {
+            "q": "Que comprend le prix ?",
+            "a": "La location journalière et les options choisies (GPS, siège enfant, assurance tous risques). Le carburant n'est pas inclus."
+          }
+        ]
+      },
+      {
+        "title": "Annulation et modifications",
+        "items": [
+          {
+            "q": "Comment annuler ma réservation ?",
+            "a": "Dans « Ma réservation », saisissez votre code et votre téléphone, puis cliquez sur « Annuler ». L'annulation gratuite n'est possible que dans les 24 heures suivant la réservation et avant le jour de prise en charge."
+          },
+          {
+            "q": "Les 24 heures sont passées, que faire ?",
+            "a": "Appelez directement l'agence (le numéro figure sur la réservation) ou écrivez-nous sur la page Aide."
+          },
+          {
+            "q": "Comment changer les dates ?",
+            "a": "Annulez dans les 24 heures et faites une nouvelle réservation, ou contactez l'agence."
+          }
+        ]
+      },
+      {
+        "title": "Prise en charge de la voiture",
+        "items": [
+          {
+            "q": "Quels documents faut-il ?",
+            "a": "Un permis de conduire valide et une pièce d'identité. Le conducteur doit avoir entre 21 et 75 ans."
+          },
+          {
+            "q": "Où récupérer la voiture ?",
+            "a": "Au lieu choisi lors de la réservation, par ex. aéroport de Rinas, centre de Tirana, Durrës, Vlorë, Shkodër ou Sarandë."
+          },
+          {
+            "q": "Puis-je la rendre dans une autre ville ?",
+            "a": "Oui, choisissez un autre lieu de restitution lors de la réservation. Confirmez-le avec l'agence."
+          }
+        ]
+      },
+      {
+        "title": "Pour les entreprises",
+        "items": [
+          {
+            "q": "Comment mon agence devient-elle partenaire ?",
+            "a": "Écrivez-nous sur la page Aide avec le sujet « Je veux devenir partenaire ». Nous ajoutons l'agence et ses voitures et créons l'accès au tableau de bord."
+          },
+          {
+            "q": "Que voit une agence dans le tableau de bord ?",
+            "a": "Ses propres réservations, l'état de ses voitures (libres / réservées) et le chiffre d'affaires quotidien, hebdomadaire et mensuel."
+          }
+        ]
+      }
+    ]
+  },
+  "careers": {
+    "title": "Construisez avec nous la façon de voyager en Albanie",
+    "lead": "Nous sommes une petite équipe qui relie les voyageurs aux meilleures agences de location. Nous cherchons des personnes qui veulent construire quelque chose de nouveau.",
+    "open": "Postes ouverts",
+    "tasks": "Vos missions",
+    "requirements": "Ce que nous recherchons",
+    "apply": "Postuler",
+    "thanks": "Merci !",
+    "sentText": "Candidature envoyée (n° #{id}). Nous vous contacterons par e-mail si votre profil correspond.",
+    "applyOther": "Postuler à un autre poste",
+    "openApplicationHint": "Vous ne voyez pas votre poste ? Choisissez « Candidature spontanée » et dites-nous ce que vous savez faire.",
+    "position": "Poste",
+    "openApplication": "Candidature spontanée",
+    "fullName": "Nom et prénom",
+    "cv": "Lien vers le CV / LinkedIn",
+    "why": "Pourquoi vous ?",
+    "whyPlaceholder": "Quelques phrases sur votre expérience...",
+    "err": "Indiquez votre nom, e-mail, lien vers le CV (https://...) et au moins 20 caractères dans « Pourquoi vous ? ».",
+    "send": "Envoyer la candidature",
+    "error": "La candidature n'a pas été envoyée. Réessayez.",
+    "jobs": [
+      {
+        "id": "support",
+        "title": "Conseiller/ère service client",
+        "team": "Support",
+        "location": "Tirana",
+        "type": "Temps plein · en équipes",
+        "summary": "Vous êtes la voix de Bookers auprès des clients : vous aidez pour les réservations, les annulations et tout problème pendant le voyage.",
+        "tasks": [
+          "Répondre au téléphone, sur WhatsApp et par e-mail",
+          "Suivre les demandes dans le tableau de bord du support jusqu'à leur résolution",
+          "Coordonner les modifications de réservation avec les agences partenaires"
+        ],
+        "requirements": [
+          "Très bon albanais et anglais (l'italien est un plus)",
+          "Patience et calme avec les clients",
+          "Disponibilité en équipes, y compris le week-end en haute saison"
+        ]
+      },
+      {
+        "id": "partner",
+        "title": "Responsable des partenariats",
+        "team": "Business",
+        "location": "Tirana · déplacements à Durrës, Vlorë, Sarandë",
+        "type": "Temps plein",
+        "summary": "Vous amenez de nouvelles agences de location sur la plateforme et faites grandir les partenaires existants avec nous.",
+        "tasks": [
+          "Rencontrer les agences de location et présenter la plateforme",
+          "Aider les nouveaux partenaires avec les voitures, les photos et les prix",
+          "Suivre chaque mois les résultats de chaque partenaire"
+        ],
+        "requirements": [
+          "Expérience en vente ou en gestion de clients",
+          "Permis B et disponibilité pour voyager",
+          "La connaissance du marché du tourisme est un plus"
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Développeur/euse Frontend (Angular)",
+        "team": "Technologie",
+        "location": "Tirana · hybride",
+        "type": "Temps plein",
+        "summary": "Vous développez le site utilisé par des milliers de voyageurs et le tableau de bord des agences partenaires.",
+        "tasks": [
+          "Développer de nouvelles pages avec Angular et TypeScript",
+          "Améliorer la vitesse et l'expérience mobile",
+          "Travailler avec le backend (Spring Boot)"
+        ],
+        "requirements": [
+          "Angular, TypeScript, HTML/CSS",
+          "Reactive Forms et RxJS",
+          "Git et travail en équipe"
+        ]
+      },
+      {
+        "id": "marketing",
+        "title": "Stagiaire en marketing digital",
+        "team": "Marketing",
+        "location": "Tirana",
+        "type": "Stage · 3 mois",
+        "summary": "Vous créez du contenu pour le blog et les réseaux sociaux et apprenez le marketing d'une plateforme en ligne.",
+        "tasks": [
+          "Écrire des articles de blog (itinéraires, conseils)",
+          "Préparer des publications pour Instagram et TikTok",
+          "Suivre les résultats des campagnes"
+        ],
+        "requirements": [
+          "Étudiant(e) ou jeune diplômé(e)",
+          "Bonne rédaction en albanais",
+          "Passion pour les voyages et la photographie"
+        ]
+      }
+    ],
+    "perks": [
+      {
+        "t": "Petite équipe",
+        "d": "Votre idée peut être en ligne la semaine prochaine."
+      },
+      {
+        "t": "Croissance",
+        "d": "Une nouvelle plateforme qui s'étend à toutes les villes d'Albanie."
+      },
+      {
+        "t": "Flexibilité",
+        "d": "Travail hybride pour les postes qui le permettent."
+      },
+      {
+        "t": "Voyages",
+        "d": "Remises sur les voitures des agences partenaires."
+      }
+    ]
+  },
+  "about": {
+    "title": "Un seul endroit pour toutes les voitures de location en Albanie",
+    "lead": "Bookers Car Albania relie les voyageurs aux agences de location locales. Comparez les prix, voyez quelle voiture est disponible et réservez en quelques minutes, sans compte. L'agence reçoit la réservation immédiatement et vous attend avec la voiture prête.",
+    "statCompanies": "agences partenaires",
+    "statCars": "voitures sur la plateforme",
+    "statCities": "villes",
+    "statOnline": "réservations en ligne",
+    "how": "Comment ça marche",
+    "mission": "Notre mission",
+    "mission1": "Louer une voiture en Albanie signifie souvent appels, messages et prix qui changent. Nous simplifions tout : des prix clairs, une disponibilité réelle et les mêmes règles pour tous — 3 jours minimum, annulation gratuite sous 24 heures, paiement à la prise en charge.",
+    "mission2": "Pour les agences locales, nous sommes une vitrine en ligne et un tableau de bord où elles voient chaque jour les réservations, les voitures libres et le chiffre d'affaires.",
+    "partners": "Nos partenaires",
+    "ctaTitle": "Vous avez une agence de location ?",
+    "ctaText": "Devenez partenaire et recevez des réservations de nouveaux clients, avec votre propre tableau de bord.",
+    "becomePartner": "Devenir partenaire",
+    "steps": [
+      {
+        "t": "Rechercher",
+        "d": "Choisissez la ville et les dates. Seules les voitures disponibles de toutes les agences s'affichent."
+      },
+      {
+        "t": "Réserver",
+        "d": "Remplissez vos informations, sans compte. Recevez immédiatement votre code de réservation."
+      },
+      {
+        "t": "Récupérer la voiture",
+        "d": "L'agence confirme et vous attend. Vous payez à la prise en charge."
+      }
+    ],
+    "values": [
+      {
+        "t": "Transparence",
+        "d": "Le prix affiché est le prix payé."
+      },
+      {
+        "t": "Agences locales",
+        "d": "Nous soutenons les agences de location albanaises."
+      },
+      {
+        "t": "Simplicité",
+        "d": "Pas de compte, pas de paperasse, pas d'appels inutiles."
+      }
+    ]
+  },
+  "blog": {
+    "title": "Voyages et conseils",
+    "lead": "Itinéraires en Albanie, conseils pour la location de voiture et offres des agences partenaires.",
+    "readMin": "{n} min de lecture",
+    "read": "Lire",
+    "empty": "Aucun article pour le moment.",
+    "allPosts": "Tous les articles",
+    "ctaTitle": "Prêt à partir ?",
+    "ctaText": "Comparez les voitures des agences partenaires et réservez sans compte.",
+    "alsoRead": "À lire aussi",
+    "notFound": "Article introuvable."
+  },
+  "login": {
+    "intro": "Réservé aux agences partenaires et à l'administrateur. Les clients réservent sans compte.",
+    "expired": "Votre session a expiré. Reconnectez-vous.",
+    "needLogin": "Connectez-vous avec le compte de votre agence pour continuer.",
+    "password": "Mot de passe",
+    "err": {
+      "password": "Saisissez le mot de passe."
+    },
+    "loggingIn": "Connexion...",
+    "submit": "Se connecter",
+    "client": "Vous êtes client ?",
+    "findBooking": "Retrouvez votre réservation avec votre code et votre téléphone.",
+    "partner": "Vous voulez devenir partenaire ? Écrivez-nous à"
+  },
+  "errors": {
+    "offline": "Le serveur ne répond pas. Vérifiez que le backend est démarré.",
+    "unauthorized": "Vous devez vous connecter.",
+    "forbidden": "Vous n'avez pas l'autorisation pour cette action.",
+    "notFound": "Introuvable.",
+    "generic": "Une erreur s'est produite. Réessayez.",
+    "loginFailed": "La connexion a échoué.",
+    "carNotFound": "Voiture introuvable.",
+    "companyNotFound": "Agence introuvable."
+  }
+}

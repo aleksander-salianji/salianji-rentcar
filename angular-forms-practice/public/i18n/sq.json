@@ -1,0 +1,544 @@
+{
+  "app": {
+    "demo": "Mënyra demo: të dhënat ruhen vetëm në këtë shfletues."
+  },
+  "nav": {
+    "menu": "Menyja",
+    "home": "Kryefaqja",
+    "cars": "Makinat",
+    "myBooking": "Rezervimi im",
+    "blog": "Blogu",
+    "help": "Ndihmë",
+    "about": "Rreth nesh",
+    "careers": "Karriera",
+    "faq": "Pyetje të shpeshta",
+    "adminPanel": "Paneli i adminit",
+    "panel": "Paneli",
+    "logout": "Dil",
+    "login": "Hyr · Biznese",
+    "language": "Gjuha",
+    "lightTheme": "Tema e bardhë",
+    "darkTheme": "Tema e zezë"
+  },
+  "footer": {
+    "tagline": "Qira makinash nga kompanitë më të mira në Shqipëri.",
+    "navigation": "Navigimi",
+    "helpSupport": "Ndihmë / Support",
+    "company": "Kompania",
+    "support": "Support",
+    "online": "Rezervime online 24/7",
+    "rights": "Të gjitha të drejtat të rezervuara.",
+    "photos": "Fotot e makinave:",
+    "license": "licenca CC"
+  },
+  "home": {
+    "kicker": "Makina me qira nga kompanitë më të mira në Shqipëri",
+    "partners": "Kompanitë partnere",
+    "chooseCompany": "Zgjidh kompaninë",
+    "fleet": "Flota",
+    "allCars": "Të gjitha makinat",
+    "emptyCategory": "Nuk ka makina në këtë kategori."
+  },
+  "search": {
+    "pickupPlace": "Vendi i marrjes",
+    "choosePlace": "Zgjidh vendin",
+    "returnPlace": "Vendi i kthimit",
+    "samePlace": "I njëjti vend",
+    "pickupDate": "Marrja",
+    "returnDate": "Kthimi",
+    "search": "Kërko"
+  },
+  "common": {
+    "carsCount": "{n} makina",
+    "all": "Të gjitha",
+    "loadingCars": "Duke ngarkuar makinat...",
+    "clear": "Pastro",
+    "searching": "Duke kërkuar...",
+    "loading": "Duke ngarkuar...",
+    "backHome": "Kthehu në kryefaqe",
+    "minDays": "Qiraja minimale është 3 ditë.",
+    "seeCars": "Shiko makinat",
+    "choose": "Zgjidh",
+    "optional": "opsional",
+    "remove": "Hiq",
+    "sending": "Duke dërguar..."
+  },
+  "cars": {
+    "inCity": "në {city}",
+    "pickupAt": "marrja: {place}",
+    "returnAt": "kthimi: {place}",
+    "freeBetween": "të lira {from} → {to} ({days} ditë)",
+    "city": "Qyteti",
+    "allCities": "Të gjitha qytetet",
+    "company": "Kompania",
+    "allCompanies": "Të gjitha kompanitë",
+    "minDaysError": "Qiraja minimale është 3 ditë. Zgjidh një datë kthimi më të vonë.",
+    "searchPlaceholder": "Kërko markë, model ose kompani...",
+    "allCategories": "Të gjitha kategoritë",
+    "anyGearbox": "Çdo kambio",
+    "cheapest": "Më të lirat",
+    "priciest": "Më të shtrenjtat",
+    "newest": "Më të rejat",
+    "empty": "Asnjë makinë e lirë për këtë kërkim. Provo data ose qytet tjetër."
+  },
+  "car": {
+    "seats": "{n} vende",
+    "perDay": "ditë",
+    "book": "Rezervo"
+  },
+  "company": {
+    "partner": "Kompani partnere",
+    "address": "Adresa",
+    "phone": "Telefoni",
+    "email": "Email",
+    "cars": "Makina",
+    "clearDates": "Pastro datat",
+    "freeBetween": "Të lira nga {from} deri {to} · {days} ditë",
+    "empty": "Nuk ka makina të lira për këtë zgjedhje."
+  },
+  "booking": {
+    "back": "Kthehu te makinat",
+    "title": "Rezervo {car}",
+    "by": "nga",
+    "formInvalid": "Disa fusha nuk janë plotësuar saktë. Kontrollo fushat me të kuqe.",
+    "s1": "Datat dhe vendi",
+    "err": {
+      "pickupPlace": "Zgjidh vendin e marrjes.",
+      "returnPlace": "Zgjidh vendin e kthimit.",
+      "pickupDate": "Zgjidh datën e marrjes.",
+      "pastDate": "Data nuk mund të jetë në të kaluarën.",
+      "returnDate": "Zgjidh datën e kthimit.",
+      "range": "Data e kthimit duhet të jetë pas datës së marrjes.",
+      "tooShort": "Qiraja minimale është {n} ditë.",
+      "tooLong": "Qiraja nuk mund të zgjasë më shumë se {n} ditë.",
+      "unavailable": "Makina është e zënë për disa nga këto data. Shiko periudhat e zëna në të djathtë.",
+      "age": "Shkruaj moshën.",
+      "ageMin": "Shoferi duhet të jetë të paktën {n} vjeç.",
+      "ageMax": "Mosha maksimale është {n} vjeç.",
+      "license": "Patenta duhet të ketë 6–12 shkronja ose shifra.",
+      "street": "Shkruaj rrugën.",
+      "city": "Shkruaj qytetin.",
+      "zip": "4 shifra.",
+      "phone": "Shkruaj numrin.",
+      "phoneFormat": "Formati: 067/068/069 + 7 shifra, ose +35569...",
+      "terms": "Duhet të pranosh kushtet."
+    },
+    "samePlace": "I njëjti me vendin e marrjes",
+    "pickupDate": "Data e marrjes",
+    "returnDate": "Data e kthimit",
+    "s2": "Të dhënat e tua",
+    "noAccount": "Nuk të duhet llogari. Kompania të kontakton në email dhe telefon.",
+    "age": "Mosha",
+    "license": "Numri i patentës",
+    "licensePlaceholder": "p.sh. AL1234567",
+    "s3": "Adresa",
+    "street": "Rruga",
+    "zip": "Kodi postar",
+    "s4": "Numrat e telefonit",
+    "addPhone": "Shto numër tjetër",
+    "s5": "Shtesat",
+    "terms": "Pranoj kushtet e qirasë dhe politikën e privatësisë.",
+    "confirm": "Konfirmo rezervimin",
+    "summary": "Përmbledhja",
+    "days": "Ditë",
+    "rent": "Qiraja",
+    "subtotal": "Nëntotali",
+    "discount": "Zbritje {p}%",
+    "total": "Totali",
+    "note": "Zbritje {p}% për {n} ditë e më shumë. Pagesa bëhet në momentin e marrjes së makinës.",
+    "ruleMin": "Qiraja minimale: {n} ditë",
+    "ruleCancel": "Anulim falas vetëm brenda {n} orëve nga rezervimi",
+    "booked": "E zënë në këto data:"
+  },
+  "form": {
+    "firstName": "Emri",
+    "err": {
+      "firstName": "Shkruaj emrin.",
+      "lastName": "Shkruaj mbiemrin.",
+      "email": "Shkruaj një email të vlefshëm."
+    },
+    "lastName": "Mbiemri",
+    "email": "Email",
+    "emailPlaceholder": "emri@shembull.al",
+    "name": "Emri"
+  },
+  "extras": {
+    "gps": {
+      "label": "GPS",
+      "desc": "Navigim me harta të Shqipërisë"
+    },
+    "childSeat": {
+      "label": "Karrige për fëmijë",
+      "desc": "Për fëmijë 9–36 kg"
+    },
+    "fullInsurance": {
+      "label": "Sigurim i plotë",
+      "desc": "Pa franshizë në rast dëmi"
+    }
+  },
+  "lookup": {
+    "intro": "Nuk të duhet llogari. Shkruaj kodin e rezervimit dhe numrin e telefonit që dhe.",
+    "newBooking": "Rezervim i ri",
+    "sentTitle": "Rezervimi u dërgua te kompania!",
+    "sentText": "Kodi yt është {code} — ruaje. Kompania do të të kontaktojë për konfirmim.",
+    "code": "Kodi i rezervimit",
+    "err": {
+      "code": "Shkruaj kodin.",
+      "phone": "Shkruaj numrin e telefonit."
+    },
+    "find": "Gjej rezervimin",
+    "codeLabel": "Kodi",
+    "created": "krijuar më",
+    "days": "{n} ditë",
+    "cancelling": "Duke anuluar...",
+    "cancel": "Anulo",
+    "until": "deri më",
+    "windowPassed": "Afati {n}-orësh i anulimit ka kaluar. Për ndryshime telefono kompaninë.",
+    "problem": "Ke problem? Shkruaji supportit",
+    "notFound": "Rezervimi nuk u gjet.",
+    "confirmCancel": "Je i sigurt që do të anulosh rezervimin {code}?"
+  },
+  "support": {
+    "hours": "Online 24/7",
+    "title": "Si mund të të ndihmojmë?",
+    "lead": "Na shkruaj ose na telefono. Për rezervimet, mbaj gati kodin (p.sh. BCA-2026-0001).",
+    "call": "Telefono",
+    "fastReply": "Përgjigje e shpejtë",
+    "viewCancel": "Shiko ose anulo",
+    "allQuestions": "Të gjitha pyetjet",
+    "sentTitle": "Mesazhi u dërgua",
+    "sentText": "Numri i kërkesës: #{id}. Do të të përgjigjemi te {email} sa më shpejt.",
+    "urgent": "Për diçka urgjente:",
+    "another": "Dërgo mesazh tjetër",
+    "writeUs": "Na shkruaj",
+    "noAccount": "Nuk të duhet llogari.",
+    "topic": "Tema",
+    "message": "Mesazhi",
+    "messagePlaceholder": "Na trego çfarë ndodhi...",
+    "err": {
+      "message": "Shkruaj të paktën 10 karaktere."
+    },
+    "send": "Dërgo mesazhin",
+    "error": "Mesazhi nuk u dërgua. Provo përsëri ose na telefono."
+  },
+  "enum": {
+    "supportTopic": {
+      "BOOKING": "Rezervimi",
+      "CANCELLATION": "Anulim / ndryshim",
+      "PAYMENT": "Pagesa / çmimi",
+      "CAR": "Problem me makinën",
+      "PARTNER": "Dua të bëhem partner",
+      "CAREER": "Karriera / aplikim për punë",
+      "OTHER": "Tjetër"
+    },
+    "category": {
+      "ECONOMY": "Ekonomike",
+      "SEDAN": "Sedan",
+      "SUV": "SUV",
+      "LUXURY": "Luksoze"
+    },
+    "transmission": {
+      "MANUAL": "Manuale",
+      "AUTOMATIC": "Automatike"
+    },
+    "fuel": {
+      "PETROL": "Benzinë",
+      "DIESEL": "Naftë",
+      "HYBRID": "Hibride",
+      "ELECTRIC": "Elektrike"
+    },
+    "status": {
+      "PENDING": "Në pritje",
+      "CONFIRMED": "E konfirmuar",
+      "CANCELLED": "E anuluar",
+      "COMPLETED": "E përfunduar"
+    }
+  },
+  "faq": {
+    "groups": [
+      {
+        "title": "Rezervimi",
+        "items": [
+          {
+            "q": "A më duhet llogari për të rezervuar?",
+            "a": "Jo. Zgjidh makinën, plotëso të dhënat dhe merr një kod rezervimi. Me kodin dhe telefonin e gjen rezervimin te \"Rezervimi im\"."
+          },
+          {
+            "q": "Sa ditë është qiraja minimale?",
+            "a": "Minimumi është 3 ditë dhe maksimumi 30 ditë."
+          },
+          {
+            "q": "Kush ma konfirmon rezervimin?",
+            "a": "Kompania që zotëron makinën. Ajo merr rezervimin menjëherë dhe të kontakton në telefon ose email."
+          },
+          {
+            "q": "Si e di që makina është e lirë?",
+            "a": "Kur zgjedh datat te kërkimi, shfaqen vetëm makinat e lira. Te faqja e rezervimit sheh edhe datat kur makina është e zënë."
+          }
+        ]
+      },
+      {
+        "title": "Pagesa dhe çmimet",
+        "items": [
+          {
+            "q": "Kur dhe si paguaj?",
+            "a": "Pagesa bëhet te kompania në momentin e marrjes së makinës. Çmimi që sheh në përmbledhje është totali final."
+          },
+          {
+            "q": "A ka zbritje për qira të gjatë?",
+            "a": "Po. Për 7 ditë e më shumë ke 10% zbritje automatikisht."
+          },
+          {
+            "q": "Çfarë përfshin çmimi?",
+            "a": "Qiranë ditore dhe shtesat që zgjedh (GPS, karrige për fëmijë, sigurim i plotë). Karburanti nuk përfshihet."
+          }
+        ]
+      },
+      {
+        "title": "Anulimi dhe ndryshimet",
+        "items": [
+          {
+            "q": "Si e anuloj rezervimin?",
+            "a": "Te \"Rezervimi im\" shkruaj kodin dhe telefonin, pastaj kliko \"Anulo\". Anulimi falas lejohet vetëm brenda 24 orëve nga rezervimi dhe para ditës së marrjes."
+          },
+          {
+            "q": "Kaluan 24 orët, çfarë bëj?",
+            "a": "Telefono direkt kompaninë (numri është te rezervimi) ose na shkruaj te faqja Ndihmë."
+          },
+          {
+            "q": "Si i ndryshoj datat?",
+            "a": "Anuloje brenda 24 orëve dhe bëj një rezervim të ri, ose kontakto kompaninë."
+          }
+        ]
+      },
+      {
+        "title": "Marrja e makinës",
+        "items": [
+          {
+            "q": "Çfarë dokumentesh më duhen?",
+            "a": "Patentë e vlefshme dhe dokument identifikimi. Shoferi duhet të jetë 21–75 vjeç."
+          },
+          {
+            "q": "Ku e marr makinën?",
+            "a": "Në vendin që zgjodhe në rezervim, p.sh. Aeroporti Rinas, Tiranë qendër, Durrës, Vlorë, Shkodër ose Sarandë."
+          },
+          {
+            "q": "A mund ta kthej në qytet tjetër?",
+            "a": "Po, zgjidh vend tjetër kthimi gjatë rezervimit. Konfirmoje me kompaninë."
+          }
+        ]
+      },
+      {
+        "title": "Për bizneset",
+        "items": [
+          {
+            "q": "Si bëhet kompania ime partnere?",
+            "a": "Na shkruaj te faqja Ndihmë me temën \"Dua të bëhem partner\". Ne shtojmë kompaninë dhe makinat, dhe të krijojmë login-in e panelit."
+          },
+          {
+            "q": "Çfarë sheh biznesi te paneli?",
+            "a": "Rezervimet e veta, gjendjen e makinave (të lira / të zëna) dhe xhiron ditore, javore e mujore."
+          }
+        ]
+      }
+    ],
+    "title": "Gjithçka që duhet të dish",
+    "lead": "Rezervimi, pagesa, anulimi dhe marrja e makinës. Nuk e gjen përgjigjen?",
+    "searchPlaceholder": "Kërko p.sh. anulim, patentë, zbritje...",
+    "none": "Asnjë pyetje për \"{term}\".",
+    "askSupport": "Pyet supportin"
+  },
+  "careers": {
+    "jobs": [
+      {
+        "id": "support",
+        "title": "Agjent/e Support-i për Klientët",
+        "team": "Support",
+        "location": "Tiranë",
+        "type": "Full-time · me turne",
+        "summary": "Je zëri i Bookers për klientët: ndihmon me rezervimet, anulimet dhe çdo problem gjatë udhëtimit.",
+        "tasks": [
+          "Përgjigjesh në telefon, WhatsApp dhe email",
+          "Ndjek kërkesat te paneli i support-it deri në zgjidhje",
+          "Koordinon me kompanitë partnere për ndryshime rezervimesh"
+        ],
+        "requirements": [
+          "Shqip dhe anglisht shumë mirë (italishtja është plus)",
+          "Durim dhe qetësi me klientët",
+          "Gatishmëri për turne, edhe në fundjavë gjatë sezonit"
+        ]
+      },
+      {
+        "id": "partner",
+        "title": "Menaxher/e Partneritetesh",
+        "team": "Biznesi",
+        "location": "Tiranë · udhëtime në Durrës, Vlorë, Sarandë",
+        "type": "Full-time",
+        "summary": "Sjell kompani të reja qiraje në platformë dhe kujdesesh që partnerët ekzistues të rriten me ne.",
+        "tasks": [
+          "Takon kompanitë e qirasë dhe prezanton platformën",
+          "Ndihmon partnerët e rinj me makinat, fotot dhe çmimet",
+          "Ndjek rezultatet e çdo partneri çdo muaj"
+        ],
+        "requirements": [
+          "Përvojë në shitje ose menaxhim klientësh",
+          "Patentë B dhe gatishmëri për udhëtime",
+          "Njohja e tregut të turizmit është plus"
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Zhvillues/e Frontend (Angular)",
+        "team": "Teknologji",
+        "location": "Tiranë · hibrid",
+        "type": "Full-time",
+        "summary": "Ndërton faqen që përdorin mijëra udhëtarë dhe panelin e bizneseve partnere.",
+        "tasks": [
+          "Zhvillon faqe të reja me Angular dhe TypeScript",
+          "Përmirëson shpejtësinë dhe përvojën në telefon",
+          "Bashkëpunon me backend-in (Spring Boot)"
+        ],
+        "requirements": [
+          "Angular, TypeScript, HTML/CSS",
+          "Reactive Forms dhe RxJS",
+          "Git dhe punë në ekip"
+        ]
+      },
+      {
+        "id": "marketing",
+        "title": "Praktikant/e Marketingu Digjital",
+        "team": "Marketing",
+        "location": "Tiranë",
+        "type": "Praktikë · 3 muaj",
+        "summary": "Krijon përmbajtje për blogun dhe rrjetet sociale dhe mëson marketingun e një platforme online.",
+        "tasks": [
+          "Shkruan artikuj për blogun (itinerare, këshilla)",
+          "Përgatit postime për Instagram dhe TikTok",
+          "Ndjek rezultatet e fushatave"
+        ],
+        "requirements": [
+          "Student/e ose i/e diplomuar së fundmi",
+          "Shkrim i mirë në shqip",
+          "Pasion për udhëtimet dhe fotografinë"
+        ]
+      }
+    ],
+    "title": "Ndërto me ne mënyrën si udhëtohet në Shqipëri",
+    "lead": "Jemi një ekip i vogël që lidh udhëtarët me kompanitë më të mira të qirasë. Kërkojmë njerëz që duan të ndërtojnë diçka të re.",
+    "open": "Pozicionet e hapura",
+    "tasks": "Çfarë do të bësh",
+    "requirements": "Çfarë kërkojmë",
+    "apply": "Apliko",
+    "thanks": "Faleminderit!",
+    "sentText": "Aplikimi u dërgua (nr. #{id}). Do të të kontaktojmë në email nëse profili përputhet.",
+    "applyOther": "Apliko për pozicion tjetër",
+    "openApplicationHint": "Nuk e sheh pozicionin tënd? Zgjidh \"Aplikim i lirë\" dhe na trego çfarë di të bësh.",
+    "position": "Pozicioni",
+    "openApplication": "Aplikim i lirë",
+    "fullName": "Emri dhe mbiemri",
+    "cv": "Link i CV-së / LinkedIn",
+    "why": "Pse ti?",
+    "whyPlaceholder": "Disa fjali për përvojën tënde...",
+    "err": "Plotëso emrin, email-in, linkun e CV-së (https://...) dhe të paktën 20 karaktere te \"Pse ti?\".",
+    "send": "Dërgo aplikimin",
+    "error": "Aplikimi nuk u dërgua. Provo përsëri.",
+    "perks": [
+      {
+        "t": "Ekip i vogël",
+        "d": "Ide e jote mund të jetë në faqe javën tjetër."
+      },
+      {
+        "t": "Rritje",
+        "d": "Platformë e re që zgjerohet në çdo qytet të Shqipërisë."
+      },
+      {
+        "t": "Fleksibilitet",
+        "d": "Punë hibride për rolet që e lejojnë."
+      },
+      {
+        "t": "Udhëtime",
+        "d": "Zbritje për makina te kompanitë partnere."
+      }
+    ]
+  },
+  "about": {
+    "title": "Një vend për të gjitha makinat me qira në Shqipëri",
+    "lead": "Bookers Car Albania lidh udhëtarët me kompanitë lokale të qirasë. Krahason çmimet, sheh cila makinë është e lirë dhe rezervon në pak minuta, pa llogari. Kompania merr rezervimin menjëherë dhe të pret me makinën gati.",
+    "statCompanies": "kompani partnere",
+    "statCars": "makina në platformë",
+    "statCities": "qytete",
+    "statOnline": "rezervime online",
+    "how": "Si funksionon",
+    "mission": "Misioni ynë",
+    "mission1": "Të marrësh një makinë me qira në Shqipëri shpesh do të thotë telefonata, mesazhe dhe çmime që ndryshojnë. Ne e bëjmë të thjeshtë: çmime të qarta, disponueshmëri reale dhe rregulla të njëjta për të gjithë — minimumi 3 ditë, anulim falas brenda 24 orëve, pagesë në marrje.",
+    "mission2": "Për kompanitë lokale jemi një vitrinë online dhe një panel ku shohin rezervimet, makinat e lira dhe xhiron çdo ditë.",
+    "partners": "Partnerët tanë",
+    "ctaTitle": "Ke një kompani qiraje?",
+    "ctaText": "Bashkohu si partner dhe merr rezervime nga klientë të rinj, me panelin tënd.",
+    "becomePartner": "Bëhu partner",
+    "steps": [
+      {
+        "t": "Kërko",
+        "d": "Zgjidh qytetin dhe datat. Shfaqen vetëm makinat e lira, nga të gjitha kompanitë."
+      },
+      {
+        "t": "Rezervo",
+        "d": "Plotëso të dhënat, pa llogari. Merr kodin e rezervimit menjëherë."
+      },
+      {
+        "t": "Merr makinën",
+        "d": "Kompania të konfirmon dhe të pret. Paguan në momentin e marrjes."
+      }
+    ],
+    "values": [
+      {
+        "t": "Transparencë",
+        "d": "Çmimi që sheh është çmimi që paguan."
+      },
+      {
+        "t": "Kompani lokale",
+        "d": "Mbështesim bizneset shqiptare të qirasë."
+      },
+      {
+        "t": "Thjeshtësi",
+        "d": "Pa llogari, pa letra, pa telefonata të panevojshme."
+      }
+    ]
+  },
+  "blog": {
+    "title": "Udhëtime dhe këshilla",
+    "lead": "Itinerare nëpër Shqipëri, këshilla për qiranë e makinës dhe ofertat e kompanive partnere.",
+    "readMin": "{n} min lexim",
+    "read": "Lexo",
+    "empty": "Ende nuk ka artikuj.",
+    "allPosts": "Të gjithë artikujt",
+    "ctaTitle": "Gati për udhëtim?",
+    "ctaText": "Krahaso makinat e kompanive partnere dhe rezervo pa llogari.",
+    "alsoRead": "Lexo edhe",
+    "notFound": "Artikulli nuk u gjet."
+  },
+  "login": {
+    "intro": "Vetëm për kompanitë partnere dhe administratorin. Klientët rezervojnë pa llogari.",
+    "expired": "Sesioni ka skaduar. Hyr përsëri.",
+    "needLogin": "Hyr me llogarinë e biznesit për të vazhduar.",
+    "password": "Fjalëkalimi",
+    "err": {
+      "password": "Shkruaj fjalëkalimin."
+    },
+    "loggingIn": "Duke hyrë...",
+    "submit": "Hyr",
+    "client": "Je klient?",
+    "findBooking": "Gjej rezervimin tënd me kodin dhe telefonin.",
+    "partner": "Do të bëhesh partner? Na shkruaj te"
+  },
+  "errors": {
+    "offline": "Serveri nuk përgjigjet. Sigurohu që backend-i është i ndezur.",
+    "unauthorized": "Duhet të hysh në llogari.",
+    "forbidden": "Nuk ke leje për këtë veprim.",
+    "notFound": "Nuk u gjet.",
+    "generic": "Ndodhi një gabim. Provo përsëri.",
+    "loginFailed": "Hyrja dështoi.",
+    "carNotFound": "Makina nuk u gjet.",
+    "companyNotFound": "Kompania nuk u gjet."
+  }
+}

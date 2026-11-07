@@ -1,0 +1,544 @@
+{
+  "app": {
+    "demo": "Demo-Modus: Die Daten werden nur in diesem Browser gespeichert."
+  },
+  "nav": {
+    "menu": "Menü",
+    "home": "Startseite",
+    "cars": "Autos",
+    "myBooking": "Meine Buchung",
+    "blog": "Blog",
+    "help": "Hilfe",
+    "about": "Über uns",
+    "careers": "Karriere",
+    "faq": "Häufige Fragen",
+    "adminPanel": "Admin-Bereich",
+    "panel": "Dashboard",
+    "logout": "Abmelden",
+    "login": "Anmelden · Unternehmen",
+    "language": "Sprache",
+    "lightTheme": "Helles Design",
+    "darkTheme": "Dunkles Design"
+  },
+  "footer": {
+    "tagline": "Mietwagen von den besten Unternehmen in Albanien.",
+    "navigation": "Navigation",
+    "helpSupport": "Hilfe / Support",
+    "company": "Unternehmen",
+    "support": "Support",
+    "online": "Online-Buchungen rund um die Uhr",
+    "rights": "Alle Rechte vorbehalten.",
+    "photos": "Fotos der Autos:",
+    "license": "CC-Lizenz"
+  },
+  "home": {
+    "kicker": "Mietwagen von den besten Unternehmen in Albanien",
+    "partners": "Partnerunternehmen",
+    "chooseCompany": "Unternehmen wählen",
+    "fleet": "Flotte",
+    "allCars": "Alle Autos",
+    "emptyCategory": "Keine Autos in dieser Kategorie."
+  },
+  "search": {
+    "pickupPlace": "Abholort",
+    "choosePlace": "Ort wählen",
+    "returnPlace": "Rückgabeort",
+    "samePlace": "Gleicher Ort",
+    "pickupDate": "Abholung",
+    "returnDate": "Rückgabe",
+    "search": "Suchen"
+  },
+  "common": {
+    "carsCount": "{n} Autos",
+    "all": "Alle",
+    "loadingCars": "Autos werden geladen...",
+    "clear": "Zurücksetzen",
+    "searching": "Suche läuft...",
+    "loading": "Wird geladen...",
+    "backHome": "Zur Startseite",
+    "minDays": "Die Mindestmietdauer beträgt 3 Tage.",
+    "seeCars": "Autos ansehen",
+    "choose": "Auswählen",
+    "optional": "optional",
+    "remove": "Entfernen",
+    "sending": "Wird gesendet..."
+  },
+  "cars": {
+    "inCity": "in {city}",
+    "pickupAt": "Abholung: {place}",
+    "returnAt": "Rückgabe: {place}",
+    "freeBetween": "verfügbar {from} → {to} ({days} Tage)",
+    "city": "Stadt",
+    "allCities": "Alle Städte",
+    "company": "Unternehmen",
+    "allCompanies": "Alle Unternehmen",
+    "minDaysError": "Die Mindestmietdauer beträgt 3 Tage. Wähle ein späteres Rückgabedatum.",
+    "searchPlaceholder": "Marke, Modell oder Unternehmen suchen...",
+    "allCategories": "Alle Kategorien",
+    "anyGearbox": "Jedes Getriebe",
+    "cheapest": "Günstigste zuerst",
+    "priciest": "Teuerste zuerst",
+    "newest": "Neueste zuerst",
+    "empty": "Für diese Suche ist kein Auto verfügbar. Versuche andere Daten oder eine andere Stadt."
+  },
+  "car": {
+    "seats": "{n} Sitze",
+    "perDay": "Tag",
+    "book": "Buchen"
+  },
+  "company": {
+    "partner": "Partnerunternehmen",
+    "address": "Adresse",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "cars": "Autos",
+    "clearDates": "Daten zurücksetzen",
+    "freeBetween": "Verfügbar vom {from} bis {to} · {days} Tage",
+    "empty": "Für diese Auswahl ist kein Auto verfügbar."
+  },
+  "booking": {
+    "back": "Zurück zu den Autos",
+    "title": "{car} buchen",
+    "by": "von",
+    "formInvalid": "Einige Felder sind nicht korrekt ausgefüllt. Prüfe die rot markierten Felder.",
+    "s1": "Daten und Ort",
+    "err": {
+      "pickupPlace": "Wähle den Abholort.",
+      "returnPlace": "Wähle den Rückgabeort.",
+      "pickupDate": "Wähle das Abholdatum.",
+      "pastDate": "Das Datum darf nicht in der Vergangenheit liegen.",
+      "returnDate": "Wähle das Rückgabedatum.",
+      "range": "Das Rückgabedatum muss nach dem Abholdatum liegen.",
+      "tooShort": "Die Mindestmietdauer beträgt {n} Tage.",
+      "tooLong": "Die Miete darf nicht länger als {n} Tage dauern.",
+      "unavailable": "Das Auto ist an einigen dieser Tage belegt. Die belegten Zeiträume siehst du rechts.",
+      "age": "Gib dein Alter ein.",
+      "ageMin": "Der Fahrer muss mindestens {n} Jahre alt sein.",
+      "ageMax": "Das Höchstalter beträgt {n} Jahre.",
+      "license": "Die Führerscheinnummer muss 6–12 Buchstaben oder Ziffern haben.",
+      "street": "Gib die Straße ein.",
+      "city": "Gib die Stadt ein.",
+      "zip": "4 Ziffern.",
+      "phone": "Gib die Nummer ein.",
+      "phoneFormat": "Format: 067/068/069 + 7 Ziffern oder +35569...",
+      "terms": "Du musst die Bedingungen akzeptieren."
+    },
+    "samePlace": "Wie der Abholort",
+    "pickupDate": "Abholdatum",
+    "returnDate": "Rückgabedatum",
+    "s2": "Deine Daten",
+    "noAccount": "Kein Konto nötig. Das Unternehmen kontaktiert dich per E-Mail und Telefon.",
+    "age": "Alter",
+    "license": "Führerscheinnummer",
+    "licensePlaceholder": "z. B. AL1234567",
+    "s3": "Adresse",
+    "street": "Straße",
+    "zip": "Postleitzahl",
+    "s4": "Telefonnummern",
+    "addPhone": "Weitere Nummer hinzufügen",
+    "s5": "Extras",
+    "terms": "Ich akzeptiere die Mietbedingungen und die Datenschutzerklärung.",
+    "confirm": "Buchung bestätigen",
+    "summary": "Zusammenfassung",
+    "days": "Tage",
+    "rent": "Miete",
+    "subtotal": "Zwischensumme",
+    "discount": "Rabatt {p}%",
+    "total": "Gesamt",
+    "note": "{p}% Rabatt ab {n} Tagen. Die Zahlung erfolgt bei der Abholung des Autos.",
+    "ruleMin": "Mindestmietdauer: {n} Tage",
+    "ruleCancel": "Kostenlose Stornierung nur innerhalb von {n} Stunden nach der Buchung",
+    "booked": "An diesen Tagen belegt:"
+  },
+  "form": {
+    "firstName": "Vorname",
+    "err": {
+      "firstName": "Gib deinen Namen ein.",
+      "lastName": "Gib deinen Nachnamen ein.",
+      "email": "Gib eine gültige E-Mail ein."
+    },
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "emailPlaceholder": "name@beispiel.de",
+    "name": "Name"
+  },
+  "extras": {
+    "gps": {
+      "label": "GPS",
+      "desc": "Navigation mit Karten von Albanien"
+    },
+    "childSeat": {
+      "label": "Kindersitz",
+      "desc": "Für Kinder 9–36 kg"
+    },
+    "fullInsurance": {
+      "label": "Vollkaskoversicherung",
+      "desc": "Keine Selbstbeteiligung bei Schäden"
+    }
+  },
+  "lookup": {
+    "intro": "Kein Konto nötig. Gib deinen Buchungscode und die angegebene Telefonnummer ein.",
+    "newBooking": "Neue Buchung",
+    "sentTitle": "Die Buchung wurde an das Unternehmen gesendet!",
+    "sentText": "Dein Code ist {code} – bewahre ihn auf. Das Unternehmen meldet sich zur Bestätigung.",
+    "code": "Buchungscode",
+    "err": {
+      "code": "Gib den Code ein.",
+      "phone": "Gib die Telefonnummer ein."
+    },
+    "find": "Buchung finden",
+    "codeLabel": "Code",
+    "created": "erstellt am",
+    "days": "{n} Tage",
+    "cancelling": "Wird storniert...",
+    "cancel": "Stornieren",
+    "until": "bis",
+    "windowPassed": "Die {n}-Stunden-Frist für die Stornierung ist abgelaufen. Für Änderungen ruf das Unternehmen an.",
+    "problem": "Ein Problem? Schreib dem Support",
+    "notFound": "Buchung nicht gefunden.",
+    "confirmCancel": "Möchtest du die Buchung {code} wirklich stornieren?"
+  },
+  "support": {
+    "hours": "Online rund um die Uhr",
+    "title": "Wie können wir dir helfen?",
+    "lead": "Schreib oder ruf uns an. Halte für Buchungen deinen Code bereit (z. B. BCA-2026-0001).",
+    "call": "Anrufen",
+    "fastReply": "Schnelle Antwort",
+    "viewCancel": "Ansehen oder stornieren",
+    "allQuestions": "Alle Fragen",
+    "sentTitle": "Nachricht gesendet",
+    "sentText": "Anfragenummer: #{id}. Wir antworten so schnell wie möglich an {email}.",
+    "urgent": "Für Dringendes:",
+    "another": "Weitere Nachricht senden",
+    "writeUs": "Schreib uns",
+    "noAccount": "Kein Konto nötig.",
+    "topic": "Thema",
+    "message": "Nachricht",
+    "messagePlaceholder": "Erzähl uns, was passiert ist...",
+    "err": {
+      "message": "Schreib mindestens 10 Zeichen."
+    },
+    "send": "Nachricht senden",
+    "error": "Die Nachricht wurde nicht gesendet. Versuch es erneut oder ruf uns an."
+  },
+  "enum": {
+    "supportTopic": {
+      "BOOKING": "Buchung",
+      "CANCELLATION": "Stornierung / Änderung",
+      "PAYMENT": "Zahlung / Preis",
+      "CAR": "Problem mit dem Auto",
+      "PARTNER": "Ich möchte Partner werden",
+      "CAREER": "Karriere / Bewerbung",
+      "OTHER": "Sonstiges"
+    },
+    "category": {
+      "ECONOMY": "Kleinwagen",
+      "SEDAN": "Limousine",
+      "SUV": "SUV",
+      "LUXURY": "Luxus"
+    },
+    "transmission": {
+      "MANUAL": "Schaltgetriebe",
+      "AUTOMATIC": "Automatik"
+    },
+    "fuel": {
+      "PETROL": "Benzin",
+      "DIESEL": "Diesel",
+      "HYBRID": "Hybrid",
+      "ELECTRIC": "Elektro"
+    },
+    "status": {
+      "PENDING": "Ausstehend",
+      "CONFIRMED": "Bestätigt",
+      "CANCELLED": "Storniert",
+      "COMPLETED": "Abgeschlossen"
+    }
+  },
+  "faq": {
+    "title": "Alles, was du wissen musst",
+    "lead": "Buchung, Zahlung, Stornierung und Abholung des Autos. Keine Antwort gefunden?",
+    "searchPlaceholder": "Suche z. B. Stornierung, Führerschein, Rabatt...",
+    "none": "Keine Fragen zu „{term}“.",
+    "askSupport": "Support fragen",
+    "groups": [
+      {
+        "title": "Buchung",
+        "items": [
+          {
+            "q": "Brauche ich ein Konto, um zu buchen?",
+            "a": "Nein. Wähle das Auto, gib deine Daten ein und erhalte einen Buchungscode. Mit Code und Telefonnummer findest du die Buchung unter „Meine Buchung“."
+          },
+          {
+            "q": "Wie lange ist die Mindestmietdauer?",
+            "a": "Mindestens 3 Tage und höchstens 30 Tage."
+          },
+          {
+            "q": "Wer bestätigt meine Buchung?",
+            "a": "Das Unternehmen, dem das Auto gehört. Es erhält die Buchung sofort und kontaktiert dich per Telefon oder E-Mail."
+          },
+          {
+            "q": "Woher weiß ich, dass das Auto frei ist?",
+            "a": "Wenn du bei der Suche Daten wählst, werden nur freie Autos angezeigt. Auf der Buchungsseite siehst du auch die belegten Tage."
+          }
+        ]
+      },
+      {
+        "title": "Zahlung und Preise",
+        "items": [
+          {
+            "q": "Wann und wie bezahle ich?",
+            "a": "Du bezahlst das Unternehmen bei der Abholung des Autos. Der Preis in der Zusammenfassung ist der Endbetrag."
+          },
+          {
+            "q": "Gibt es Rabatt für lange Mieten?",
+            "a": "Ja. Ab 7 Tagen erhältst du automatisch 10 % Rabatt."
+          },
+          {
+            "q": "Was ist im Preis enthalten?",
+            "a": "Die Tagesmiete und die gewählten Extras (GPS, Kindersitz, Vollkasko). Kraftstoff ist nicht enthalten."
+          }
+        ]
+      },
+      {
+        "title": "Stornierung und Änderungen",
+        "items": [
+          {
+            "q": "Wie storniere ich meine Buchung?",
+            "a": "Gib unter „Meine Buchung“ Code und Telefonnummer ein und klicke auf „Stornieren“. Kostenlos ist das nur innerhalb von 24 Stunden nach der Buchung und vor dem Abholtag."
+          },
+          {
+            "q": "Die 24 Stunden sind vorbei, was tun?",
+            "a": "Ruf direkt das Unternehmen an (die Nummer steht in der Buchung) oder schreib uns auf der Hilfe-Seite."
+          },
+          {
+            "q": "Wie ändere ich die Daten?",
+            "a": "Storniere innerhalb von 24 Stunden und buche neu oder kontaktiere das Unternehmen."
+          }
+        ]
+      },
+      {
+        "title": "Abholung des Autos",
+        "items": [
+          {
+            "q": "Welche Dokumente brauche ich?",
+            "a": "Einen gültigen Führerschein und einen Ausweis. Der Fahrer muss 21–75 Jahre alt sein."
+          },
+          {
+            "q": "Wo hole ich das Auto ab?",
+            "a": "An dem bei der Buchung gewählten Ort, z. B. Flughafen Rinas, Tirana Zentrum, Durrës, Vlorë, Shkodër oder Sarandë."
+          },
+          {
+            "q": "Kann ich es in einer anderen Stadt zurückgeben?",
+            "a": "Ja, wähle bei der Buchung einen anderen Rückgabeort. Bestätige ihn mit dem Unternehmen."
+          }
+        ]
+      },
+      {
+        "title": "Für Unternehmen",
+        "items": [
+          {
+            "q": "Wie wird mein Unternehmen Partner?",
+            "a": "Schreib uns auf der Hilfe-Seite mit dem Thema „Ich möchte Partner werden“. Wir nehmen das Unternehmen und seine Autos auf und erstellen den Dashboard-Zugang."
+          },
+          {
+            "q": "Was sieht ein Unternehmen im Dashboard?",
+            "a": "Die eigenen Buchungen, den Status der Autos (frei / belegt) und den Umsatz pro Tag, Woche und Monat."
+          }
+        ]
+      }
+    ]
+  },
+  "careers": {
+    "title": "Gestalte mit uns, wie man in Albanien reist",
+    "lead": "Wir sind ein kleines Team, das Reisende mit den besten Mietwagenfirmen verbindet. Wir suchen Menschen, die etwas Neues aufbauen wollen.",
+    "open": "Offene Stellen",
+    "tasks": "Deine Aufgaben",
+    "requirements": "Was wir suchen",
+    "apply": "Bewerben",
+    "thanks": "Vielen Dank!",
+    "sentText": "Bewerbung gesendet (Nr. #{id}). Wir melden uns per E-Mail, wenn dein Profil passt.",
+    "applyOther": "Für eine andere Stelle bewerben",
+    "openApplicationHint": "Deine Stelle ist nicht dabei? Wähle „Initiativbewerbung“ und erzähl uns, was du kannst.",
+    "position": "Stelle",
+    "openApplication": "Initiativbewerbung",
+    "fullName": "Vor- und Nachname",
+    "cv": "Link zum Lebenslauf / LinkedIn",
+    "why": "Warum du?",
+    "whyPlaceholder": "Ein paar Sätze zu deiner Erfahrung...",
+    "err": "Gib Name, E-Mail, Link zum Lebenslauf (https://...) und mindestens 20 Zeichen bei „Warum du?“ ein.",
+    "send": "Bewerbung senden",
+    "error": "Die Bewerbung wurde nicht gesendet. Versuch es erneut.",
+    "jobs": [
+      {
+        "id": "support",
+        "title": "Mitarbeiter/in Kundensupport",
+        "team": "Support",
+        "location": "Tirana",
+        "type": "Vollzeit · Schichtdienst",
+        "summary": "Du bist die Stimme von Bookers für die Kunden: Du hilfst bei Buchungen, Stornierungen und jedem Problem während der Reise.",
+        "tasks": [
+          "Telefon, WhatsApp und E-Mails beantworten",
+          "Anfragen im Support-Dashboard bis zur Lösung verfolgen",
+          "Buchungsänderungen mit Partnerunternehmen abstimmen"
+        ],
+        "requirements": [
+          "Sehr gutes Albanisch und Englisch (Italienisch ist ein Plus)",
+          "Geduld und Ruhe im Umgang mit Kunden",
+          "Bereitschaft zu Schichten, in der Hochsaison auch am Wochenende"
+        ]
+      },
+      {
+        "id": "partner",
+        "title": "Partnership Manager/in",
+        "team": "Business",
+        "location": "Tirana · Reisen nach Durrës, Vlorë, Sarandë",
+        "type": "Vollzeit",
+        "summary": "Du bringst neue Mietwagenfirmen auf die Plattform und sorgst dafür, dass bestehende Partner mit uns wachsen.",
+        "tasks": [
+          "Mietwagenfirmen treffen und die Plattform vorstellen",
+          "Neuen Partnern bei Autos, Fotos und Preisen helfen",
+          "Die Ergebnisse jedes Partners monatlich verfolgen"
+        ],
+        "requirements": [
+          "Erfahrung im Vertrieb oder Kundenmanagement",
+          "Führerschein Klasse B und Reisebereitschaft",
+          "Kenntnisse des Tourismusmarkts sind ein Plus"
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Frontend-Entwickler/in (Angular)",
+        "team": "Technologie",
+        "location": "Tirana · hybrid",
+        "type": "Vollzeit",
+        "summary": "Du entwickelst die Website, die tausende Reisende nutzen, und das Dashboard der Partnerunternehmen.",
+        "tasks": [
+          "Neue Seiten mit Angular und TypeScript entwickeln",
+          "Geschwindigkeit und mobile Nutzung verbessern",
+          "Mit dem Backend (Spring Boot) zusammenarbeiten"
+        ],
+        "requirements": [
+          "Angular, TypeScript, HTML/CSS",
+          "Reactive Forms und RxJS",
+          "Git und Teamarbeit"
+        ]
+      },
+      {
+        "id": "marketing",
+        "title": "Praktikant/in Digitales Marketing",
+        "team": "Marketing",
+        "location": "Tirana",
+        "type": "Praktikum · 3 Monate",
+        "summary": "Du erstellst Inhalte für Blog und soziale Medien und lernst das Marketing einer Online-Plattform.",
+        "tasks": [
+          "Blogartikel schreiben (Reiserouten, Tipps)",
+          "Beiträge für Instagram und TikTok vorbereiten",
+          "Ergebnisse der Kampagnen verfolgen"
+        ],
+        "requirements": [
+          "Student/in oder Absolvent/in",
+          "Gutes Schreiben auf Albanisch",
+          "Leidenschaft für Reisen und Fotografie"
+        ]
+      }
+    ],
+    "perks": [
+      {
+        "t": "Kleines Team",
+        "d": "Deine Idee kann nächste Woche online sein."
+      },
+      {
+        "t": "Wachstum",
+        "d": "Eine neue Plattform, die in jede Stadt Albaniens wächst."
+      },
+      {
+        "t": "Flexibilität",
+        "d": "Hybrides Arbeiten, wo die Rolle es erlaubt."
+      },
+      {
+        "t": "Reisen",
+        "d": "Rabatte auf Autos der Partnerunternehmen."
+      }
+    ]
+  },
+  "about": {
+    "title": "Ein Ort für alle Mietwagen in Albanien",
+    "lead": "Bookers Car Albania verbindet Reisende mit lokalen Mietwagenfirmen. Du vergleichst Preise, siehst, welches Auto frei ist, und buchst in wenigen Minuten – ohne Konto. Das Unternehmen erhält die Buchung sofort und erwartet dich mit dem fertigen Auto.",
+    "statCompanies": "Partnerunternehmen",
+    "statCars": "Autos auf der Plattform",
+    "statCities": "Städte",
+    "statOnline": "Online-Buchungen",
+    "how": "So funktioniert es",
+    "mission": "Unsere Mission",
+    "mission1": "Ein Auto in Albanien zu mieten bedeutet oft Anrufe, Nachrichten und wechselnde Preise. Wir machen es einfach: klare Preise, echte Verfügbarkeit und gleiche Regeln für alle – mindestens 3 Tage, kostenlose Stornierung innerhalb von 24 Stunden, Zahlung bei Abholung.",
+    "mission2": "Für lokale Unternehmen sind wir ein Online-Schaufenster und ein Dashboard, in dem sie täglich Buchungen, freie Autos und Umsatz sehen.",
+    "partners": "Unsere Partner",
+    "ctaTitle": "Du hast eine Mietwagenfirma?",
+    "ctaText": "Werde Partner und erhalte Buchungen von neuen Kunden – mit deinem eigenen Dashboard.",
+    "becomePartner": "Partner werden",
+    "steps": [
+      {
+        "t": "Suchen",
+        "d": "Wähle Stadt und Daten. Es werden nur freie Autos aller Unternehmen angezeigt."
+      },
+      {
+        "t": "Buchen",
+        "d": "Gib deine Daten ein, ohne Konto. Du erhältst sofort deinen Buchungscode."
+      },
+      {
+        "t": "Auto abholen",
+        "d": "Das Unternehmen bestätigt und erwartet dich. Du zahlst bei der Abholung."
+      }
+    ],
+    "values": [
+      {
+        "t": "Transparenz",
+        "d": "Der Preis, den du siehst, ist der Preis, den du zahlst."
+      },
+      {
+        "t": "Lokale Unternehmen",
+        "d": "Wir unterstützen albanische Mietwagenfirmen."
+      },
+      {
+        "t": "Einfachheit",
+        "d": "Kein Konto, kein Papierkram, keine unnötigen Anrufe."
+      }
+    ]
+  },
+  "blog": {
+    "title": "Reisen und Tipps",
+    "lead": "Reiserouten durch Albanien, Tipps zur Automiete und Angebote der Partnerunternehmen.",
+    "readMin": "{n} Min. Lesezeit",
+    "read": "Lesen",
+    "empty": "Noch keine Artikel.",
+    "allPosts": "Alle Artikel",
+    "ctaTitle": "Bereit für die Reise?",
+    "ctaText": "Vergleiche die Autos der Partnerunternehmen und buche ohne Konto.",
+    "alsoRead": "Lies auch",
+    "notFound": "Artikel nicht gefunden."
+  },
+  "login": {
+    "intro": "Nur für Partnerunternehmen und den Administrator. Kunden buchen ohne Konto.",
+    "expired": "Die Sitzung ist abgelaufen. Melde dich erneut an.",
+    "needLogin": "Melde dich mit dem Unternehmenskonto an, um fortzufahren.",
+    "password": "Passwort",
+    "err": {
+      "password": "Gib das Passwort ein."
+    },
+    "loggingIn": "Anmeldung läuft...",
+    "submit": "Anmelden",
+    "client": "Bist du Kunde?",
+    "findBooking": "Finde deine Buchung mit Code und Telefonnummer.",
+    "partner": "Möchtest du Partner werden? Schreib uns an"
+  },
+  "errors": {
+    "offline": "Der Server antwortet nicht. Stelle sicher, dass das Backend läuft.",
+    "unauthorized": "Du musst dich anmelden.",
+    "forbidden": "Du hast keine Berechtigung für diese Aktion.",
+    "notFound": "Nicht gefunden.",
+    "generic": "Ein Fehler ist aufgetreten. Versuch es erneut.",
+    "loginFailed": "Anmeldung fehlgeschlagen.",
+    "carNotFound": "Auto nicht gefunden.",
+    "companyNotFound": "Unternehmen nicht gefunden."
+  }
+}

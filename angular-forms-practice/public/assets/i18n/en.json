@@ -1,0 +1,544 @@
+﻿{
+  "app": {
+    "demo": "Demo mode: data is stored only in this browser."
+  },
+  "nav": {
+    "menu": "Menu",
+    "home": "Home",
+    "cars": "Cars",
+    "myBooking": "My booking",
+    "blog": "Blog",
+    "help": "Help",
+    "about": "About us",
+    "careers": "Careers",
+    "faq": "FAQ",
+    "adminPanel": "Admin panel",
+    "panel": "Dashboard",
+    "logout": "Log out",
+    "login": "Log in · Business",
+    "language": "Language",
+    "lightTheme": "Light theme",
+    "darkTheme": "Dark theme"
+  },
+  "footer": {
+    "tagline": "Car rental from the best companies in Albania.",
+    "navigation": "Navigation",
+    "helpSupport": "Help / Support",
+    "company": "Company",
+    "support": "Support",
+    "online": "Online bookings 24/7",
+    "rights": "All rights reserved.",
+    "photos": "Car photos:",
+    "license": "CC license"
+  },
+  "home": {
+    "kicker": "Rental cars from the best companies in Albania",
+    "partners": "Partner companies",
+    "chooseCompany": "Choose a company",
+    "fleet": "Fleet",
+    "allCars": "All cars",
+    "emptyCategory": "No cars in this category."
+  },
+  "search": {
+    "pickupPlace": "Pick-up location",
+    "choosePlace": "Choose location",
+    "returnPlace": "Return location",
+    "samePlace": "Same location",
+    "pickupDate": "Pick-up",
+    "returnDate": "Return",
+    "search": "Search"
+  },
+  "common": {
+    "carsCount": "{n} cars",
+    "all": "All",
+    "loadingCars": "Loading cars...",
+    "clear": "Clear",
+    "searching": "Searching...",
+    "loading": "Loading...",
+    "backHome": "Back to home",
+    "minDays": "Minimum rental is 3 days.",
+    "seeCars": "See cars",
+    "choose": "Choose",
+    "optional": "optional",
+    "remove": "Remove",
+    "sending": "Sending..."
+  },
+  "cars": {
+    "inCity": "in {city}",
+    "pickupAt": "pick-up: {place}",
+    "returnAt": "return: {place}",
+    "freeBetween": "available {from} → {to} ({days} days)",
+    "city": "City",
+    "allCities": "All cities",
+    "company": "Company",
+    "allCompanies": "All companies",
+    "minDaysError": "Minimum rental is 3 days. Choose a later return date.",
+    "searchPlaceholder": "Search brand, model or company...",
+    "allCategories": "All categories",
+    "anyGearbox": "Any gearbox",
+    "cheapest": "Cheapest first",
+    "priciest": "Most expensive first",
+    "newest": "Newest first",
+    "empty": "No cars available for this search. Try other dates or another city."
+  },
+  "car": {
+    "seats": "{n} seats",
+    "perDay": "day",
+    "book": "Book"
+  },
+  "company": {
+    "partner": "Partner company",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "cars": "Cars",
+    "clearDates": "Clear dates",
+    "freeBetween": "Available from {from} to {to} · {days} days",
+    "empty": "No cars available for this selection."
+  },
+  "booking": {
+    "back": "Back to cars",
+    "title": "Book {car}",
+    "by": "by",
+    "formInvalid": "Some fields are not filled in correctly. Check the fields marked in red.",
+    "s1": "Dates and location",
+    "err": {
+      "pickupPlace": "Choose the pick-up location.",
+      "returnPlace": "Choose the return location.",
+      "pickupDate": "Choose the pick-up date.",
+      "pastDate": "The date cannot be in the past.",
+      "returnDate": "Choose the return date.",
+      "range": "The return date must be after the pick-up date.",
+      "tooShort": "Minimum rental is {n} days.",
+      "tooLong": "The rental cannot be longer than {n} days.",
+      "unavailable": "The car is booked on some of these dates. See the booked periods on the right.",
+      "age": "Enter your age.",
+      "ageMin": "The driver must be at least {n} years old.",
+      "ageMax": "Maximum age is {n}.",
+      "license": "The licence number must have 6–12 letters or digits.",
+      "street": "Enter the street.",
+      "city": "Enter the city.",
+      "zip": "4 digits.",
+      "phone": "Enter the number.",
+      "phoneFormat": "Format: 067/068/069 + 7 digits, or +35569...",
+      "terms": "You must accept the terms."
+    },
+    "samePlace": "Same as pick-up location",
+    "pickupDate": "Pick-up date",
+    "returnDate": "Return date",
+    "s2": "Your details",
+    "noAccount": "No account needed. The company will contact you by email and phone.",
+    "age": "Age",
+    "license": "Driving licence number",
+    "licensePlaceholder": "e.g. AL1234567",
+    "s3": "Address",
+    "street": "Street",
+    "zip": "Postal code",
+    "s4": "Phone numbers",
+    "addPhone": "Add another number",
+    "s5": "Extras",
+    "terms": "I accept the rental terms and the privacy policy.",
+    "confirm": "Confirm booking",
+    "summary": "Summary",
+    "days": "Days",
+    "rent": "Rental",
+    "subtotal": "Subtotal",
+    "discount": "Discount {p}%",
+    "total": "Total",
+    "note": "{p}% discount for {n} days or more. Payment is made when you pick up the car.",
+    "ruleMin": "Minimum rental: {n} days",
+    "ruleCancel": "Free cancellation only within {n} hours of booking",
+    "booked": "Booked on these dates:"
+  },
+  "form": {
+    "firstName": "First name",
+    "err": {
+      "firstName": "Enter your name.",
+      "lastName": "Enter your last name.",
+      "email": "Enter a valid email."
+    },
+    "lastName": "Last name",
+    "email": "Email",
+    "emailPlaceholder": "name@example.com",
+    "name": "Name"
+  },
+  "extras": {
+    "gps": {
+      "label": "GPS",
+      "desc": "Navigation with maps of Albania"
+    },
+    "childSeat": {
+      "label": "Child seat",
+      "desc": "For children 9–36 kg"
+    },
+    "fullInsurance": {
+      "label": "Full insurance",
+      "desc": "No excess in case of damage"
+    }
+  },
+  "lookup": {
+    "intro": "No account needed. Enter your booking code and the phone number you provided.",
+    "newBooking": "New booking",
+    "sentTitle": "Your booking was sent to the company!",
+    "sentText": "Your code is {code} — keep it. The company will contact you to confirm.",
+    "code": "Booking code",
+    "err": {
+      "code": "Enter the code.",
+      "phone": "Enter the phone number."
+    },
+    "find": "Find booking",
+    "codeLabel": "Code",
+    "created": "created on",
+    "days": "{n} days",
+    "cancelling": "Cancelling...",
+    "cancel": "Cancel",
+    "until": "until",
+    "windowPassed": "The {n}-hour cancellation window has passed. For changes, call the company.",
+    "problem": "Having a problem? Write to support",
+    "notFound": "Booking not found.",
+    "confirmCancel": "Are you sure you want to cancel booking {code}?"
+  },
+  "support": {
+    "hours": "Online 24/7",
+    "title": "How can we help you?",
+    "lead": "Write to us or call us. For bookings, have your code ready (e.g. BCA-2026-0001).",
+    "call": "Call",
+    "fastReply": "Fast reply",
+    "viewCancel": "View or cancel",
+    "allQuestions": "All questions",
+    "sentTitle": "Message sent",
+    "sentText": "Request number: #{id}. We will reply to {email} as soon as possible.",
+    "urgent": "For something urgent:",
+    "another": "Send another message",
+    "writeUs": "Write to us",
+    "noAccount": "No account needed.",
+    "topic": "Topic",
+    "message": "Message",
+    "messagePlaceholder": "Tell us what happened...",
+    "err": {
+      "message": "Write at least 10 characters."
+    },
+    "send": "Send message",
+    "error": "The message was not sent. Try again or call us."
+  },
+  "enum": {
+    "supportTopic": {
+      "BOOKING": "Booking",
+      "CANCELLATION": "Cancellation / change",
+      "PAYMENT": "Payment / price",
+      "CAR": "Problem with the car",
+      "PARTNER": "I want to become a partner",
+      "CAREER": "Careers / job application",
+      "OTHER": "Other"
+    },
+    "category": {
+      "ECONOMY": "Economy",
+      "SEDAN": "Sedan",
+      "SUV": "SUV",
+      "LUXURY": "Luxury"
+    },
+    "transmission": {
+      "MANUAL": "Manual",
+      "AUTOMATIC": "Automatic"
+    },
+    "fuel": {
+      "PETROL": "Petrol",
+      "DIESEL": "Diesel",
+      "HYBRID": "Hybrid",
+      "ELECTRIC": "Electric"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "CANCELLED": "Cancelled",
+      "COMPLETED": "Completed"
+    }
+  },
+  "faq": {
+    "title": "Everything you need to know",
+    "lead": "Booking, payment, cancellation and picking up the car. Can't find the answer?",
+    "searchPlaceholder": "Search e.g. cancellation, licence, discount...",
+    "none": "No questions for \"{term}\".",
+    "askSupport": "Ask support",
+    "groups": [
+      {
+        "title": "Booking",
+        "items": [
+          {
+            "q": "Do I need an account to book?",
+            "a": "No. Choose the car, fill in your details and get a booking code. With the code and your phone number you can find the booking under \"My booking\"."
+          },
+          {
+            "q": "What is the minimum rental period?",
+            "a": "The minimum is 3 days and the maximum 30 days."
+          },
+          {
+            "q": "Who confirms my booking?",
+            "a": "The company that owns the car. It receives the booking instantly and contacts you by phone or email."
+          },
+          {
+            "q": "How do I know the car is available?",
+            "a": "When you choose dates in the search, only available cars are shown. On the booking page you can also see the dates when the car is booked."
+          }
+        ]
+      },
+      {
+        "title": "Payment and prices",
+        "items": [
+          {
+            "q": "When and how do I pay?",
+            "a": "You pay the company when you pick up the car. The price in the summary is the final total."
+          },
+          {
+            "q": "Is there a discount for long rentals?",
+            "a": "Yes. For 7 days or more you get a 10% discount automatically."
+          },
+          {
+            "q": "What does the price include?",
+            "a": "The daily rental and the extras you choose (GPS, child seat, full insurance). Fuel is not included."
+          }
+        ]
+      },
+      {
+        "title": "Cancellation and changes",
+        "items": [
+          {
+            "q": "How do I cancel my booking?",
+            "a": "Under \"My booking\" enter your code and phone number, then click \"Cancel\". Free cancellation is allowed only within 24 hours of booking and before the pick-up day."
+          },
+          {
+            "q": "The 24 hours have passed, what can I do?",
+            "a": "Call the company directly (the number is on the booking) or write to us on the Help page."
+          },
+          {
+            "q": "How do I change the dates?",
+            "a": "Cancel within 24 hours and make a new booking, or contact the company."
+          }
+        ]
+      },
+      {
+        "title": "Picking up the car",
+        "items": [
+          {
+            "q": "Which documents do I need?",
+            "a": "A valid driving licence and an ID document. The driver must be 21–75 years old."
+          },
+          {
+            "q": "Where do I pick up the car?",
+            "a": "At the location you chose in the booking, e.g. Rinas Airport, Tirana centre, Durrës, Vlorë, Shkodër or Sarandë."
+          },
+          {
+            "q": "Can I return it in another city?",
+            "a": "Yes, choose a different return location when booking. Confirm it with the company."
+          }
+        ]
+      },
+      {
+        "title": "For businesses",
+        "items": [
+          {
+            "q": "How does my company become a partner?",
+            "a": "Write to us on the Help page with the topic \"I want to become a partner\". We add the company and its cars and create your dashboard login."
+          },
+          {
+            "q": "What does a business see in the dashboard?",
+            "a": "Its own bookings, the status of its cars (available / booked) and daily, weekly and monthly revenue."
+          }
+        ]
+      }
+    ]
+  },
+  "careers": {
+    "title": "Build with us the way people travel in Albania",
+    "lead": "We are a small team connecting travellers with the best rental companies. We are looking for people who want to build something new.",
+    "open": "Open positions",
+    "tasks": "What you will do",
+    "requirements": "What we are looking for",
+    "apply": "Apply",
+    "thanks": "Thank you!",
+    "sentText": "Your application was sent (no. #{id}). We will contact you by email if your profile is a match.",
+    "applyOther": "Apply for another position",
+    "openApplicationHint": "Don't see your position? Choose \"Open application\" and tell us what you can do.",
+    "position": "Position",
+    "openApplication": "Open application",
+    "fullName": "Full name",
+    "cv": "CV / LinkedIn link",
+    "why": "Why you?",
+    "whyPlaceholder": "A few sentences about your experience...",
+    "err": "Fill in your name, email, CV link (https://...) and at least 20 characters in \"Why you?\".",
+    "send": "Send application",
+    "error": "The application was not sent. Try again.",
+    "jobs": [
+      {
+        "id": "support",
+        "title": "Customer Support Agent",
+        "team": "Support",
+        "location": "Tirana",
+        "type": "Full-time · shifts",
+        "summary": "You are the voice of Bookers for customers: you help with bookings, cancellations and any problem during the trip.",
+        "tasks": [
+          "Answer phone calls, WhatsApp and email",
+          "Follow requests in the support dashboard until they are solved",
+          "Coordinate with partner companies on booking changes"
+        ],
+        "requirements": [
+          "Very good Albanian and English (Italian is a plus)",
+          "Patience and calm with customers",
+          "Availability for shifts, including weekends in high season"
+        ]
+      },
+      {
+        "id": "partner",
+        "title": "Partnerships Manager",
+        "team": "Business",
+        "location": "Tirana · travel to Durrës, Vlorë, Sarandë",
+        "type": "Full-time",
+        "summary": "You bring new rental companies to the platform and make sure existing partners grow with us.",
+        "tasks": [
+          "Meet rental companies and present the platform",
+          "Help new partners with cars, photos and prices",
+          "Follow every partner's results every month"
+        ],
+        "requirements": [
+          "Experience in sales or account management",
+          "Category B driving licence and willingness to travel",
+          "Knowledge of the tourism market is a plus"
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Frontend Developer (Angular)",
+        "team": "Technology",
+        "location": "Tirana · hybrid",
+        "type": "Full-time",
+        "summary": "You build the website used by thousands of travellers and the dashboard of our partner businesses.",
+        "tasks": [
+          "Develop new pages with Angular and TypeScript",
+          "Improve speed and the mobile experience",
+          "Work together with the backend (Spring Boot)"
+        ],
+        "requirements": [
+          "Angular, TypeScript, HTML/CSS",
+          "Reactive Forms and RxJS",
+          "Git and teamwork"
+        ]
+      },
+      {
+        "id": "marketing",
+        "title": "Digital Marketing Intern",
+        "team": "Marketing",
+        "location": "Tirana",
+        "type": "Internship · 3 months",
+        "summary": "You create content for the blog and social media and learn the marketing of an online platform.",
+        "tasks": [
+          "Write blog articles (itineraries, tips)",
+          "Prepare posts for Instagram and TikTok",
+          "Track campaign results"
+        ],
+        "requirements": [
+          "Student or recent graduate",
+          "Good writing in Albanian",
+          "Passion for travel and photography"
+        ]
+      }
+    ],
+    "perks": [
+      {
+        "t": "Small team",
+        "d": "Your idea could be live on the site next week."
+      },
+      {
+        "t": "Growth",
+        "d": "A new platform expanding to every city in Albania."
+      },
+      {
+        "t": "Flexibility",
+        "d": "Hybrid work for roles that allow it."
+      },
+      {
+        "t": "Travel",
+        "d": "Discounts on cars from partner companies."
+      }
+    ]
+  },
+  "about": {
+    "title": "One place for every rental car in Albania",
+    "lead": "Bookers Car Albania connects travellers with local rental companies. Compare prices, see which car is available and book in a few minutes, without an account. The company receives the booking instantly and waits for you with the car ready.",
+    "statCompanies": "partner companies",
+    "statCars": "cars on the platform",
+    "statCities": "cities",
+    "statOnline": "online bookings",
+    "how": "How it works",
+    "mission": "Our mission",
+    "mission1": "Renting a car in Albania often means phone calls, messages and changing prices. We make it simple: clear prices, real availability and the same rules for everyone — minimum 3 days, free cancellation within 24 hours, payment at pick-up.",
+    "mission2": "For local companies we are an online showroom and a dashboard where they see bookings, available cars and revenue every day.",
+    "partners": "Our partners",
+    "ctaTitle": "Do you own a rental company?",
+    "ctaText": "Join as a partner and get bookings from new customers, with your own dashboard.",
+    "becomePartner": "Become a partner",
+    "steps": [
+      {
+        "t": "Search",
+        "d": "Choose the city and dates. Only available cars from all companies are shown."
+      },
+      {
+        "t": "Book",
+        "d": "Fill in your details, no account needed. Get your booking code instantly."
+      },
+      {
+        "t": "Pick up the car",
+        "d": "The company confirms and waits for you. You pay at pick-up."
+      }
+    ],
+    "values": [
+      {
+        "t": "Transparency",
+        "d": "The price you see is the price you pay."
+      },
+      {
+        "t": "Local companies",
+        "d": "We support Albanian rental businesses."
+      },
+      {
+        "t": "Simplicity",
+        "d": "No account, no paperwork, no unnecessary phone calls."
+      }
+    ]
+  },
+  "blog": {
+    "title": "Travel and tips",
+    "lead": "Itineraries across Albania, car rental tips and offers from partner companies.",
+    "readMin": "{n} min read",
+    "read": "Read",
+    "empty": "No articles yet.",
+    "allPosts": "All articles",
+    "ctaTitle": "Ready to travel?",
+    "ctaText": "Compare cars from partner companies and book without an account.",
+    "alsoRead": "Also read",
+    "notFound": "Article not found."
+  },
+  "login": {
+    "intro": "Only for partner companies and the administrator. Customers book without an account.",
+    "expired": "Your session has expired. Log in again.",
+    "needLogin": "Log in with your business account to continue.",
+    "password": "Password",
+    "err": {
+      "password": "Enter your password."
+    },
+    "loggingIn": "Logging in...",
+    "submit": "Log in",
+    "client": "Are you a customer?",
+    "findBooking": "Find your booking with your code and phone number.",
+    "partner": "Want to become a partner? Write to us at"
+  },
+  "errors": {
+    "offline": "The server is not responding. Make sure the backend is running.",
+    "unauthorized": "You need to log in.",
+    "forbidden": "You do not have permission for this action.",
+    "notFound": "Not found.",
+    "generic": "Something went wrong. Try again.",
+    "loginFailed": "Login failed.",
+    "carNotFound": "Car not found.",
+    "companyNotFound": "Company not found."
+  }
+}

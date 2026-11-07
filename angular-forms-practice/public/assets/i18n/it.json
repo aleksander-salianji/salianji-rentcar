@@ -1,0 +1,544 @@
+﻿{
+  "app": {
+    "demo": "Modalità demo: i dati sono salvati solo in questo browser."
+  },
+  "nav": {
+    "menu": "Menu",
+    "home": "Home",
+    "cars": "Auto",
+    "myBooking": "La mia prenotazione",
+    "blog": "Blog",
+    "help": "Aiuto",
+    "about": "Chi siamo",
+    "careers": "Lavora con noi",
+    "faq": "Domande frequenti",
+    "adminPanel": "Pannello admin",
+    "panel": "Pannello",
+    "logout": "Esci",
+    "login": "Accedi · Aziende",
+    "language": "Lingua",
+    "lightTheme": "Tema chiaro",
+    "darkTheme": "Tema scuro"
+  },
+  "footer": {
+    "tagline": "Noleggio auto dalle migliori aziende in Albania.",
+    "navigation": "Navigazione",
+    "helpSupport": "Aiuto / Supporto",
+    "company": "Azienda",
+    "support": "Supporto",
+    "online": "Prenotazioni online 24/7",
+    "rights": "Tutti i diritti riservati.",
+    "photos": "Foto delle auto:",
+    "license": "licenza CC"
+  },
+  "home": {
+    "kicker": "Auto a noleggio dalle migliori aziende in Albania",
+    "partners": "Aziende partner",
+    "chooseCompany": "Scegli l'azienda",
+    "fleet": "Flotta",
+    "allCars": "Tutte le auto",
+    "emptyCategory": "Nessuna auto in questa categoria."
+  },
+  "search": {
+    "pickupPlace": "Luogo di ritiro",
+    "choosePlace": "Scegli il luogo",
+    "returnPlace": "Luogo di riconsegna",
+    "samePlace": "Stesso luogo",
+    "pickupDate": "Ritiro",
+    "returnDate": "Riconsegna",
+    "search": "Cerca"
+  },
+  "common": {
+    "carsCount": "{n} auto",
+    "all": "Tutte",
+    "loadingCars": "Caricamento auto...",
+    "clear": "Azzera",
+    "searching": "Ricerca in corso...",
+    "loading": "Caricamento...",
+    "backHome": "Torna alla home",
+    "minDays": "Il noleggio minimo è di 3 giorni.",
+    "seeCars": "Vedi le auto",
+    "choose": "Scegli",
+    "optional": "facoltativo",
+    "remove": "Rimuovi",
+    "sending": "Invio in corso..."
+  },
+  "cars": {
+    "inCity": "a {city}",
+    "pickupAt": "ritiro: {place}",
+    "returnAt": "riconsegna: {place}",
+    "freeBetween": "disponibili {from} → {to} ({days} giorni)",
+    "city": "Città",
+    "allCities": "Tutte le città",
+    "company": "Azienda",
+    "allCompanies": "Tutte le aziende",
+    "minDaysError": "Il noleggio minimo è di 3 giorni. Scegli una data di riconsegna successiva.",
+    "searchPlaceholder": "Cerca marca, modello o azienda...",
+    "allCategories": "Tutte le categorie",
+    "anyGearbox": "Qualsiasi cambio",
+    "cheapest": "Le più economiche",
+    "priciest": "Le più costose",
+    "newest": "Le più recenti",
+    "empty": "Nessuna auto disponibile per questa ricerca. Prova altre date o un'altra città."
+  },
+  "car": {
+    "seats": "{n} posti",
+    "perDay": "giorno",
+    "book": "Prenota"
+  },
+  "company": {
+    "partner": "Azienda partner",
+    "address": "Indirizzo",
+    "phone": "Telefono",
+    "email": "Email",
+    "cars": "Auto",
+    "clearDates": "Azzera le date",
+    "freeBetween": "Disponibili dal {from} al {to} · {days} giorni",
+    "empty": "Nessuna auto disponibile per questa selezione."
+  },
+  "booking": {
+    "back": "Torna alle auto",
+    "title": "Prenota {car}",
+    "by": "di",
+    "formInvalid": "Alcuni campi non sono compilati correttamente. Controlla i campi in rosso.",
+    "s1": "Date e luogo",
+    "err": {
+      "pickupPlace": "Scegli il luogo di ritiro.",
+      "returnPlace": "Scegli il luogo di riconsegna.",
+      "pickupDate": "Scegli la data di ritiro.",
+      "pastDate": "La data non può essere nel passato.",
+      "returnDate": "Scegli la data di riconsegna.",
+      "range": "La data di riconsegna deve essere successiva a quella di ritiro.",
+      "tooShort": "Il noleggio minimo è di {n} giorni.",
+      "tooLong": "Il noleggio non può superare {n} giorni.",
+      "unavailable": "L'auto è già prenotata in alcune di queste date. Vedi i periodi occupati a destra.",
+      "age": "Inserisci l'età.",
+      "ageMin": "Il conducente deve avere almeno {n} anni.",
+      "ageMax": "L'età massima è {n} anni.",
+      "license": "La patente deve avere 6–12 lettere o cifre.",
+      "street": "Inserisci la via.",
+      "city": "Inserisci la città.",
+      "zip": "4 cifre.",
+      "phone": "Inserisci il numero.",
+      "phoneFormat": "Formato: 067/068/069 + 7 cifre, oppure +35569...",
+      "terms": "Devi accettare le condizioni."
+    },
+    "samePlace": "Uguale al luogo di ritiro",
+    "pickupDate": "Data di ritiro",
+    "returnDate": "Data di riconsegna",
+    "s2": "I tuoi dati",
+    "noAccount": "Non serve un account. L'azienda ti contatterà via email e telefono.",
+    "age": "Età",
+    "license": "Numero di patente",
+    "licensePlaceholder": "es. AL1234567",
+    "s3": "Indirizzo",
+    "street": "Via",
+    "zip": "CAP",
+    "s4": "Numeri di telefono",
+    "addPhone": "Aggiungi un altro numero",
+    "s5": "Extra",
+    "terms": "Accetto le condizioni di noleggio e l'informativa sulla privacy.",
+    "confirm": "Conferma la prenotazione",
+    "summary": "Riepilogo",
+    "days": "Giorni",
+    "rent": "Noleggio",
+    "subtotal": "Subtotale",
+    "discount": "Sconto {p}%",
+    "total": "Totale",
+    "note": "Sconto del {p}% per {n} giorni o più. Il pagamento avviene al ritiro dell'auto.",
+    "ruleMin": "Noleggio minimo: {n} giorni",
+    "ruleCancel": "Cancellazione gratuita solo entro {n} ore dalla prenotazione",
+    "booked": "Occupata in queste date:"
+  },
+  "form": {
+    "firstName": "Nome",
+    "err": {
+      "firstName": "Inserisci il nome.",
+      "lastName": "Inserisci il cognome.",
+      "email": "Inserisci un'email valida."
+    },
+    "lastName": "Cognome",
+    "email": "Email",
+    "emailPlaceholder": "nome@esempio.it",
+    "name": "Nome"
+  },
+  "extras": {
+    "gps": {
+      "label": "GPS",
+      "desc": "Navigatore con mappe dell'Albania"
+    },
+    "childSeat": {
+      "label": "Seggiolino per bambini",
+      "desc": "Per bambini 9–36 kg"
+    },
+    "fullInsurance": {
+      "label": "Assicurazione completa",
+      "desc": "Nessuna franchigia in caso di danni"
+    }
+  },
+  "lookup": {
+    "intro": "Non serve un account. Inserisci il codice della prenotazione e il numero di telefono indicato.",
+    "newBooking": "Nuova prenotazione",
+    "sentTitle": "La prenotazione è stata inviata all'azienda!",
+    "sentText": "Il tuo codice è {code} — conservalo. L'azienda ti contatterà per la conferma.",
+    "code": "Codice di prenotazione",
+    "err": {
+      "code": "Inserisci il codice.",
+      "phone": "Inserisci il numero di telefono."
+    },
+    "find": "Trova la prenotazione",
+    "codeLabel": "Codice",
+    "created": "creata il",
+    "days": "{n} giorni",
+    "cancelling": "Cancellazione...",
+    "cancel": "Cancella",
+    "until": "fino al",
+    "windowPassed": "Il termine di {n} ore per la cancellazione è scaduto. Per modifiche chiama l'azienda.",
+    "problem": "Hai un problema? Scrivi al supporto",
+    "notFound": "Prenotazione non trovata.",
+    "confirmCancel": "Vuoi davvero cancellare la prenotazione {code}?"
+  },
+  "support": {
+    "hours": "Online 24/7",
+    "title": "Come possiamo aiutarti?",
+    "lead": "Scrivici o chiamaci. Per le prenotazioni tieni pronto il codice (es. BCA-2026-0001).",
+    "call": "Chiama",
+    "fastReply": "Risposta rapida",
+    "viewCancel": "Vedi o cancella",
+    "allQuestions": "Tutte le domande",
+    "sentTitle": "Messaggio inviato",
+    "sentText": "Numero della richiesta: #{id}. Ti risponderemo a {email} il prima possibile.",
+    "urgent": "Per qualcosa di urgente:",
+    "another": "Invia un altro messaggio",
+    "writeUs": "Scrivici",
+    "noAccount": "Non serve un account.",
+    "topic": "Argomento",
+    "message": "Messaggio",
+    "messagePlaceholder": "Raccontaci cosa è successo...",
+    "err": {
+      "message": "Scrivi almeno 10 caratteri."
+    },
+    "send": "Invia il messaggio",
+    "error": "Il messaggio non è stato inviato. Riprova o chiamaci."
+  },
+  "enum": {
+    "supportTopic": {
+      "BOOKING": "Prenotazione",
+      "CANCELLATION": "Cancellazione / modifica",
+      "PAYMENT": "Pagamento / prezzo",
+      "CAR": "Problema con l'auto",
+      "PARTNER": "Voglio diventare partner",
+      "CAREER": "Lavoro / candidatura",
+      "OTHER": "Altro"
+    },
+    "category": {
+      "ECONOMY": "Economica",
+      "SEDAN": "Berlina",
+      "SUV": "SUV",
+      "LUXURY": "Lusso"
+    },
+    "transmission": {
+      "MANUAL": "Manuale",
+      "AUTOMATIC": "Automatico"
+    },
+    "fuel": {
+      "PETROL": "Benzina",
+      "DIESEL": "Diesel",
+      "HYBRID": "Ibrida",
+      "ELECTRIC": "Elettrica"
+    },
+    "status": {
+      "PENDING": "In attesa",
+      "CONFIRMED": "Confermata",
+      "CANCELLED": "Cancellata",
+      "COMPLETED": "Completata"
+    }
+  },
+  "faq": {
+    "title": "Tutto quello che devi sapere",
+    "lead": "Prenotazione, pagamento, cancellazione e ritiro dell'auto. Non trovi la risposta?",
+    "searchPlaceholder": "Cerca es. cancellazione, patente, sconto...",
+    "none": "Nessuna domanda per \"{term}\".",
+    "askSupport": "Chiedi al supporto",
+    "groups": [
+      {
+        "title": "Prenotazione",
+        "items": [
+          {
+            "q": "Serve un account per prenotare?",
+            "a": "No. Scegli l'auto, inserisci i tuoi dati e ricevi un codice di prenotazione. Con il codice e il telefono trovi la prenotazione in \"La mia prenotazione\"."
+          },
+          {
+            "q": "Qual è la durata minima del noleggio?",
+            "a": "Il minimo è 3 giorni e il massimo 30 giorni."
+          },
+          {
+            "q": "Chi conferma la mia prenotazione?",
+            "a": "L'azienda proprietaria dell'auto. Riceve subito la prenotazione e ti contatta per telefono o email."
+          },
+          {
+            "q": "Come so se l'auto è disponibile?",
+            "a": "Quando scegli le date nella ricerca, vengono mostrate solo le auto disponibili. Nella pagina di prenotazione vedi anche le date in cui l'auto è occupata."
+          }
+        ]
+      },
+      {
+        "title": "Pagamento e prezzi",
+        "items": [
+          {
+            "q": "Quando e come pago?",
+            "a": "Paghi l'azienda al momento del ritiro dell'auto. Il prezzo nel riepilogo è il totale finale."
+          },
+          {
+            "q": "C'è uno sconto per i noleggi lunghi?",
+            "a": "Sì. Per 7 giorni o più hai automaticamente il 10% di sconto."
+          },
+          {
+            "q": "Cosa include il prezzo?",
+            "a": "Il noleggio giornaliero e gli extra che scegli (GPS, seggiolino, assicurazione completa). Il carburante non è incluso."
+          }
+        ]
+      },
+      {
+        "title": "Cancellazione e modifiche",
+        "items": [
+          {
+            "q": "Come cancello la prenotazione?",
+            "a": "In \"La mia prenotazione\" inserisci codice e telefono, poi clicca \"Cancella\". La cancellazione gratuita è possibile solo entro 24 ore dalla prenotazione e prima del giorno di ritiro."
+          },
+          {
+            "q": "Sono passate le 24 ore, cosa faccio?",
+            "a": "Chiama direttamente l'azienda (il numero è nella prenotazione) o scrivici nella pagina Aiuto."
+          },
+          {
+            "q": "Come cambio le date?",
+            "a": "Cancella entro 24 ore e fai una nuova prenotazione, oppure contatta l'azienda."
+          }
+        ]
+      },
+      {
+        "title": "Ritiro dell'auto",
+        "items": [
+          {
+            "q": "Quali documenti servono?",
+            "a": "Patente valida e un documento d'identità. Il conducente deve avere tra 21 e 75 anni."
+          },
+          {
+            "q": "Dove ritiro l'auto?",
+            "a": "Nel luogo scelto nella prenotazione, ad es. Aeroporto di Rinas, Tirana centro, Durazzo, Valona, Scutari o Saranda."
+          },
+          {
+            "q": "Posso riconsegnarla in un'altra città?",
+            "a": "Sì, scegli un altro luogo di riconsegna durante la prenotazione. Confermalo con l'azienda."
+          }
+        ]
+      },
+      {
+        "title": "Per le aziende",
+        "items": [
+          {
+            "q": "Come diventa partner la mia azienda?",
+            "a": "Scrivici nella pagina Aiuto con l'argomento \"Voglio diventare partner\". Aggiungiamo l'azienda e le sue auto e creiamo l'accesso al pannello."
+          },
+          {
+            "q": "Cosa vede un'azienda nel pannello?",
+            "a": "Le proprie prenotazioni, lo stato delle auto (libere / occupate) e il fatturato giornaliero, settimanale e mensile."
+          }
+        ]
+      }
+    ]
+  },
+  "careers": {
+    "title": "Costruisci con noi il modo di viaggiare in Albania",
+    "lead": "Siamo un piccolo team che collega i viaggiatori con le migliori aziende di noleggio. Cerchiamo persone che vogliono costruire qualcosa di nuovo.",
+    "open": "Posizioni aperte",
+    "tasks": "Cosa farai",
+    "requirements": "Cosa cerchiamo",
+    "apply": "Candidati",
+    "thanks": "Grazie!",
+    "sentText": "Candidatura inviata (n. #{id}). Ti contatteremo via email se il profilo corrisponde.",
+    "applyOther": "Candidati per un'altra posizione",
+    "openApplicationHint": "Non vedi la tua posizione? Scegli \"Candidatura spontanea\" e raccontaci cosa sai fare.",
+    "position": "Posizione",
+    "openApplication": "Candidatura spontanea",
+    "fullName": "Nome e cognome",
+    "cv": "Link al CV / LinkedIn",
+    "why": "Perché tu?",
+    "whyPlaceholder": "Qualche frase sulla tua esperienza...",
+    "err": "Inserisci nome, email, link al CV (https://...) e almeno 20 caratteri in \"Perché tu?\".",
+    "send": "Invia la candidatura",
+    "error": "La candidatura non è stata inviata. Riprova.",
+    "jobs": [
+      {
+        "id": "support",
+        "title": "Addetto/a all'assistenza clienti",
+        "team": "Supporto",
+        "location": "Tirana",
+        "type": "Tempo pieno · a turni",
+        "summary": "Sei la voce di Bookers per i clienti: aiuti con prenotazioni, cancellazioni e qualsiasi problema durante il viaggio.",
+        "tasks": [
+          "Rispondi al telefono, su WhatsApp e via email",
+          "Segui le richieste nel pannello di supporto fino alla soluzione",
+          "Coordini con le aziende partner le modifiche alle prenotazioni"
+        ],
+        "requirements": [
+          "Ottimo albanese e inglese (l'italiano è un plus)",
+          "Pazienza e calma con i clienti",
+          "Disponibilità a turni, anche nei weekend in alta stagione"
+        ]
+      },
+      {
+        "id": "partner",
+        "title": "Partnership Manager",
+        "team": "Business",
+        "location": "Tirana · trasferte a Durazzo, Valona, Saranda",
+        "type": "Tempo pieno",
+        "summary": "Porti nuove aziende di noleggio sulla piattaforma e fai crescere con noi i partner esistenti.",
+        "tasks": [
+          "Incontri le aziende di noleggio e presenti la piattaforma",
+          "Aiuti i nuovi partner con auto, foto e prezzi",
+          "Segui ogni mese i risultati di ciascun partner"
+        ],
+        "requirements": [
+          "Esperienza in vendita o gestione clienti",
+          "Patente B e disponibilità a viaggiare",
+          "La conoscenza del mercato turistico è un plus"
+        ]
+      },
+      {
+        "id": "frontend",
+        "title": "Sviluppatore/trice Frontend (Angular)",
+        "team": "Tecnologia",
+        "location": "Tirana · ibrido",
+        "type": "Tempo pieno",
+        "summary": "Sviluppi il sito usato da migliaia di viaggiatori e il pannello delle aziende partner.",
+        "tasks": [
+          "Sviluppi nuove pagine con Angular e TypeScript",
+          "Migliori velocità ed esperienza su mobile",
+          "Collabori con il backend (Spring Boot)"
+        ],
+        "requirements": [
+          "Angular, TypeScript, HTML/CSS",
+          "Reactive Forms e RxJS",
+          "Git e lavoro in team"
+        ]
+      },
+      {
+        "id": "marketing",
+        "title": "Stagista Marketing Digitale",
+        "team": "Marketing",
+        "location": "Tirana",
+        "type": "Stage · 3 mesi",
+        "summary": "Crei contenuti per il blog e i social e impari il marketing di una piattaforma online.",
+        "tasks": [
+          "Scrivi articoli per il blog (itinerari, consigli)",
+          "Prepari post per Instagram e TikTok",
+          "Monitori i risultati delle campagne"
+        ],
+        "requirements": [
+          "Studente/ssa o neolaureato/a",
+          "Buona scrittura in albanese",
+          "Passione per viaggi e fotografia"
+        ]
+      }
+    ],
+    "perks": [
+      {
+        "t": "Team piccolo",
+        "d": "La tua idea può essere online la settimana prossima."
+      },
+      {
+        "t": "Crescita",
+        "d": "Una nuova piattaforma che si espande in ogni città dell'Albania."
+      },
+      {
+        "t": "Flessibilità",
+        "d": "Lavoro ibrido per i ruoli che lo permettono."
+      },
+      {
+        "t": "Viaggi",
+        "d": "Sconti sulle auto delle aziende partner."
+      }
+    ]
+  },
+  "about": {
+    "title": "Un unico posto per tutte le auto a noleggio in Albania",
+    "lead": "Bookers Car Albania collega i viaggiatori con le aziende di noleggio locali. Confronti i prezzi, vedi quale auto è disponibile e prenoti in pochi minuti, senza account. L'azienda riceve subito la prenotazione e ti aspetta con l'auto pronta.",
+    "statCompanies": "aziende partner",
+    "statCars": "auto sulla piattaforma",
+    "statCities": "città",
+    "statOnline": "prenotazioni online",
+    "how": "Come funziona",
+    "mission": "La nostra missione",
+    "mission1": "Noleggiare un'auto in Albania spesso significa telefonate, messaggi e prezzi che cambiano. Noi lo rendiamo semplice: prezzi chiari, disponibilità reale e le stesse regole per tutti — minimo 3 giorni, cancellazione gratuita entro 24 ore, pagamento al ritiro.",
+    "mission2": "Per le aziende locali siamo una vetrina online e un pannello in cui vedono ogni giorno prenotazioni, auto disponibili e fatturato.",
+    "partners": "I nostri partner",
+    "ctaTitle": "Hai un'azienda di noleggio?",
+    "ctaText": "Diventa partner e ricevi prenotazioni da nuovi clienti, con il tuo pannello.",
+    "becomePartner": "Diventa partner",
+    "steps": [
+      {
+        "t": "Cerca",
+        "d": "Scegli città e date. Vengono mostrate solo le auto disponibili di tutte le aziende."
+      },
+      {
+        "t": "Prenota",
+        "d": "Inserisci i tuoi dati, senza account. Ricevi subito il codice di prenotazione."
+      },
+      {
+        "t": "Ritira l'auto",
+        "d": "L'azienda conferma e ti aspetta. Paghi al ritiro."
+      }
+    ],
+    "values": [
+      {
+        "t": "Trasparenza",
+        "d": "Il prezzo che vedi è il prezzo che paghi."
+      },
+      {
+        "t": "Aziende locali",
+        "d": "Sosteniamo le aziende di noleggio albanesi."
+      },
+      {
+        "t": "Semplicità",
+        "d": "Niente account, niente carte, niente telefonate inutili."
+      }
+    ]
+  },
+  "blog": {
+    "title": "Viaggi e consigli",
+    "lead": "Itinerari in Albania, consigli per il noleggio auto e offerte delle aziende partner.",
+    "readMin": "{n} min di lettura",
+    "read": "Leggi",
+    "empty": "Ancora nessun articolo.",
+    "allPosts": "Tutti gli articoli",
+    "ctaTitle": "Pronto a partire?",
+    "ctaText": "Confronta le auto delle aziende partner e prenota senza account.",
+    "alsoRead": "Leggi anche",
+    "notFound": "Articolo non trovato."
+  },
+  "login": {
+    "intro": "Solo per le aziende partner e l'amministratore. I clienti prenotano senza account.",
+    "expired": "La sessione è scaduta. Accedi di nuovo.",
+    "needLogin": "Accedi con l'account aziendale per continuare.",
+    "password": "Password",
+    "err": {
+      "password": "Inserisci la password."
+    },
+    "loggingIn": "Accesso in corso...",
+    "submit": "Accedi",
+    "client": "Sei un cliente?",
+    "findBooking": "Trova la tua prenotazione con codice e telefono.",
+    "partner": "Vuoi diventare partner? Scrivici a"
+  },
+  "errors": {
+    "offline": "Il server non risponde. Assicurati che il backend sia avviato.",
+    "unauthorized": "Devi effettuare l'accesso.",
+    "forbidden": "Non hai il permesso per questa azione.",
+    "notFound": "Non trovato.",
+    "generic": "Si è verificato un errore. Riprova.",
+    "loginFailed": "Accesso non riuscito.",
+    "carNotFound": "Auto non trovata.",
+    "companyNotFound": "Azienda non trovata."
+  }
+}

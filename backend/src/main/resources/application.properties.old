@@ -1,0 +1,35 @@
+
+server.port=8080
+app.name=Bookers Car Albania
+
+spring.datasource.url=jdbc:mysql://localhost:3306/salianji_rentcar?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Europe/Tirane&characterEncoding=UTF-8
+spring.datasource.username=root
+spring.datasource.password=Sql@2003.Etable.As2.ght6s
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.open-in-view=false
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.jdbc.time_zone=Europe/Tirane
+
+spring.jackson.time-zone=Europe/Tirane
+spring.jackson.serialization.write-dates-as-timestamps=false
+
+app.jwt.secret=${JWT_SECRET:8+NbBqg65uWvDNfpzZgM9GQwQqkmoEeeE/HK9AKLs9mGBqHdtFvsQiLtwSkzQdMYl9scRmvt5Mo+H6vqnFr5aw==}
+app.jwt.expiration-hours=24
+
+app.cors.allowed-origins=http://localhost:*
+
+app.upload.dir=uploads
+
+app.admin.email=admin@salianjirent.al
+app.admin.password=${ADMIN_PASSWORD:Admin123}
+
+# Hiq "#" nga 7 rreshtat më poshtë pasi të vendosësh Gmail-in dhe App Password.
+# Pa to, aplikacioni punon normalisht dhe email-et shfaqen vetëm në konsolë.
+#spring.mail.host=smtp.gmail.com
+#spring.mail.port=587
+#spring.mail.username=emaili.yt@gmail.com
+#spring.mail.password=APP_PASSWORD_16_SHKRONJA
+#spring.mail.properties.mail.smtp.auth=true
+#spring.mail.properties.mail.smtp.starttls.enable=true
+#app.mail.from=Bookers Car Albania <emaili.yt@gmail.com>
