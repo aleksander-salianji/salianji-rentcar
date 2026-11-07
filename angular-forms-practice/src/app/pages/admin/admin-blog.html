@@ -1,9 +1,9 @@
 <div class="page-head">
   <div>
-    <h1>Blogu</h1>
-    <p>Artikujt që shfaqen te faqja publike <a routerLink="/blog">/blog</a>.</p>
+    <h1>{{ 'admin.nav.blog' | t }}</h1>
+    <p>{{ 'admin.blog.subtitle' | t }} <a routerLink="/blog">/blog</a>.</p>
   </div>
-  <button type="button" class="btn btn-primary" (click)="newPost()">+ Artikull i ri</button>
+  <button type="button" class="btn btn-primary" (click)="newPost()">+ {{ 'admin.blog.newTitle' | t }}</button>
 </div>
 
 @if (message()) {
@@ -16,12 +16,12 @@
 <div class="layout">
   <div>
     @if (loading()) {
-      <div class="loading"><span class="spinner"></span> Duke ngarkuar...</div>
+      <div class="loading"><span class="spinner"></span> {{ 'common.loading' | t }}</div>
     } @else {
       <div class="table-wrap">
         <table class="table">
           <thead>
-            <tr><th></th><th>Artikulli</th><th>Statusi</th><th></th></tr>
+            <tr><th></th><th>{{ 'admin.th.post' | t }}</th><th>{{ 'admin.th.status' | t }}</th><th></th></tr>
           </thead>
           <tbody>
             @for (p of posts(); track p.id) {
@@ -32,31 +32,31 @@
                 </td>
                 <td>
                   <strong>{{ p.title }}</strong>
-                  <div class="muted small">{{ p.category }} · {{ p.readMinutes }} min · /blog/{{ p.slug }}</div>
+                  <div class="muted small">{{ p.category | place }} · {{ p.readMinutes }} min · /blog/{{ p.slug }}</div>
                 </td>
                 <td class="nowrap">
                   @if (p.published) {
-                    <span class="badge badge-active">Publikuar</span>
+                    <span class="badge badge-active">{{ 'admin.blog.published' | t }}</span>
                     <div class="muted small">{{ p.publishedAt | date:'dd/MM/yyyy' }}</div>
                   } @else {
-                    <span class="badge badge-inactive">Draft</span>
+                    <span class="badge badge-inactive">{{ 'admin.blog.draft' | t }}</span>
                   }
                 </td>
                 <td>
                   <div class="row-actions">
                     @if (p.published) {
-                      <a class="btn btn-ghost btn-sm" [routerLink]="['/blog', p.slug]" target="_blank">Shiko</a>
+                      <a class="btn btn-ghost btn-sm" [routerLink]="['/blog', p.slug]" target="_blank">{{ 'admin.blog.view' | t }}</a>
                     }
-                    <button type="button" class="btn btn-ghost btn-sm" (click)="edit(p)">Ndrysho</button>
+                    <button type="button" class="btn btn-ghost btn-sm" (click)="edit(p)">{{ 'admin.edit' | t }}</button>
                     <button type="button" class="btn btn-ghost btn-sm" (click)="togglePublished(p)">
-                      {{ p.published ? 'Fshihe' : 'Publiko' }}
+                      {{ (p.published ? 'admin.blog.hide' : 'admin.blog.publish') | t }}
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm" (click)="remove(p)">Fshi</button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="remove(p)">{{ 'admin.delete' | t }}</button>
                   </div>
                 </td>
               </tr>
             } @empty {
-              <tr><td colspan="4" class="muted">Ende nuk ka artikuj.</td></tr>
+              <tr><td colspan="4" class="muted">{{ 'blog.empty' | t }}</td></tr>
             }
           </tbody>
         </table>
@@ -65,73 +65,73 @@
   </div>
 
   <form class="card editor" [formGroup]="form" (ngSubmit)="save()" novalidate>
-    <h2>{{ editingId() === null ? 'Artikull i ri' : 'Ndrysho artikullin' }}</h2>
+    <h2>{{ (editingId() === null ? 'admin.blog.newTitle' : 'admin.blog.editTitle') | t }}</h2>
 
     @if (formError()) {
       <div class="alert alert-error">{{ formError() }}</div>
     }
 
     <label class="field">
-      <span>Titulli</span>
+      <span>{{ 'admin.blog.titleLabel' | t }}</span>
       <input type="text" formControlName="title" [class.invalid]="isInvalid('title')">
-      @if (isInvalid('title')) { <small class="error">Shkruaj titullin.</small> }
+      @if (isInvalid('title')) { <small class="error">{{ 'admin.blog.titleRequired' | t }}</small> }
     </label>
 
     <div class="grid-2 mt">
       <label class="field">
-        <span>Kategoria</span>
+        <span>{{ 'admin.th.category' | t }}</span>
         <select formControlName="category">
-          @for (c of categories; track c) { <option [value]="c">{{ c }}</option> }
+          @for (c of categories; track c) { <option [value]="c">{{ c | place }}</option> }
         </select>
       </label>
       <label class="field">
-        <span>Adresa <span class="muted">(opsionale)</span></span>
-        <input type="text" formControlName="slug" placeholder="krijohet nga titulli" [class.invalid]="isInvalid('slug')">
-        @if (isInvalid('slug')) { <small class="error">Vetëm a-z, 0-9 dhe "-".</small> }
+        <span>{{ 'admin.blog.slug' | t }} <span class="muted">({{ 'common.optional' | t }})</span></span>
+        <input type="text" formControlName="slug" [placeholder]="'admin.blog.slugPlaceholder' | t" [class.invalid]="isInvalid('slug')">
+        @if (isInvalid('slug')) { <small class="error">{{ 'admin.blog.slugRule' | t }}</small> }
       </label>
     </div>
 
     <label class="field mt">
-      <span>Përmbledhja</span>
+      <span>{{ 'admin.blog.excerpt' | t }}</span>
       <textarea formControlName="excerpt" rows="2" maxlength="300" [class.invalid]="isInvalid('excerpt')"></textarea>
-      @if (isInvalid('excerpt')) { <small class="error">Shkruaj 1–2 fjali (maks. 300 karaktere).</small> }
+      @if (isInvalid('excerpt')) { <small class="error">{{ 'admin.blog.excerptRule' | t }}</small> }
     </label>
 
     <label class="field mt">
-      <span>Përmbajtja</span>
+      <span>{{ 'admin.blog.content' | t }}</span>
       <textarea class="content" formControlName="content" rows="14" [class.invalid]="isInvalid('content')"
-                placeholder="Paragrafi i parë...&#10;&#10;## Nëntitull&#10;- pikë e listës"></textarea>
-      @if (isInvalid('content')) { <small class="error">Shkruaj përmbajtjen.</small> }
-      <small class="muted help">"## " = nëntitull · "- " = listë · rresht bosh = paragraf i ri</small>
+                [placeholder]="'admin.blog.contentPlaceholder' | t"></textarea>
+      @if (isInvalid('content')) { <small class="error">{{ 'admin.blog.contentRequired' | t }}</small> }
+      <small class="muted help">{{ 'admin.blog.contentHelp' | t }}</small>
     </label>
 
     <div class="field mt">
-      <span>Foto kryesore</span>
+      <span>{{ 'admin.blog.cover' | t }}</span>
       <div class="cover-box">
-        @if (photoPreview(); as src) { <img [src]="src" alt=""> } @else { <span class="cover-empty">Pa foto</span> }
+        @if (photoPreview(); as src) { <img [src]="src" alt=""> } @else { <span class="cover-empty">{{ 'admin.noPhoto' | t }}</span> }
         <div class="cover-actions">
           <label class="btn btn-ghost btn-sm">
-            Ngarko foto
+            {{ 'admin.blog.upload' | t }}
             <input type="file" accept="image/jpeg,image/png,image/webp" hidden (change)="onPhoto($event)">
           </label>
         </div>
       </div>
-      <input class="mt" type="url" formControlName="coverImageUrl" placeholder="ose adresë https://..."
+      <input class="mt" type="url" formControlName="coverImageUrl" [placeholder]="'admin.blog.urlPlaceholder' | t"
              [class.invalid]="isInvalid('coverImageUrl')">
-      @if (isInvalid('coverImageUrl')) { <small class="error">Adresa duhet të fillojë me https://</small> }
+      @if (isInvalid('coverImageUrl')) { <small class="error">{{ 'admin.blog.urlRule' | t }}</small> }
     </div>
 
     <label class="check mt">
       <input type="checkbox" formControlName="published">
-      <span>Publikuar (shfaqet te blogu)</span>
+      <span>{{ 'admin.blog.publishedHint' | t }}</span>
     </label>
 
     <div class="form-actions">
       <button type="submit" class="btn btn-primary" [disabled]="saving()">
-        {{ saving() ? 'Duke ruajtur...' : (editingId() === null ? 'Krijo artikullin' : 'Ruaj ndryshimet') }}
+        {{ (saving() ? 'admin.saving' : (editingId() === null ? 'admin.blog.create' : 'admin.saveChanges')) | t }}
       </button>
       @if (editingId() !== null) {
-        <button type="button" class="btn btn-ghost" (click)="newPost()">Anulo</button>
+        <button type="button" class="btn btn-ghost" (click)="newPost()">{{ 'admin.cancel' | t }}</button>
       }
     </div>
   </form>

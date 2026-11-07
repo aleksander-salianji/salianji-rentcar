@@ -1,26 +1,26 @@
 <!-- KOKA: kontakti i shpejtë -->
 <section class="support-hero">
   <div class="container hero-inner">
-    <p class="label">Support · {{ contact.hours }}</p>
-    <h1>Si mund të të ndihmojmë?</h1>
-    <p class="lead">Na shkruaj ose na telefono. Për rezervimet, mbaj gati kodin (p.sh. BCA-2026-0001).</p>
+    <p class="label">{{ 'footer.support' | t }} · {{ 'support.hours' | t }}</p>
+    <h1>{{ 'support.title' | t }}</h1>
+    <p class="lead">{{ 'support.lead' | t }}</p>
 
     <div class="channels">
       <a class="channel" [href]="'tel:' + contact.phone">
         <span class="ico" aria-hidden="true">☎</span>
-        <span><strong>Telefono</strong><small>{{ contact.phoneLabel }}</small></span>
+        <span><strong>{{ 'support.call' | t }}</strong><small>{{ contact.phoneLabel }}</small></span>
       </a>
-      <a class="channel" [href]="whatsappUrl" target="_blank" rel="noopener">
+      <a class="channel" [href]="whatsappUrl()" target="_blank" rel="noopener">
         <span class="ico" aria-hidden="true">✆</span>
-        <span><strong>WhatsApp</strong><small>Përgjigje e shpejtë</small></span>
+        <span><strong>WhatsApp</strong><small>{{ 'support.fastReply' | t }}</small></span>
       </a>
       <a class="channel" [href]="'mailto:' + contact.email">
         <span class="ico" aria-hidden="true">✉</span>
-        <span><strong>Email</strong><small>{{ contact.email }}</small></span>
+        <span><strong>{{ 'form.email' | t }}</strong><small>{{ contact.email }}</small></span>
       </a>
       <a class="channel" routerLink="/rezervimi">
         <span class="ico" aria-hidden="true">#</span>
-        <span><strong>Rezervimi im</strong><small>Shiko ose anulo</small></span>
+        <span><strong>{{ 'nav.myBooking' | t }}</strong><small>{{ 'support.viewCancel' | t }}</small></span>
       </a>
     </div>
   </div>
@@ -30,9 +30,9 @@
 
   <!-- PYETJE TË SHPESHTA -->
   <section>
-    <h2>Pyetje të shpeshta</h2>
+    <h2>{{ 'nav.faq' | t }}</h2>
     <div class="faq">
-      @for (f of faqs; track f.q; let i = $index) {
+      @for (f of faqs(); track f.q; let i = $index) {
         <div class="faq-item" [class.open]="openFaq() === i">
           <button type="button" class="faq-q" [attr.aria-expanded]="openFaq() === i" (click)="toggleFaq(i)">
             <span>{{ f.q }}</span><span class="sign" aria-hidden="true">{{ openFaq() === i ? '−' : '+' }}</span>
@@ -43,7 +43,7 @@
         </div>
       }
     </div>
-    <p class="small"><a routerLink="/pyetje">Të gjitha pyetjet →</a></p>
+    <p class="small"><a routerLink="/pyetje">{{ 'support.allQuestions' | t }} →</a></p>
   </section>
 
   <!-- FORMULARI -->
@@ -51,14 +51,14 @@
     @if (sent(); as t) {
       <div class="sent">
         <span class="check" aria-hidden="true">✓</span>
-        <h2>Mesazhi u dërgua</h2>
-        <p>Numri i kërkesës: <strong>#{{ t.id }}</strong>. Do të të përgjigjemi te <strong>{{ t.email }}</strong> sa më shpejt.</p>
-        <p class="muted small">Për diçka urgjente: {{ contact.phoneLabel }}</p>
-        <button type="button" class="btn btn-ghost" (click)="newMessage()">Dërgo mesazh tjetër</button>
+        <h2>{{ 'support.sentTitle' | t }}</h2>
+        <p>{{ 'support.sentText' | t: { id: t.id, email: t.email } }}</p>
+        <p class="muted small">{{ 'support.urgent' | t }} {{ contact.phoneLabel }}</p>
+        <button type="button" class="btn btn-ghost" (click)="newMessage()">{{ 'support.another' | t }}</button>
       </div>
     } @else {
-      <h2>Na shkruaj</h2>
-      <p class="muted small">Nuk të duhet llogari.</p>
+      <h2>{{ 'support.writeUs' | t }}</h2>
+      <p class="muted small">{{ 'support.noAccount' | t }}</p>
 
       @if (error()) {
         <div class="alert alert-error">{{ error() }}</div>
@@ -67,39 +67,39 @@
       <form [formGroup]="form" (ngSubmit)="send()" novalidate>
         <div class="grid-2">
           <label class="field span-2">
-            <span>Tema</span>
+            <span>{{ 'support.topic' | t }}</span>
             <select formControlName="topic">
-              @for (t of topics; track t) { <option [value]="t">{{ topicLabels[t] }}</option> }
+              @for (t of topics; track t) { <option [value]="t">{{ 'enum.supportTopic.' + t | t }}</option> }
             </select>
           </label>
 
           <label class="field">
-            <span>Emri</span>
+            <span>{{ 'form.name' | t }}</span>
             <input type="text" formControlName="name" autocomplete="name" [class.invalid]="isInvalid('name')">
-            @if (isInvalid('name')) { <small class="error">Shkruaj emrin.</small> }
+            @if (isInvalid('name')) { <small class="error">{{ 'form.err.firstName' | t }}</small> }
           </label>
 
           <label class="field">
-            <span>Email</span>
+            <span>{{ 'form.email' | t }}</span>
             <input type="email" formControlName="email" autocomplete="email" [class.invalid]="isInvalid('email')">
-            @if (isInvalid('email')) { <small class="error">Shkruaj një email të vlefshëm.</small> }
+            @if (isInvalid('email')) { <small class="error">{{ 'form.err.email' | t }}</small> }
           </label>
 
           <label class="field">
-            <span>Telefoni <span class="muted">(opsional)</span></span>
+            <span>{{ 'company.phone' | t }} <span class="muted">({{ 'common.optional' | t }})</span></span>
             <input type="tel" formControlName="phone" autocomplete="tel" placeholder="06XXXXXXXX">
           </label>
 
           <label class="field">
-            <span>Kodi i rezervimit <span class="muted">(opsional)</span></span>
+            <span>{{ 'lookup.code' | t }} <span class="muted">({{ 'common.optional' | t }})</span></span>
             <input type="text" formControlName="bookingCode" placeholder="BCA-2026-0001" autocomplete="off">
           </label>
 
           <label class="field span-2">
-            <span>Mesazhi</span>
+            <span>{{ 'support.message' | t }}</span>
             <textarea formControlName="message" rows="5" [class.invalid]="isInvalid('message')"
-                      placeholder="Na trego çfarë ndodhi..."></textarea>
-            @if (isInvalid('message')) { <small class="error">Shkruaj të paktën 10 karaktere.</small> }
+                      [placeholder]="'support.messagePlaceholder' | t"></textarea>
+            @if (isInvalid('message')) { <small class="error">{{ 'support.err.message' | t }}</small> }
           </label>
 
           <!-- fushë e fshehur kundër robotëve -->
@@ -108,7 +108,7 @@
 
         <div class="form-actions">
           <button type="submit" class="btn btn-primary btn-lg" [disabled]="sending()">
-            {{ sending() ? 'Duke dërguar...' : 'Dërgo mesazhin' }}
+            {{ (sending() ? 'common.sending' : 'support.send') | t }}
           </button>
         </div>
       </form>

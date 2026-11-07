@@ -61,11 +61,13 @@
   top: 88px;
   padding: 22px;
   border-radius: var(--radius);
-  background: var(--navy);
-  color: #fff;
+  /* gjithmonë e errët (edhe në temën e bardhë), si kartë luksi */
+  background: #0e0f12;
+  border: 1px solid #c8a86b;
+  color: #ece8df;
 }
 
-.summary h3 { color: #fff; }
+.summary h3 { color: #ece8df; }
 
 .summary-photo {
   width: calc(100% + 44px);
@@ -81,8 +83,8 @@
   font-weight: 700;
 }
 
-.summary-car span { color: #a9b4cc; font-weight: 400; }
-.summary-company { color: var(--accent); font-size: .9rem; }
+.summary-car span { color: #a19d95; font-weight: 400; }
+.summary-company { color: #c8a86b; font-size: .9rem; }
 .company-line { color: var(--muted); }
 .company-line a { color: var(--accent); font-weight: 600; text-decoration: none; }
 
@@ -97,7 +99,7 @@
   font-size: .92rem;
 }
 
-.summary dt { color: #a9b4cc; }
+.summary dt { color: #a19d95; }
 .summary dd { margin: 0; text-align: right; }
 .summary .discount dd { color: #7be0a4; }
 
@@ -107,18 +109,18 @@
   font-weight: 700;
 }
 
-.summary .total dt { color: #fff; }
-.summary .total dd { color: var(--accent); }
+.summary .total dt { color: #ece8df; }
+.summary .total dd { color: #c8a86b; }
 
 .summary-note {
-  color: #a9b4cc;
+  color: #a19d95;
   font-size: .82rem;
 }
 
 .rules {
   margin: 10px 0 0;
   padding-left: 18px;
-  color: #d4dbea;
+  color: #cfcac0;
   font-size: .82rem;
 }
 
@@ -135,7 +137,7 @@
 .booked ul {
   margin: 0;
   padding-left: 18px;
-  color: #d4dbea;
+  color: #cfcac0;
 }
 
 @media (max-width: 900px) {

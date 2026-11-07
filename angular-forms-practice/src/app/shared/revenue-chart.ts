@@ -1,7 +1,9 @@
-import { Component, computed, inject, input, LOCALE_ID, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { DecimalPipe, formatDate } from '@angular/common';
 
 import { RevenuePeriod, RevenuePoint } from '../core/models';
+import { I18nService } from '../core/i18n.service';
+import { TPipe } from './t.pipe';
 
 interface ChartPoint {
   x: number;
@@ -33,10 +35,10 @@ function niceMax(value: number): number {
 // Grafik me vijë që tregon si lëviz xhiroja: pikat e gjelbra = rritje, të kuqet = rënie
 @Component({
   selector: 'app-revenue-chart',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, TPipe],
   template: `
     <div class="chart">
-      <svg [attr.viewBox]="'0 0 ' + W + ' ' + H" role="img" aria-label="Grafiku i xhiros">
+      <svg [attr.viewBox]="'0 0 ' + W + ' ' + H" role="img" [attr.aria-label]="'admin.chart.aria' | t">
         <defs>
           <linearGradient id="revenueArea" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#f28c28" stop-opacity="0.35" />
@@ -80,12 +82,12 @@ function niceMax(value: number): number {
       @if (active(); as a) {
         <div class="tooltip" [style.left.%]="(a.x / W) * 100" [style.top.%]="(a.y / H) * 100">
           <strong>{{ a.fullLabel }}</strong>
-          <span>{{ a.point.revenue | number:'1.0-2' }} € · {{ a.point.bookings }} rezervime</span>
+          <span>{{ a.point.revenue | number:'1.0-2' }} € · {{ 'admin.chart.bookings' | t: { n: a.point.bookings } }}</span>
           @switch (a.direction) {
-            @case ('up') { <span class="up">▲ +{{ a.change | number:'1.0-0' }}% nga më parë</span> }
-            @case ('down') { <span class="down">▼ {{ a.change | number:'1.0-0' }}% nga më parë</span> }
-            @case ('new') { <span class="up">▲ e re (më parë 0 €)</span> }
-            @default { <span class="muted">= pa ndryshim</span> }
+            @case ('up') { <span class="up">▲ +{{ a.change | number:'1.0-0' }}% {{ 'admin.chart.fromBefore' | t }}</span> }
+            @case ('down') { <span class="down">▼ {{ a.change | number:'1.0-0' }}% {{ 'admin.chart.fromBefore' | t }}</span> }
+            @case ('new') { <span class="up">▲ {{ 'admin.chart.newValue' | t }}</span> }
+            @default { <span class="muted">= {{ 'admin.dash.legendSame' | t }}</span> }
           }
         </div>
       }
@@ -127,7 +129,12 @@ function niceMax(value: number): number {
 })
 export class RevenueChart {
 
-  private locale = inject(LOCALE_ID);
+  private i18n = inject(I18nService);
+
+  // gjuha e zgjedhur → emrat e muajve/ditëve në atë gjuhë
+  private get locale(): string {
+    return this.i18n.lang();
+  }
 
   readonly points = input.required<RevenuePoint[]>();
   readonly period = input.required<RevenuePeriod>();
@@ -145,6 +152,7 @@ export class RevenueChart {
   private maxValue = computed(() => niceMax(Math.max(0, ...this.points().map(p => p.revenue))));
 
   coords = computed<ChartPoint[]>(() => {
+    this.i18n.lang();                 // rillogarit etiketat kur ndërrohet gjuha
     const pts = this.points();
     const n = pts.length;
     const plotW = this.W - this.PL - this.PR;
@@ -221,7 +229,7 @@ export class RevenueChart {
   private fullLabel(p: RevenuePoint): string {
     switch (this.period()) {
       case 'DAY': return formatDate(p.start, 'EEEE, dd/MM/yyyy', this.locale);
-      case 'WEEK': return `Java ${formatDate(p.start, 'dd/MM', this.locale)} – ${formatDate(p.end, 'dd/MM/yyyy', this.locale)}`;
+      case 'WEEK': return this.i18n.t('admin.chart.week', { from: formatDate(p.start, 'dd/MM', this.locale), to: formatDate(p.end, 'dd/MM/yyyy', this.locale) });
       default: return formatDate(p.start, 'MMMM yyyy', this.locale); // MONTH
     }
   }

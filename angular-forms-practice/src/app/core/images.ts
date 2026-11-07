@@ -1,3 +1,4 @@
+import { translate } from './i18n.service';
 import { SERVER_URL, USE_MOCK_API } from './config';
 
 // Kthen adresën e plotë të fotos.
@@ -36,7 +37,7 @@ export async function resizeImage(file: File, maxSize = 1600, quality = 0.85): P
 
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob(
-      blob => (blob ? resolve(blob) : reject(new Error('Foto nuk u përpunua.'))),
+      blob => (blob ? resolve(blob) : reject(new Error(translate('admin.photoProcess')))),
       'image/jpeg',
       quality
     );

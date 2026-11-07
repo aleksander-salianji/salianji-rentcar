@@ -1,394 +1,308 @@
+<div class="container page">
 
-<div class="booking-page">
+  <a routerLink="/makinat" class="back-link">← {{ 'booking.back' | t }}</a>
 
-  <header class="booking-header">
-    <span class="eyebrow">SALIANJI RENT CAR</span>
-    <h1>Rezervo makinën</h1>
-    <p>Plotëso të dhënat për të krijuar rezervimin tënd.</p>
-  </header>
+  @if (loading()) {
+  <div class="loading"><span class="spinner"></span> {{ 'common.loading' | t }}</div>
+
+  } @else if (loadError()) {
+  <div class="alert alert-error">{{ loadError() }}</div>
+  <a routerLink="/makinat" class="btn btn-primary">{{ 'common.seeCars' | t }}</a>
+
+  } @else {
+  @if (car(); as car) {
+
+  <div class="page-head">
+    <div>
+      <h1>{{ 'booking.title' | t: { car: car.brand + ' ' + car.model } }}</h1>
+      @if (car.companyName) {
+      <p class="company-line">{{ 'booking.by' | t }} <a [routerLink]="['/makinat']" [queryParams]="{ kompania: car.companyId }">{{ car.companyName }}</a> · {{ car.companyCity }}</p>
+      }
+      <p>{{ car.category | label:'category' }} · {{ car.transmission | label:'transmission' }} · {{ car.fuel | label:'fuel' }} · {{ 'car.seats' | t: { n: car.seats } }}</p>
+    </div>
+  </div>
+
+  @if (submitError()) {
+  <div class="alert alert-error">{{ submitError() }}</div>
+  } @else if (submitAttempted() && form.invalid) {
+  <div class="alert alert-error">{{ 'booking.formInvalid' | t }}</div>
+  }
 
   <div class="booking-layout">
 
-    <main class="booking-form-card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="card" novalidate>
 
-      @if (message) {
-        <div class="success-message" role="status">
-          {{ message }}
+      <!-- 1. DATAT DHE VENDI -->
+      <fieldset formGroupName="rental">
+        <legend>1. {{ 'booking.s1' | t }}</legend>
+
+        <div class="grid-2">
+          <label class="field">
+            <span>{{ 'search.pickupPlace' | t }}</span>
+            <select formControlName="pickupLocation" [class.invalid]="isInvalid('rental.pickupLocation')">
+              <option value="" disabled>-- {{ 'common.choose' | t }} --</option>
+              @for (loc of locations; track loc) {
+              <option [value]="loc">{{ loc }}</option>
+              }
+            </select>
+            @if (isInvalid('rental.pickupLocation')) {
+            <small class="error">{{ 'booking.err.pickupPlace' | t }}</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>{{ 'search.returnPlace' | t }}</span>
+            <select formControlName="returnLocation" [class.invalid]="isInvalid('rental.returnLocation')">
+              <option value="" disabled>-- {{ 'common.choose' | t }} --</option>
+              @for (loc of locations; track loc) {
+              <option [value]="loc">{{ loc }}</option>
+              }
+            </select>
+            @if (isInvalid('rental.returnLocation')) {
+            <small class="error">{{ 'booking.err.returnPlace' | t }}</small>
+            } @else {
+            <button type="button" class="link-btn" (click)="sameReturnLocation()">{{ 'booking.samePlace' | t }}</button>
+            }
+          </label>
+
+          <label class="field">
+            <span>{{ 'booking.pickupDate' | t }}</span>
+            <input type="date" formControlName="pickupDate" [min]="today"
+                   [class.invalid]="isInvalid('rental.pickupDate')">
+            @if (isInvalid('rental.pickupDate')) {
+            <small class="error">
+              @if (hasError('rental.pickupDate', 'required')) { {{ 'booking.err.pickupDate' | t }} }
+              @if (hasError('rental.pickupDate', 'pastDate')) { {{ 'booking.err.pastDate' | t }} }
+            </small>
+            }
+          </label>
+
+          <label class="field">
+            <span>{{ 'booking.returnDate' | t }}</span>
+            <input type="date" formControlName="returnDate" [min]="minReturnDate()"
+                   [class.invalid]="isInvalid('rental.returnDate') || (datesTouched() && form.controls.rental.invalid)">
+            @if (isInvalid('rental.returnDate')) {
+            <small class="error">{{ 'booking.err.returnDate' | t }}</small>
+            }
+          </label>
         </div>
+
+        <!-- gabimet e validatorit të grupit dhe të formës -->
+        @if (datesTouched()) {
+        @if (hasError('rental', 'invalidRange')) {
+        <small class="error">{{ 'booking.err.range' | t }}</small>
+        }
+        @if (hasError('rental', 'tooShort')) {
+        <small class="error">{{ 'booking.err.tooShort' | t: { n: rules.minDays } }}</small>
+        }
+        @if (hasError('rental', 'tooLong')) {
+        <small class="error">{{ 'booking.err.tooLong' | t: { n: rules.maxDays } }}</small>
+        }
+        }
+        @if (form.hasError('carUnavailable')) {
+        <small class="error">{{ 'booking.err.unavailable' | t }}</small>
+        }
+      </fieldset>
+
+
+      <!-- 2. SHOFERI -->
+      <fieldset formGroupName="driver">
+        <legend>2. {{ 'booking.s2' | t }}</legend>
+        <p class="muted small">{{ 'booking.noAccount' | t }}</p>
+
+        <div class="grid-2">
+          <label class="field">
+            <span>{{ 'form.firstName' | t }}</span>
+            <input type="text" formControlName="firstName" autocomplete="given-name"
+                   [class.invalid]="isInvalid('driver.firstName')">
+            @if (isInvalid('driver.firstName')) {
+            <small class="error">{{ 'form.err.firstName' | t }}</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>{{ 'form.lastName' | t }}</span>
+            <input type="text" formControlName="lastName" autocomplete="family-name"
+                   [class.invalid]="isInvalid('driver.lastName')">
+            @if (isInvalid('driver.lastName')) {
+            <small class="error">{{ 'form.err.lastName' | t }}</small>
+            }
+          </label>
+
+          <label class="field span-2">
+            <span>{{ 'form.email' | t }}</span>
+            <input type="email" formControlName="email" autocomplete="email" [placeholder]="'form.emailPlaceholder' | t"
+                   [class.invalid]="isInvalid('driver.email')">
+            @if (isInvalid('driver.email')) {
+            <small class="error">{{ 'form.err.email' | t }}</small>
+            }
+          </label>
+
+          <label class="field">
+            <span>{{ 'booking.age' | t }}</span>
+            <input type="number" formControlName="age" min="18" max="99"
+                   [class.invalid]="isInvalid('driver.age')">
+            @if (isInvalid('driver.age')) {
+            <small class="error">
+              @if (hasError('driver.age', 'required')) { {{ 'booking.err.age' | t }} }
+              @if (hasError('driver.age', 'min')) { {{ 'booking.err.ageMin' | t: { n: rules.minDriverAge } }} }
+              @if (hasError('driver.age', 'max')) { {{ 'booking.err.ageMax' | t: { n: rules.maxDriverAge } }} }
+            </small>
+            }
+          </label>
+
+          <label class="field">
+            <span>{{ 'booking.license' | t }}</span>
+            <input type="text" formControlName="licenseNumber" [placeholder]="'booking.licensePlaceholder' | t"
+                   [class.invalid]="isInvalid('driver.licenseNumber')">
+            @if (isInvalid('driver.licenseNumber')) {
+            <small class="error">{{ 'booking.err.license' | t }}</small>
+            }
+          </label>
+        </div>
+      </fieldset>
+
+
+      <!-- 3. ADRESA -->
+      <fieldset formGroupName="address">
+        <legend>3. {{ 'booking.s3' | t }}</legend>
+        <div class="grid-3">
+          <label class="field span-3">
+            <span>{{ 'booking.street' | t }}</span>
+            <input type="text" formControlName="street" [class.invalid]="isInvalid('address.street')">
+            @if (isInvalid('address.street')) {
+            <small class="error">{{ 'booking.err.street' | t }}</small>
+            }
+          </label>
+          <label class="field span-2">
+            <span>{{ 'cars.city' | t }}</span>
+            <input type="text" formControlName="city" [class.invalid]="isInvalid('address.city')">
+            @if (isInvalid('address.city')) {
+            <small class="error">{{ 'booking.err.city' | t }}</small>
+            }
+          </label>
+          <label class="field">
+            <span>{{ 'booking.zip' | t }} <span class="muted">({{ 'common.optional' | t }})</span></span>
+            <input type="text" formControlName="zipCode" placeholder="1001"
+                   [class.invalid]="isInvalid('address.zipCode')">
+            @if (isInvalid('address.zipCode')) {
+            <small class="error">{{ 'booking.err.zip' | t }}</small>
+            }
+          </label>
+        </div>
+      </fieldset>
+
+
+      <!-- 4. TELEFONAT (FormArray) -->
+      <fieldset formArrayName="phoneNumbers">
+        <legend>4. {{ 'booking.s4' | t }}</legend>
+
+        @for (ctrl of phoneNumbers.controls; track ctrl; let i = $index) {
+        <div class="phone-row">
+          <input type="tel" [formControlName]="i" placeholder="06XXXXXXXX"
+                 [class.invalid]="ctrl.invalid && ctrl.touched">
+          @if (phoneNumbers.length > 1) {
+          <button type="button" class="btn btn-ghost btn-sm" (click)="removePhone(i)">{{ 'common.remove' | t }}</button>
+          }
+        </div>
+        @if (ctrl.invalid && ctrl.touched) {
+        <small class="error phone-error">
+          @if (ctrl.hasError('required')) { {{ 'booking.err.phone' | t }} }
+          @if (ctrl.hasError('pattern')) { {{ 'booking.err.phoneFormat' | t }} }
+        </small>
+        }
+        }
+
+        @if (phoneNumbers.length < maxPhones) {
+        <button type="button" class="btn btn-ghost btn-sm" (click)="addPhone()">+ {{ 'booking.addPhone' | t }}</button>
+        }
+      </fieldset>
+
+
+      <!-- 5. SHTESAT -->
+      <fieldset formGroupName="extras">
+        <legend>5. {{ 'booking.s5' | t }}</legend>
+        @for (opt of extrasOptions; track opt.key) {
+        <label class="check extra">
+          <input type="checkbox" [formControlName]="opt.key">
+          <span class="extra-text">
+                <strong>{{ 'extras.' + opt.key + '.label' | t }}</strong>
+                <span class="muted small">{{ 'extras.' + opt.key + '.desc' | t }}</span>
+              </span>
+          <span class="extra-price">+{{ opt.pricePerDay }} € / {{ 'car.perDay' | t }}</span>
+        </label>
+        }
+      </fieldset>
+
+
+      <label class="check">
+        <input type="checkbox" formControlName="acceptTerms">
+        <span>{{ 'booking.terms' | t }}</span>
+      </label>
+      @if (isInvalid('acceptTerms')) {
+      <small class="error">{{ 'booking.err.terms' | t }}</small>
       }
 
-      @if (errorMessage) {
-        <div class="error-message" role="alert">
-          {{ errorMessage }}
-        </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-lg" [disabled]="submitting()">
+          {{ (submitting() ? 'common.sending' : 'booking.confirm') | t }}
+        </button>
+        <button type="button" class="btn btn-ghost btn-lg" (click)="resetForm()" [disabled]="submitting()">
+          {{ 'common.clear' | t }}
+        </button>
+      </div>
+    </form>
+
+
+    <!-- PËRMBLEDHJA -->
+    <aside class="summary">
+      @if (imageSrc(car.imageUrl); as src) {
+      <img class="summary-photo" [src]="src" [alt]="car.brand + ' ' + car.model">
+      }
+      <h3>{{ 'booking.summary' | t }}</h3>
+      <p class="summary-car">{{ car.brand }} {{ car.model }} <span>({{ car.year }})</span></p>
+      @if (car.companyName) {
+      <p class="summary-company">{{ 'cars.company' | t }}: {{ car.companyName }}</p>
       }
 
-      <h2>Të dhënat e klientit</h2>
-
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label for="name">Emri i plotë</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            [(ngModel)]="name"
-            placeholder="Shkruaj emrin e plotë"
-            autocomplete="name"
-            required
-          >
+      <dl>
+        <div><dt>{{ 'booking.days' | t }}</dt><dd>{{ price().days }}</dd></div>
+        <div>
+          <dt>{{ 'booking.rent' | t }}</dt>
+          <dd>{{ car.pricePerDay | number:'1.0-2' }} € × {{ price().days }}</dd>
         </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            [(ngModel)]="email"
-            placeholder="shembull@email.com"
-            autocomplete="email"
-            required
-          >
+        <div><dt>{{ 'booking.subtotal' | t }}</dt><dd>{{ price().basePrice | number:'1.0-2' }} €</dd></div>
+        <div><dt>{{ 'booking.s5' | t }}</dt><dd>{{ price().extrasPrice | number:'1.0-2' }} €</dd></div>
+        @if (price().discount > 0) {
+        <div class="discount">
+          <dt>{{ 'booking.discount' | t: { p: rules.longRentalDiscount * 100 } }}</dt>
+          <dd>−{{ price().discount | number:'1.0-2' }} €</dd>
         </div>
-
-        <div class="form-group full-width">
-          <label for="phonePrefix">Numri i telefonit</label>
-
-          <div class="phone-input-group">
-            <select
-              id="phonePrefix"
-              name="phonePrefix"
-              [(ngModel)]="phonePrefix"
-              aria-label="Zgjidh prefiksin e shtetit"
-            >
-              @for (country of countries; track country.name) {
-                <option [value]="country.prefix">
-                  {{ country.flag }} {{ country.name }} ({{ country.prefix }})
-                </option>
-              }
-            </select>
-
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              [(ngModel)]="phone"
-              placeholder="Numri i telefonit"
-              autocomplete="tel-national"
-              inputmode="tel"
-              required
-            >
-          </div>
-        </div>
-
-      </div>
-
-      <div class="form-divider"></div>
-
-      <h2>Të dhënat e makinës</h2>
-
-      @if (selectedCar) {
-        <div class="selected-car">
-          <img
-            [src]="selectedCar.image"
-            [alt]="selectedCar.brand + ' ' + selectedCar.model"
-          >
-
-          <div class="selected-car-info">
-            <span class="car-category">{{ selectedCar.category }}</span>
-            <h3>{{ selectedCar.brand }} {{ selectedCar.model }}</h3>
-            <p>{{ selectedCar.price }} € / ditë</p>
-          </div>
-        </div>
-      } @else {
-        <div class="no-car-selected">
-          <p>Nuk është zgjedhur ende një makinë.</p>
-          <a routerLink="/cars" class="secondary-button">
-            Zgjidh një makinë
-          </a>
-        </div>
-      }
-
-      <div class="form-divider"></div>
-
-      <h2>Vendi i marrjes dhe kthimit</h2>
-
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label for="pickupLocation">Vendi i marrjes</label>
-          <input
-            id="pickupLocation"
-            name="pickupLocation"
-            type="text"
-            [(ngModel)]="pickupLocation"
-            placeholder="P.sh. Aeroporti i Tiranës"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="returnLocation">Vendi i kthimit</label>
-          <input
-            id="returnLocation"
-            name="returnLocation"
-            type="text"
-            [(ngModel)]="returnLocation"
-            placeholder="P.sh. Tirana"
-            required
-          >
-        </div>
-
-      </div>
-
-      <div class="form-divider"></div>
-
-      <h2>Data dhe ora e rezervimit</h2>
-
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label for="pickupDate">Data e marrjes</label>
-          <input
-            id="pickupDate"
-            name="pickupDate"
-            type="date"
-            [(ngModel)]="pickupDate"
-            [min]="today"
-            (ngModelChange)="onPickupDateChange()"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="returnDate">Data e kthimit (minimumi 3 ditë)</label>
-          <input
-            id="returnDate"
-            name="returnDate"
-            type="date"
-            [(ngModel)]="returnDate"
-            [min]="getMinReturnDate()"
-            (ngModelChange)="calculateRentalDays()"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="pickupHour">Ora e marrjes</label>
-
-          <div class="time-select-group">
-            <select
-              id="pickupHour"
-              name="pickupHour"
-              [(ngModel)]="pickupHour"
-              (ngModelChange)="updatePickupTime()"
-            >
-              @for (hour of hours; track hour) {
-                <option [value]="hour">{{ hour }}</option>
-              }
-            </select>
-
-            <span>:</span>
-
-            <select
-              name="pickupMinute"
-              [(ngModel)]="pickupMinute"
-              (ngModelChange)="updatePickupTime()"
-              aria-label="Minutat e marrjes"
-            >
-              @for (minute of minutes; track minute) {
-                <option [value]="minute">{{ minute }}</option>
-              }
-            </select>
-
-            <select
-              name="pickupPeriod"
-              [(ngModel)]="pickupPeriod"
-              (ngModelChange)="updatePickupTime()"
-              aria-label="AM ose PM"
-            >
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="returnHour">Ora e kthimit</label>
-
-          <div class="time-select-group">
-            <select
-              id="returnHour"
-              name="returnHour"
-              [(ngModel)]="returnHour"
-              (ngModelChange)="updateReturnTime()"
-            >
-              @for (hour of hours; track hour) {
-                <option [value]="hour">{{ hour }}</option>
-              }
-            </select>
-
-            <span>:</span>
-
-            <select
-              name="returnMinute"
-              [(ngModel)]="returnMinute"
-              (ngModelChange)="updateReturnTime()"
-              aria-label="Minutat e kthimit"
-            >
-              @for (minute of minutes; track minute) {
-                <option [value]="minute">{{ minute }}</option>
-              }
-            </select>
-
-            <select
-              name="returnPeriod"
-              [(ngModel)]="returnPeriod"
-              (ngModelChange)="updateReturnTime()"
-              aria-label="AM ose PM"
-            >
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="rental-days-info">
-        <span>Ditë qiraje (minimumi 3)</span>
-        <strong>{{ rentalDays }}</strong>
-      </div>
-
-      <div class="form-divider"></div>
-
-      <h2>Opsionet shtesë</h2>
-
-      <div class="extras-list">
-
-        <label class="extra-option">
-          <input
-            type="checkbox"
-            name="babySeat"
-            [(ngModel)]="babySeat"
-            (ngModelChange)="calculateTotal()"
-          >
-          <span class="extra-description">
-            <strong>Baby Seat</strong>
-            <small>Karrige për fëmijë</small>
-          </span>
-          <span class="extra-price">+10 €</span>
-        </label>
-
-        <label class="extra-option">
-          <input
-            type="checkbox"
-            name="extraDriver"
-            [(ngModel)]="extraDriver"
-            (ngModelChange)="calculateTotal()"
-          >
-          <span class="extra-description">
-            <strong>Extra Driver</strong>
-            <small>Shofer i dytë</small>
-          </span>
-          <span class="extra-price">+20 €</span>
-        </label>
-
-        <label class="extra-option">
-          <input
-            type="checkbox"
-            name="outsideAlbania"
-            [(ngModel)]="outsideAlbania"
-            (ngModelChange)="calculateTotal()"
-          >
-          <span class="extra-description">
-            <strong>Jashtë Shqipërisë</strong>
-            <small>Tarifë shtesë për çdo ditë</small>
-          </span>
-          <span class="extra-price">+30 €/ditë</span>
-        </label>
-
-        <label class="extra-option">
-          <input
-            type="checkbox"
-            name="over250Km"
-            [(ngModel)]="over250Km"
-            (ngModelChange)="calculateTotal()"
-          >
-          <span class="extra-description">
-            <strong>Mbi 250 km/ditë</strong>
-            <small>Tarifë shtesë për çdo ditë</small>
-          </span>
-          <span class="extra-price">+20 €/ditë</span>
-        </label>
-
-        <div class="free-feature">
-          <span class="free-check">✓</span>
-          <span>GPS falas</span>
-          <strong>FALAS</strong>
-        </div>
-
-      </div>
-
-      <button
-        type="button"
-        class="submit-booking-button"
-        [disabled]="!selectedCar"
-        (click)="createBooking()"
-      >
-        Konfirmo rezervimin →
-      </button>
-
-    </main>
-
-    <aside class="booking-summary">
-      <span class="summary-label">PËRMBLEDHJE</span>
-      <h2>Çmimi i rezervimit</h2>
-
-      @if (selectedCar) {
-        <p class="summary-car">
-          {{ selectedCar.brand }} {{ selectedCar.model }}
-        </p>
-      }
-
-      <div class="summary-row">
-        <span>Çmimi ditor</span>
-        <strong>{{ carPrice }} €</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>Ditët e qirasë</span>
-        <strong>{{ rentalDays }}</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>Qiraja bazë</span>
-        <strong>{{ basePrice }} €</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>Opsionet shtesë</span>
-        <strong>{{ extraPrice }} €</strong>
-      </div>
-
-      <div class="summary-divider"></div>
-
-      <div class="summary-total">
-        <span>Totali</span>
-        <strong>{{ totalPrice }} €</strong>
-      </div>
+        }
+        <div class="total"><dt>{{ 'booking.total' | t }}</dt><dd>{{ price().totalPrice | number:'1.0-2' }} €</dd></div>
+      </dl>
 
       <p class="summary-note">
-        Qiraja minimale është 3 ditë. Çmimi llogaritet sipas
-        kohëzgjatjes dhe opsioneve të zgjedhura.
+        {{ 'booking.note' | t: { p: rules.longRentalDiscount * 100, n: rules.longRentalDays } }}
       </p>
 
-      <div class="summary-benefit"><span>✓</span> GPS falas</div>
-      <div class="summary-benefit"><span>✓</span> Rezervim i thjeshtë</div>
-      <div class="summary-benefit"><span>✓</span> Salianji Rent Car</div>
-    </aside>
+      <ul class="rules">
+        <li>{{ 'booking.ruleMin' | t: { n: rules.minDays } }}</li>
+        <li>{{ 'booking.ruleCancel' | t: { n: rules.cancelWindowHours } }}</li>
+      </ul>
 
+      @if (bookedPeriods().length) {
+      <div class="booked">
+        <p class="booked-title">{{ 'booking.booked' | t }}</p>
+        <ul>
+          @for (p of bookedPeriods(); track p.pickupDate) {
+          <li>{{ p.pickupDate | date:'dd/MM/yyyy' }} – {{ p.returnDate | date:'dd/MM/yyyy' }}</li>
+          }
+        </ul>
+      </div>
+      }
+    </aside>
   </div>
+  }
+  }
 </div>

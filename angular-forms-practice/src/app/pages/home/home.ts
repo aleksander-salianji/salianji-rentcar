@@ -8,10 +8,13 @@ import { errorMessage } from '../../core/http-error';
 import { CATEGORIES, CATEGORY_LABELS, LOCATIONS, RENTAL_RULES } from '../../core/labels';
 import { Car, CarCategory, Company } from '../../core/models';
 import { CarCard } from '../../shared/car-card';
+import { I18nService } from '../../core/i18n.service';
+import { LabelPipe } from '../../shared/label.pipe';
+import { TPipe } from '../../shared/t.pipe';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CarCard],
+  imports: [RouterLink, CarCard, TPipe, LabelPipe],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -20,6 +23,7 @@ export class HomePage {
   private carService = inject(CarService);
   private companyService = inject(CompanyService);
   private router = inject(Router);
+  readonly i18n = inject(I18nService);
 
   readonly locations = LOCATIONS;
   readonly today = todayISO();

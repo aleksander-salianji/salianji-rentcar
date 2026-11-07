@@ -41,18 +41,17 @@ export const TRANSMISSIONS = Object.keys(TRANSMISSION_LABELS) as Transmission[];
 export const FUELS = Object.keys(FUEL_LABELS) as FuelType[];
 export const STATUSES = Object.keys(STATUS_LABELS) as BookingStatus[];
 
+// Vendet e marrjes/kthimit: makina sillet në çdo qytet (duhet të jenë të njëjta me RentalRules.java)
 export const LOCATIONS: readonly string[] = [
-  'Tiranë - Qendër',
-  'Aeroporti Rinas',
-  'Durrës',
-  'Vlorë',
-  'Shkodër',
-  'Sarandë'
+  'Tiranë - Qendër', 'Aeroporti Rinas', 'Durrës', 'Porti i Durrësit', 'Vlorë', 'Sarandë', 'Ksamil', 'Himarë',
+  'Shkodër', 'Lezhë', 'Elbasan', 'Korçë', 'Pogradec', 'Fier', 'Berat', 'Gjirokastër',
+  'Lushnjë', 'Kavajë', 'Krujë', 'Kukës', 'Përmet', 'Tepelenë'
 ];
 
 // Qytetet ku mund të ndodhet një kompani (për kërkimin)
 export const CITIES: readonly string[] = [
-  'Tiranë', 'Durrës', 'Vlorë', 'Shkodër', 'Sarandë', 'Elbasan', 'Korçë', 'Fier', 'Berat', 'Gjirokastër'
+  'Tiranë', 'Durrës', 'Vlorë', 'Shkodër', 'Sarandë', 'Elbasan', 'Korçë', 'Fier', 'Berat', 'Gjirokastër',
+  'Lezhë', 'Pogradec', 'Lushnjë', 'Kavajë', 'Krujë', 'Kukës', 'Përmet', 'Tepelenë', 'Himarë', 'Ksamil'
 ];
 
 export interface ExtraOption {

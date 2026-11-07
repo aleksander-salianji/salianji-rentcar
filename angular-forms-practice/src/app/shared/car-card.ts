@@ -5,10 +5,11 @@ import { RouterLink } from '@angular/router';
 import { imageSrc } from '../core/images';
 import { Car } from '../core/models';
 import { LabelPipe } from './label.pipe';
+import { TPipe } from './t.pipe';
 
 @Component({
   selector: 'app-car-card',
-  imports: [RouterLink, DecimalPipe, LabelPipe],
+  imports: [RouterLink, DecimalPipe, LabelPipe, TPipe],
   template: `
     <article class="car-card">
       <div class="car-visual" [attr.data-category]="car().category">
@@ -32,7 +33,7 @@ import { LabelPipe } from './label.pipe';
         <ul class="car-specs">
           <li>{{ car().transmission | label:'transmission' }}</li>
           <li>{{ car().fuel | label:'fuel' }}</li>
-          <li>{{ car().seats }} vende</li>
+          <li>{{ 'car.seats' | t: { n: car().seats } }}</li>
         </ul>
 
         @if (car().description) {
@@ -42,9 +43,9 @@ import { LabelPipe } from './label.pipe';
         <div class="car-footer">
           <p class="price">
             <strong>{{ car().pricePerDay | number:'1.0-2' }} €</strong>
-            <span class="muted"> / ditë</span>
+            <span class="muted"> / {{ 'car.perDay' | t }}</span>
           </p>
-          <a class="btn btn-primary btn-sm" [routerLink]="['/rezervo', car().id]" [queryParams]="dates()">Rezervo</a>
+          <a class="btn btn-primary btn-sm" [routerLink]="['/rezervo', car().id]" [queryParams]="dates()">{{ 'car.book' | t }}</a>
         </div>
       </div>
     </article>

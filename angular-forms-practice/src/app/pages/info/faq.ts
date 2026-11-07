@@ -1,46 +1,50 @@
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { FAQ_GROUPS } from '../../core/faq';
+import { FaqGroup } from '../../core/faq';
+import { I18nService } from '../../core/i18n.service';
+import { TPipe } from '../../shared/t.pipe';
+import { inject } from '@angular/core';
 
 // /pyetje — pyetjet e shpeshta, të ndara sipas temës, me kërkim
 @Component({
   selector: 'app-faq',
-  imports: [RouterLink],
+  imports: [RouterLink, TPipe],
   host: { class: 'dk' },
   template: `
     <section class="dk-hero">
       <div class="container">
-        <p class="dk-label">Pyetje të shpeshta</p>
-        <h1 class="dk-title">Gjithçka që duhet të dish</h1>
-        <p class="dk-lead">Rezervimi, pagesa, anulimi dhe marrja e makinës. Nuk e gjen përgjigjen? <a routerLink="/ndihme">Na shkruaj</a>.</p>
-        <input class="search" type="search" placeholder="Kërko p.sh. anulim, patentë, zbritje..."
-               [value]="term()" (input)="term.set(value($event))" aria-label="Kërko pyetje">
+        <p class="dk-label">{{ 'nav.faq' | t }}</p>
+        <h1 class="dk-title">{{ 'faq.title' | t }}</h1>
+        <p class="dk-lead">{{ 'faq.lead' | t }} <a routerLink="/ndihme">{{ 'support.writeUs' | t }}</a>.</p>
+        <input class="search" type="search" [placeholder]="'faq.searchPlaceholder' | t"
+               [value]="term()" (input)="term.set(value($event))" [attr.aria-label]="'faq.searchPlaceholder' | t">
       </div>
     </section>
 
     <div class="container faq-body">
-      <nav class="topics" aria-label="Temat">
+      <nav class="topics" [attr.aria-label]="'support.topic' | t">
         @for (g of groups(); track g.title) {
           <a [href]="'#' + slug(g.title)" (click)="jump($event, g.title)">{{ g.title }} <span>{{ g.items.length }}</span></a>
         }
       </nav>
 
       <div>
-        @for (g of groups(); track g.title) {
+        @for (g of groups(); track g.title; let gi = $index) {
           <section class="group" [id]="slug(g.title)">
             <h2>{{ g.title }}</h2>
-            @for (f of g.items; track f.q) {
-              <div class="item" [class.open]="open() === f.q">
-                <button type="button" [attr.aria-expanded]="open() === f.q" (click)="toggle(f.q)">
-                  <span>{{ f.q }}</span><span class="sign" aria-hidden="true">{{ open() === f.q ? '−' : '+' }}</span>
+            @for (f of g.items; track f.q; let fi = $index) {
+              @let opened = isOpen(f.q, gi === 0 && fi === 0);
+              <div class="item" [class.open]="opened">
+                <button type="button" [attr.aria-expanded]="opened" (click)="toggle(f.q, opened)">
+                  <span>{{ f.q }}</span><span class="sign" aria-hidden="true">{{ opened ? '−' : '+' }}</span>
                 </button>
-                @if (open() === f.q || term()) { <p>{{ f.a }}</p> }
+                @if (opened || term()) { <p>{{ f.a }}</p> }
               </div>
             }
           </section>
         } @empty {
-          <p class="dk-muted none">Asnjë pyetje për "{{ term() }}". <a routerLink="/ndihme">Pyet supportin →</a></p>
+          <p class="dk-muted none">{{ 'faq.none' | t: { term: term() } }} <a routerLink="/ndihme">{{ 'faq.askSupport' | t }} →</a></p>
         }
       </div>
     </div>
@@ -50,27 +54,27 @@ import { FAQ_GROUPS } from '../../core/faq';
       width: min(560px, 100%);
       margin-top: 22px;
       padding: 12px 16px;
-      border: 1px solid #c8a86b;
+      border: 1px solid var(--lx-gold);
       border-radius: 0;
-      background: #0e0f12;
-      color: #ece8df;
+      background: var(--lx-surface);
+      color: var(--lx-text);
     }
     .faq-body { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; padding-top: 40px; align-items: start; }
     .topics { position: sticky; top: 88px; display: grid; gap: 4px; }
-    .topics a { padding: 8px 0; border-bottom: 1px solid #26272c; color: #b9b5ad !important; text-decoration: none; }
-    .topics a:hover { color: #c8a86b !important; }
-    .topics span { float: right; color: #8d8a84; }
+    .topics a { padding: 8px 0; border-bottom: 1px solid var(--lx-line); color: var(--lx-soft) !important; text-decoration: none; }
+    .topics a:hover { color: var(--lx-gold) !important; }
+    .topics span { float: right; color: var(--lx-muted); }
     .group { padding-bottom: 28px; scroll-margin-top: 90px; }
     .group h2 { margin: 0 0 12px; font-size: 1.6rem; }
-    .item { border-bottom: 1px solid #26272c; }
+    .item { border-bottom: 1px solid var(--lx-line); }
     .item button {
       display: flex; justify-content: space-between; gap: 14px; width: 100%;
-      padding: 16px 0; border: 0; background: none; color: #ece8df;
+      padding: 16px 0; border: 0; background: none; color: var(--lx-text);
       font: inherit; font-size: 1.02rem; text-align: left; cursor: pointer;
     }
-    .item.open button, .item button:hover { color: #c8a86b; }
-    .sign { color: #c8a86b; font-size: 1.3rem; line-height: 1; }
-    .item p { margin: 0 0 16px; color: #b9b5ad; max-width: 46em; }
+    .item.open button, .item button:hover { color: var(--lx-gold); }
+    .sign { color: var(--lx-gold); font-size: 1.3rem; line-height: 1; }
+    .item p { margin: 0 0 16px; color: var(--lx-soft); max-width: 46em; }
     .none { padding: 20px 0; }
     @media (max-width: 860px) {
       .faq-body { grid-template-columns: 1fr; gap: 10px; }
@@ -82,22 +86,30 @@ import { FAQ_GROUPS } from '../../core/faq';
 })
 export class FaqPage {
 
+  private i18n = inject(I18nService);
+
   term = signal('');
-  open = signal<string | null>(FAQ_GROUPS[0].items[0].q);
+  open = signal<string | null>(null);
+
+  // e para hapur si parazgjedhje (në çdo gjuhë)
+  isOpen(q: string, first: boolean): boolean {
+    return this.open() === null ? first : this.open() === q;
+  }
 
   // filtron pyetjet sipas kërkimit (pyetja ose përgjigjja)
   groups = computed(() => {
+    const all = this.i18n.list<FaqGroup>('faq.groups');
     const t = this.term().trim().toLowerCase();
     if (!t) {
-      return FAQ_GROUPS;
+      return all;
     }
-    return FAQ_GROUPS
+    return all
       .map(g => ({ ...g, items: g.items.filter(f => (f.q + ' ' + f.a).toLowerCase().includes(t)) }))
       .filter(g => g.items.length > 0);
   });
 
-  toggle(q: string) {
-    this.open.update(cur => (cur === q ? null : q));
+  toggle(q: string, opened: boolean) {
+    this.open.set(opened ? '' : q);
   }
 
   slug(title: string): string {

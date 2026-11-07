@@ -5,24 +5,24 @@
    ===================================================== */
 
 :host {
-  --ink: #050506;
-  --onyx: #0e0f12;
-  --hair: #26272c;
-  --pearl: #ece8df;
-  --smoke: #8d8a84;
-  --gold: #c8a86b;
+  --ink: var(--lx-bg);
+  --onyx: var(--lx-surface);
+  --hair: var(--lx-line);
+  --pearl: var(--lx-text);
+  --smoke: var(--lx-muted);
+  --gold: var(--lx-gold);
   --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
 
   /* për kartat e makinave */
-  --bg: #0b0b0d;
-  --card: #111215;
-  --text: #ece8df;
-  --muted: #8d8a84;
-  --border: #26272c;
-  --navy: #ece8df;
-  --accent: #c8a86b;
-  --accent-dark: #b3935a;
-  --shadow: 0 0 0 1px #1d1e22;
+  --bg: var(--lx-bg);
+  --card: var(--lx-surface);
+  --text: var(--lx-text);
+  --muted: var(--lx-muted);
+  --border: var(--lx-line);
+  --navy: var(--lx-text);
+  --accent: var(--lx-gold);
+  --accent-dark: var(--lx-gold-dk);
+  --shadow: 0 0 0 1px var(--lx-line);
 
   display: block;
   margin-bottom: -64px;      /* mbulon hapësirën para footer-it */
@@ -52,8 +52,8 @@
   z-index: 2;
   display: grid;
   justify-items: center;
-  gap: 22px;
-  padding-top: 88px;
+  gap: 30px;
+  padding-top: 96px;
   padding-bottom: 24px;
   text-align: center;
 }
@@ -87,9 +87,9 @@
   grid-template-columns: 1.25fr 1.25fr 1fr 1fr auto;
   gap: 0;
   width: min(1040px, 100%);
-  margin-top: 10px;
+  margin-top: 26px;
   border: 1px solid var(--gold);
-  background: rgba(14, 15, 18, .9);
+  background: var(--lx-surface);
   text-align: left;
 }
 .search label {
@@ -229,3 +229,6 @@
 @media (max-width: 540px) {
   .hero-copy { padding-top: 64px; padding-bottom: 16px; }
 }
+
+/* makina sillet në çdo qytet */
+.delivery { margin: 14px 0 0; color: var(--lx-muted); font-size: .9rem; letter-spacing: .02em; }

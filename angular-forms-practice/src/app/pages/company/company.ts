@@ -5,14 +5,19 @@ import { CarService } from '../../core/car.service';
 import { CompanyService } from '../../core/company.service';
 import { addDays, daysBetween, toISODate, todayISO } from '../../core/date.utils';
 import { errorMessage } from '../../core/http-error';
+import { translate } from '../../core/i18n.service';
 import { CATEGORIES, CATEGORY_LABELS, RENTAL_RULES } from '../../core/labels';
 import { Car, CarCategory, Company } from '../../core/models';
 import { CarCard } from '../../shared/car-card';
+import { LabelPipe } from '../../shared/label.pipe';
+import { TxPipe } from '../../shared/tx.pipe';
+import { TPipe } from '../../shared/t.pipe';
+import { PlacePipe } from '../../shared/place.pipe';
 
 // Faqja e një kompanie partnere: /kompania/:id
 @Component({
   selector: 'app-company',
-  imports: [RouterLink, CarCard],
+  imports: [RouterLink, CarCard, TPipe, LabelPipe, PlacePipe, TxPipe],
   templateUrl: './company.html',
   styleUrl: './company.css'
 })
@@ -67,7 +72,7 @@ export class CompanyPage implements OnInit {
         this.loading.set(false);
       },
       error: err => {
-        this.error.set(errorMessage(err, 'Kompania nuk u gjet.'));
+        this.error.set(errorMessage(err, translate('errors.companyNotFound')));
         this.loading.set(false);
       }
     });

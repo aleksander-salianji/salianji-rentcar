@@ -15,6 +15,8 @@ import {
 } from '../../core/labels';
 import { Car, CarCategory, Company, Transmission } from '../../core/models';
 import { CarCard } from '../../shared/car-card';
+import { LabelPipe } from '../../shared/label.pipe';
+import { TPipe } from '../../shared/t.pipe';
 
 type SortOption = 'price-asc' | 'price-desc' | 'newest';
 
@@ -22,7 +24,7 @@ type SortOption = 'price-asc' | 'price-desc' | 'newest';
 // p.sh. /makinat?qyteti=Tiranë&nga=2026-11-10&deri=2026-11-14&kompania=2
 @Component({
   selector: 'app-cars',
-  imports: [CarCard],
+  imports: [CarCard, TPipe, LabelPipe],
   templateUrl: './cars.html',
   styleUrl: './cars.css'
 })

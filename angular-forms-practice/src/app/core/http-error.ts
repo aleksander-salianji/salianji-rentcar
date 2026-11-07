@@ -1,16 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ApiError } from './models';
+import { translate } from './i18n.service';
 
-// Kthen një mesazh të kuptueshëm nga çdo gabim HTTP
-export function errorMessage(
-  err: unknown,
-  fallback = 'Ndodhi një gabim. Provo përsëri.'
-): string {
+// Kthen një mesazh të kuptueshëm nga çdo gabim HTTP (në gjuhën e zgjedhur).
+// Mesazhet që vijnë nga backend-i (body.message) janë në shqip.
+export function errorMessage(err: unknown, fallback?: string): string {
 
   if (err instanceof HttpErrorResponse) {
 
     if (err.status === 0) {
-      return 'Serveri nuk përgjigjet. Sigurohu që backend-i është i ndezur.';
+      return translate('errors.offline');
     }
 
     const body = err.error as Partial<ApiError> | null;
@@ -19,11 +18,11 @@ export function errorMessage(
     }
 
     switch (err.status) {
-      case 401: return 'Duhet të hysh në llogari.';
-      case 403: return 'Nuk ke leje për këtë veprim.';
-      case 404: return 'Nuk u gjet.';
+      case 401: return translate('errors.unauthorized');
+      case 403: return translate('errors.forbidden');
+      case 404: return translate('errors.notFound');
     }
   }
 
-  return fallback;
+  return fallback ?? translate('errors.generic');
 }

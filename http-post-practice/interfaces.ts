@@ -1,21 +1,11 @@
 export {};
 
-
-// ========================================
-// 1. INTERFACE CarData
-// ========================================
-
 interface CarData {
   id: number;
   brand: string;
   model: string;
   price: number;
-}
-
-
-// ========================================
-// 2. CLASS Car implements CarData
-// ========================================
+  }
 
 class Car implements CarData {
 

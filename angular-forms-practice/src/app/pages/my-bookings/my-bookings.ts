@@ -9,17 +9,19 @@ import { errorMessage } from '../../core/http-error';
 import { EXTRAS_OPTIONS, RENTAL_RULES } from '../../core/labels';
 import { Booking } from '../../core/models';
 import { LabelPipe } from '../../shared/label.pipe';
+import { TPipe } from '../../shared/t.pipe';
+import { I18nService } from '../../core/i18n.service';
 
 // "Rezervimi im": klienti nuk ka llogari, e gjen rezervimin me kodin + telefonin
 @Component({
   selector: 'app-my-bookings',
-  imports: [RouterLink, ReactiveFormsModule, DatePipe, DecimalPipe, LabelPipe],
+  imports: [RouterLink, ReactiveFormsModule, DatePipe, DecimalPipe, LabelPipe, TPipe],
   templateUrl: './my-bookings.html',
-  styleUrl: './my-bookings.css'
+  styleUrl: './my-bookings.css',
 })
 export class MyBookingsPage implements OnInit {
-
   private bookingService = inject(BookingService);
+  private i18n = inject(I18nService);
 
   // ?sukses=BCA-2026-0001 pas një rezervimi të ri
   readonly sukses = input<string>();
@@ -33,11 +35,15 @@ export class MyBookingsPage implements OnInit {
 
   form = new FormGroup({
     code: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    phone: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(7)] })
+    phone: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(7)],
+    }),
   });
 
   // Rezervimi i sapokrijuar vjen nga faqja e rezervimit (router state → history.state)
-  private readonly fromBooking = (globalThis.history?.state as { booking?: Booking } | null)?.booking;
+  private readonly fromBooking = (globalThis.history?.state as { booking?: Booking } | null)
+    ?.booking;
 
   ngOnInit() {
     const b = this.fromBooking;
@@ -59,14 +65,14 @@ export class MyBookingsPage implements OnInit {
     this.booking.set(null);
 
     this.bookingService.lookup(this.request()).subscribe({
-      next: b => {
+      next: (b) => {
         this.booking.set(b);
         this.loading.set(false);
       },
-      error: err => {
-        this.error.set(errorMessage(err, 'Rezervimi nuk u gjet.'));
+      error: (err) => {
+        this.error.set(errorMessage(err, this.i18n.t('lookup.notFound')));
         this.loading.set(false);
-      }
+      },
     });
   }
 
@@ -85,34 +91,33 @@ export class MyBookingsPage implements OnInit {
   }
 
   canCancel(b: Booking): boolean {
-    return this.isActive(b)
-      && b.pickupDate > todayISO()
-      && Date.now() < this.cancelDeadline(b).getTime();
+    return (
+      this.isActive(b) && b.pickupDate > todayISO() && Date.now() < this.cancelDeadline(b).getTime()
+    );
   }
 
   extrasText(b: Booking): string {
-    return EXTRAS_OPTIONS
-      .filter(opt => b.extras[opt.key])
-      .map(opt => opt.label)
+    return EXTRAS_OPTIONS.filter((opt) => b.extras[opt.key])
+      .map((opt) => this.i18n.t(`extras.${opt.key}.label`))
       .join(', ');
   }
 
   cancel(b: Booking) {
-    if (!confirm(`Je i sigurt që do të anulosh rezervimin ${b.code}?`)) {
+    if (!confirm(this.i18n.t('lookup.confirmCancel', { code: b.code }))) {
       return;
     }
     this.error.set(null);
     this.cancelling.set(true);
 
     this.bookingService.cancel(this.request()).subscribe({
-      next: updated => {
+      next: (updated) => {
         this.booking.set(updated);
         this.cancelling.set(false);
       },
-      error: err => {
+      error: (err) => {
         this.error.set(errorMessage(err));
         this.cancelling.set(false);
-      }
+      },
     });
   }
 

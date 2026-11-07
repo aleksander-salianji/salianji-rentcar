@@ -4,18 +4,23 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { filter, map } from 'rxjs/operators';
 
 import { AuthService } from './core/auth.service';
+import { I18nService, Lang } from './core/i18n.service';
+import { ThemeService } from './core/theme.service';
+import { TPipe } from './shared/t.pipe';
 import { USE_MOCK_API } from './core/config';
 import { SUPPORT_CONTACT } from './core/labels';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TPipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
 
   readonly auth = inject(AuthService);
+  readonly i18n = inject(I18nService);
+  readonly theme = inject(ThemeService);
 
   readonly demoMode = USE_MOCK_API;
   readonly contact = SUPPORT_CONTACT;
@@ -43,6 +48,14 @@ export class App {
 
   initial(): string {
     return this.auth.displayName().charAt(0).toUpperCase();
+  }
+
+  // lista e gjuhëve (🌐 SQ ▾) në rreshtin lart
+  langOpen = signal(false);
+
+  pickLang(code: Lang) {
+    this.i18n.use(code);
+    this.langOpen.set(false);
   }
 
   toggleMenu() {

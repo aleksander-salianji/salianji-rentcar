@@ -1,22 +1,22 @@
 :host {
-  --ink: #050506;
-  --onyx: #0e0f12;
-  --hair: #26272c;
-  --pearl: #ece8df;
-  --smoke: #8d8a84;
-  --gold: #c8a86b;
+  --ink: var(--lx-bg);
+  --onyx: var(--lx-surface);
+  --hair: var(--lx-line);
+  --pearl: var(--lx-text);
+  --smoke: var(--lx-muted);
+  --gold: var(--lx-gold);
   --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
 
   /* për kartat e makinave */
-  --bg: #0b0b0d;
-  --card: #111215;
-  --text: #ece8df;
-  --muted: #8d8a84;
-  --border: #26272c;
-  --navy: #ece8df;
-  --accent: #c8a86b;
-  --accent-dark: #b3935a;
-  --shadow: 0 0 0 1px #1d1e22;
+  --bg: var(--lx-bg);
+  --card: var(--lx-surface);
+  --text: var(--lx-text);
+  --muted: var(--lx-muted);
+  --border: var(--lx-line);
+  --navy: var(--lx-text);
+  --accent: var(--lx-gold);
+  --accent-dark: var(--lx-gold-dk);
+  --shadow: 0 0 0 1px var(--lx-line);
 
   display: block;
   margin-bottom: -64px;
@@ -85,7 +85,7 @@
 .about {
   max-width: 44em;
   margin: 0;
-  color: #cfcac0;
+  color: var(--lx-soft);
   font-size: 1.05rem;
 }
 
@@ -105,7 +105,7 @@
   align-items: stretch;
   width: min(620px, 100%);
   border: 1px solid var(--gold);
-  background: rgba(14, 15, 18, .9);
+  background: var(--lx-surface);
 }
 .search label {
   display: grid;

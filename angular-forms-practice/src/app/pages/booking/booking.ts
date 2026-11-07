@@ -24,6 +24,7 @@ import { BookingService } from '../../core/booking.service';
 import { CarService } from '../../core/car.service';
 import { addDays, periodsOverlap, toISODate, todayISO } from '../../core/date.utils';
 import { errorMessage } from '../../core/http-error';
+import { translate } from '../../core/i18n.service';
 import { imageSrc } from '../../core/images';
 import { EXTRAS_OPTIONS, LOCATIONS, RENTAL_RULES } from '../../core/labels';
 import { BookedPeriod, BookingRequest, Car } from '../../core/models';
@@ -35,12 +36,13 @@ import {
   PHONE_PATTERN
 } from '../../core/validators';
 import { LabelPipe } from '../../shared/label.pipe';
+import { TPipe } from '../../shared/t.pipe';
 
 const MAX_PHONES = 3;
 
 @Component({
   selector: 'app-booking',
-  imports: [ReactiveFormsModule, RouterLink, DecimalPipe, DatePipe, LabelPipe],
+  imports: [ReactiveFormsModule, RouterLink, DecimalPipe, DatePipe, LabelPipe, TPipe],
   templateUrl: './booking.html',
   styleUrl: './booking.css'
 })
@@ -186,7 +188,7 @@ export class BookingPage implements OnInit {
     const id = Number(this.carId());
 
     if (!Number.isInteger(id) || id <= 0) {
-      this.loadError.set('Makina nuk u gjet.');
+      this.loadError.set(translate('errors.carNotFound'));
       this.loading.set(false);
       return;
     }
@@ -197,7 +199,7 @@ export class BookingPage implements OnInit {
         this.loading.set(false);
       },
       error: err => {
-        this.loadError.set(errorMessage(err, 'Makina nuk u gjet.'));
+        this.loadError.set(errorMessage(err, translate('errors.carNotFound')));
         this.loading.set(false);
       }
     });

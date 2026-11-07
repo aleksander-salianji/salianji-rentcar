@@ -9,11 +9,14 @@ import { errorMessage } from '../../core/http-error';
 import { imageSrc, resizeImage } from '../../core/images';
 import { BLOG_CATEGORIES } from '../../core/labels';
 import { BlogPost, BlogPostRequest } from '../../core/models';
+import { I18nService } from '../../core/i18n.service';
+import { TPipe } from '../../shared/t.pipe';
+import { PlacePipe } from '../../shared/place.pipe';
 
 // Paneli → Blogu: shkruaj, ndrysho, publiko artikuj
 @Component({
   selector: 'app-admin-blog',
-  imports: [ReactiveFormsModule, RouterLink, DatePipe],
+  imports: [ReactiveFormsModule, RouterLink, DatePipe, TPipe, PlacePipe],
   templateUrl: './admin-blog.html',
   styles: `
     .layout { display: grid; grid-template-columns: minmax(0, 1fr) 460px; gap: 20px; align-items: start; }
@@ -36,6 +39,8 @@ import { BlogPost, BlogPostRequest } from '../../core/models';
   `
 })
 export class AdminBlog {
+
+  readonly i18n = inject(I18nService);
 
   private blogService = inject(BlogService);
 
@@ -112,7 +117,7 @@ export class AdminBlog {
       return;
     }
     if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
-      this.formError.set('Zgjidh një foto JPG, PNG ose WEBP.');
+      this.formError.set(this.i18n.t('admin.photoType'));
       return;
     }
     this.formError.set(null);
@@ -147,7 +152,7 @@ export class AdminBlog {
       this.posts.update(list => (list.some(p => p.id === saved.id)
         ? list.map(p => (p.id === saved.id ? saved : p))
         : [saved, ...list]));
-      this.flash(id === null ? 'Artikulli u krijua.' : 'Ndryshimet u ruajtën.');
+      this.flash(this.i18n.t(id === null ? 'admin.blog.created' : 'admin.saved'));
       this.newPost();
     } catch (err) {
       this.formError.set(errorMessage(err));
@@ -168,7 +173,7 @@ export class AdminBlog {
   }
 
   remove(p: BlogPost) {
-    if (!confirm(`Të fshihet artikulli "${p.title}"?`)) {
+    if (!confirm(this.i18n.t('admin.blog.confirmDelete', { title: p.title }))) {
       return;
     }
     this.blogService.remove(p.id).subscribe({
@@ -177,7 +182,7 @@ export class AdminBlog {
         if (this.editingId() === p.id) {
           this.newPost();
         }
-        this.flash('Artikulli u fshi.');
+        this.flash(this.i18n.t('admin.blog.deleted'));
       },
       error: err => this.error.set(errorMessage(err))
     });

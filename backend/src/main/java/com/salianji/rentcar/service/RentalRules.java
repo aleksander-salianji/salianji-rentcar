@@ -18,13 +18,11 @@ public final class RentalRules {
         return LocalDate.now(ZONE);
     }
 
+    // Makina sillet në çdo qytet. Duhet të jenë të njëjta me LOCATIONS te frontend-i (core/labels.ts)
     public static final List<String> LOCATIONS = List.of(
-        "Tiranë - Qendër",
-        "Aeroporti Rinas",
-        "Durrës",
-        "Vlorë",
-        "Shkodër",
-        "Sarandë"
+            "Tiranë - Qendër", "Aeroporti Rinas", "Durrës", "Porti i Durrësit", "Vlorë", "Sarandë", "Ksamil", "Himarë",
+            "Shkodër", "Lezhë", "Elbasan", "Korçë", "Pogradec", "Fier", "Berat", "Gjirokastër",
+            "Lushnjë", "Kavajë", "Krujë", "Kukës", "Përmet", "Tepelenë"
     );
 
     public static final int MIN_DRIVER_AGE = 21;

@@ -8,6 +8,8 @@ import { BookingService } from '../../core/booking.service';
 import { errorMessage } from '../../core/http-error';
 import { AdminStats, Booking, RevenuePeriod, RevenueReport } from '../../core/models';
 import { LabelPipe } from '../../shared/label.pipe';
+import { TPipe } from '../../shared/t.pipe';
+import { I18nService } from '../../core/i18n.service';
 import { percentChange, RevenueChart } from '../../shared/revenue-chart';
 
 interface KpiCard {
@@ -19,7 +21,7 @@ interface KpiCard {
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [RouterLink, DatePipe, DecimalPipe, LabelPipe, RevenueChart],
+  imports: [RouterLink, DatePipe, DecimalPipe, LabelPipe, RevenueChart, TPipe],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css'
 })
@@ -27,6 +29,7 @@ export class AdminDashboard {
 
   private bookingService = inject(BookingService);
   readonly auth = inject(AuthService);
+  readonly i18n = inject(I18nService);
 
   // '/admin' ose '/paneli' — e njëjta faqe për adminin dhe për bizneset
   readonly base = this.auth.panelUrl();
@@ -38,9 +41,9 @@ export class AdminDashboard {
 
   // ---------- GRAFIKU ----------
   readonly periods: { key: RevenuePeriod; label: string; hint: string }[] = [
-    { key: 'DAY', label: 'Ditore', hint: '30 ditët e fundit' },
-    { key: 'WEEK', label: 'Javore', hint: '12 javët e fundit' },
-    { key: 'MONTH', label: 'Mujore', hint: '12 muajt e fundit' }
+    { key: 'DAY', label: 'admin.dash.daily', hint: 'admin.dash.last30days' },
+    { key: 'WEEK', label: 'admin.dash.weekly', hint: 'admin.dash.last12weeks' },
+    { key: 'MONTH', label: 'admin.dash.monthly', hint: 'admin.dash.last12months' }
   ];
   period = signal<RevenuePeriod>('DAY');
   report = signal<RevenueReport | null>(null);
@@ -72,9 +75,9 @@ export class AdminDashboard {
       return [];
     }
     return [
-      { title: 'Sot', value: s.revenueToday, previous: s.revenueYesterday, compareLabel: 'kundrejt dje' },
-      { title: 'Kjo javë', value: s.revenueThisWeek, previous: s.revenueLastWeekToDate, compareLabel: 'kundrejt javës së kaluar' },
-      { title: 'Ky muaj', value: s.revenueThisMonth, previous: s.revenueLastMonthToDate, compareLabel: 'kundrejt muajit të kaluar' }
+      { title: 'admin.dash.today', value: s.revenueToday, previous: s.revenueYesterday, compareLabel: 'admin.dash.vsYesterday' },
+      { title: 'admin.dash.thisWeek', value: s.revenueThisWeek, previous: s.revenueLastWeekToDate, compareLabel: 'admin.dash.vsLastWeek' },
+      { title: 'admin.dash.thisMonth', value: s.revenueThisMonth, previous: s.revenueLastMonthToDate, compareLabel: 'admin.dash.vsLastMonth' }
     ];
   });
 

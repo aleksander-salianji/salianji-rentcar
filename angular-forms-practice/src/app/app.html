@@ -1,53 +1,69 @@
 @if (demoMode) {
-  <div class="demo-bar">
-    Mënyra demo: të dhënat ruhen vetëm në këtë shfletues.
-  </div>
+<div class="demo-bar">
+  {{ 'app.demo' | t }}
+</div>
 }
 
+<!-- MENYJA KRYESORE: logoja majtas, lidhjet në mes, Rezervo djathtas -->
 <header class="topbar">
-  <div class="container topbar-inner">
-
+  <div class="topbar-inner">
     <a class="logo" routerLink="/" (click)="closeMenu()">
-      <img class="logo-mark" src="/bookers-logo-ikona.svg" alt="" width="42" height="42">
-      <span>Bookers <strong>Car Albania</strong></span>
+      <img class="logo-mark" src="/bookers-logo-ikona.svg" alt="" width="50" height="50">
+      <span class="logo-text"><strong>BOOKERS</strong><small>Car Albania</small></span>
     </a>
 
-    <button
-      type="button"
-      class="menu-toggle"
-      [attr.aria-expanded]="menuOpen()"
-      aria-label="Menyja"
-      (click)="toggleMenu()">
-      <span></span><span></span><span></span>
-    </button>
-
     <nav class="nav" [class.open]="menuOpen()">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Kryefaqja</a>
-      <a routerLink="/makinat" routerLinkActive="active" (click)="closeMenu()">Makinat</a>
-
-      <a routerLink="/rezervimi" routerLinkActive="active" (click)="closeMenu()">Rezervimi im</a>
-      <a routerLink="/blog" routerLinkActive="active" (click)="closeMenu()">Blogu</a>
-      <a routerLink="/ndihme" routerLinkActive="active" (click)="closeMenu()">Ndihmë</a>
-      <a routerLink="/rreth-nesh" routerLinkActive="active" (click)="closeMenu()">Rreth nesh</a>
-      <a routerLink="/karriera" routerLinkActive="active" (click)="closeMenu()">Karriera</a>
-      @if (auth.isLoggedIn()) {
-        <a [routerLink]="auth.panelUrl()" routerLinkActive="active" (click)="closeMenu()">
-          {{ auth.isAdmin() ? 'Paneli i adminit' : 'Paneli' }}
-        </a>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">{{ 'nav.home' | t }}</a>
+      <a routerLink="/makinat" routerLinkActive="active" (click)="closeMenu()">{{ 'nav.cars' | t }}</a>
+      <a routerLink="/rezervimi" routerLinkActive="active" (click)="closeMenu()">{{ 'nav.myBooking' | t }}</a>
+      <a routerLink="/blog" routerLinkActive="active" (click)="closeMenu()">{{ 'nav.blog' | t }}</a>
+      <a routerLink="/ndihme" routerLinkActive="active" (click)="closeMenu()">{{ 'nav.help' | t }}</a>
+      <a routerLink="/rreth-nesh" routerLinkActive="active" (click)="closeMenu()">{{ 'nav.about' | t }}</a>
+      <a routerLink="/karriera" routerLinkActive="active" (click)="closeMenu()">{{ 'nav.careers' | t }}</a>
+      @if (!auth.isLoggedIn()) {
+      <a class="nav-mobile-only" routerLink="/hyr" (click)="closeMenu()">{{ 'nav.login' | t }}</a>
       }
+      <a class="cta cta-mobile" routerLink="/makinat" (click)="closeMenu()">{{ 'car.book' | t }}</a>
+    </nav>
 
-      <div class="nav-account">
-        @if (auth.isLoggedIn()) {
-          <span class="nav-user">
-            <span class="avatar">{{ initial() }}</span>
-            {{ auth.displayName() }}
-          </span>
-          <button type="button" class="btn btn-light btn-sm" (click)="logout()">Dil</button>
-        } @else {
-          <a routerLink="/hyr" class="btn btn-ghost-light btn-sm" (click)="closeMenu()">Hyr · Biznese</a>
+    <div class="topbar-end">
+      @if (auth.isLoggedIn()) {
+      <span class="nav-user"><span class="avatar">{{ initial() }}</span>{{ auth.displayName() }}</span>
+      <a class="end-link" [routerLink]="auth.panelUrl()">{{ (auth.isAdmin() ? 'nav.adminPanel' : 'nav.panel') | t }}</a>
+      <button type="button" class="end-link" (click)="logout()">{{ 'nav.logout' | t }}</button>
+      } @else {
+      <a class="end-link" routerLink="/hyr">{{ 'nav.login' | t }}</a>
+      }
+      <div class="lang-pick" (keydown.escape)="langOpen.set(false)">
+        <button type="button" class="lang-btn" aria-haspopup="listbox" [attr.aria-expanded]="langOpen()"
+                [attr.aria-label]="'nav.language' | t" (click)="langOpen.set(!langOpen())">
+          <span aria-hidden="true">🌐</span> {{ i18n.current().short }} <span class="caret" aria-hidden="true">▾</span>
+        </button>
+        @if (langOpen()) {
+        <div class="lang-backdrop" (click)="langOpen.set(false)"></div>
+        <ul class="lang-menu" role="listbox" [attr.aria-label]="'nav.language' | t">
+          @for (l of i18n.languages; track l.code) {
+          <li>
+            <button type="button" role="option" [attr.aria-selected]="i18n.lang() === l.code"
+                    [class.active]="i18n.lang() === l.code" (click)="pickLang(l.code)">
+              <span>{{ l.label }}</span><small>{{ l.short }}</small>
+            </button>
+          </li>
+          }
+        </ul>
         }
       </div>
-    </nav>
+      <button type="button" class="theme-toggle" (click)="theme.toggle()"
+              [attr.aria-label]="(theme.theme() === 'dark' ? 'nav.lightTheme' : 'nav.darkTheme') | t"
+              [attr.title]="(theme.theme() === 'dark' ? 'nav.lightTheme' : 'nav.darkTheme') | t">
+        {{ theme.theme() === 'dark' ? '☀' : '☾' }}
+      </button>
+      <a class="cta" routerLink="/makinat">{{ 'car.book' | t }}</a>
+      <button type="button" class="menu-toggle" [attr.aria-expanded]="menuOpen()"
+              [attr.aria-label]="'nav.menu' | t" (click)="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -57,42 +73,42 @@
 
 <!-- butoni i ndihmës (në çdo faqe, përveç panelit dhe vetë faqes së ndihmës) -->
 @if (showSupportButton()) {
-  <a class="support-fab" routerLink="/ndihme" aria-label="Ndihmë">
-    <span aria-hidden="true">?</span> Ndihmë
-  </a>
+<a class="support-fab" routerLink="/ndihme" [attr.aria-label]="'nav.help' | t">
+  <span aria-hidden="true">?</span> {{ 'nav.help' | t }}
+</a>
 }
 
 <footer class="footer">
   <div class="container footer-inner">
     <div>
       <p class="footer-logo">Bookers <strong>Car Albania</strong></p>
-      <p>Qira makinash nga kompanitë më të mira në Shqipëri.</p>
-            <p>{{ contact.phoneLabel }} · {{ contact.email }}</p>
+      <p>{{ 'footer.tagline' | t }}</p>
+      <p>{{ contact.phoneLabel }} · {{ contact.email }}</p>
     </div>
     <div>
-      <p class="footer-title">Navigimi</p>
-      <a routerLink="/makinat">Makinat</a>
-      <a routerLink="/rezervimi">Rezervimi im</a>
-      <a routerLink="/ndihme">Ndihmë / Support</a>
-      <a routerLink="/hyr">Hyr · Biznese</a>
+      <p class="footer-title">{{ 'footer.navigation' | t }}</p>
+      <a routerLink="/makinat">{{ 'nav.cars' | t }}</a>
+      <a routerLink="/rezervimi">{{ 'nav.myBooking' | t }}</a>
+      <a routerLink="/ndihme">{{ 'footer.helpSupport' | t }}</a>
+      <a routerLink="/hyr">{{ 'nav.login' | t }}</a>
     </div>
     <div>
-      <p class="footer-title">Kompania</p>
-      <a routerLink="/rreth-nesh">Rreth nesh</a>
-      <a routerLink="/karriera">Karriera</a>
-      <a routerLink="/pyetje">Pyetje të shpeshta</a>
-      <a routerLink="/blog">Blogu</a>
+      <p class="footer-title">{{ 'footer.company' | t }}</p>
+      <a routerLink="/rreth-nesh">{{ 'nav.about' | t }}</a>
+      <a routerLink="/karriera">{{ 'nav.careers' | t }}</a>
+      <a routerLink="/pyetje">{{ 'nav.faq' | t }}</a>
+      <a routerLink="/blog">{{ 'nav.blog' | t }}</a>
     </div>
     <div>
-      <p class="footer-title">Support</p>
-      <p>Rezervime online 24/7</p>
+      <p class="footer-title">{{ 'footer.support' | t }}</p>
+      <p>{{ 'footer.online' | t }}</p>
       <a [href]="'tel:' + contact.phone">{{ contact.phoneLabel }}</a>
       <a [href]="'https://wa.me/' + contact.whatsapp" target="_blank" rel="noopener">WhatsApp</a>
       <a [href]="'mailto:' + contact.email">{{ contact.email }}</a>
     </div>
   </div>
   <div class="container footer-bottom">
-    © {{ year }} Bookers Car Albania. Të gjitha të drejtat të rezervuara.
-    <span class="credit">Fotot e makinave: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (licenca CC).</span>
+    © {{ year }} Bookers Car Albania. {{ 'footer.rights' | t }}
+    <span class="credit">{{ 'footer.photos' | t }} <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> ({{ 'footer.license' | t }}).</span>
   </div>
 </footer>

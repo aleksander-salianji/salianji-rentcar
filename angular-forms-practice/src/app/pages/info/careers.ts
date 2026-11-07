@@ -2,38 +2,50 @@ import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Job, OPEN_JOBS } from '../../core/careers';
+import { Job } from '../../core/careers';
+import { I18nService } from '../../core/i18n.service';
+import { TPipe } from '../../shared/t.pipe';
 import { errorMessage } from '../../core/http-error';
 import { SupportService } from '../../core/support.service';
 
 // /karriera — pozicionet e hapura dhe aplikimi (shkon te Paneli → Support, tema "Karriera")
 @Component({
   selector: 'app-careers',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TPipe],
   host: { class: 'dk' },
   template: `
     <section class="dk-hero">
       <div class="container">
-        <p class="dk-label">Karriera</p>
-        <h1 class="dk-title">Ndërto me ne mënyrën si udhëtohet në Shqipëri</h1>
-        <p class="dk-lead">Jemi një ekip i vogël që lidh udhëtarët me kompanitë më të mira të qirasë. Kërkojmë njerëz që duan të ndërtojnë diçka të re.</p>
+        <p class="dk-label">{{ 'nav.careers' | t }}</p>
+        <h1 class="dk-title">{{ 'careers.title' | t }}</h1>
+        <p class="dk-lead">{{ 'careers.lead' | t }}</p>
       </div>
     </section>
 
     <section class="container dk-section">
       <div class="perks dk-grid">
-        @for (p of perks; track p.t) {
-          <div class="dk-card"><h3>{{ p.t }}</h3><p class="dk-muted">{{ p.d }}</p></div>
+        @for (p of perks(); track p.t) {
+          <div class="dk-card">
+            <h3>{{ p.t }}</h3>
+            <p class="dk-muted">{{ p.d }}</p>
+          </div>
         }
       </div>
     </section>
 
     <section class="container dk-section">
-      <h2>Pozicionet e hapura <span class="count">{{ jobs.length }}</span></h2>
+      <h2>
+        {{ 'careers.open' | t }} <span class="count">{{ jobs().length }}</span>
+      </h2>
       <div class="jobs">
-        @for (j of jobs; track j.id) {
+        @for (j of jobs(); track j.id) {
           <article class="job" [class.open]="openJob() === j.id">
-            <button type="button" class="job-head" [attr.aria-expanded]="openJob() === j.id" (click)="toggle(j.id)">
+            <button
+              type="button"
+              class="job-head"
+              [attr.aria-expanded]="openJob() === j.id"
+              (click)="toggle(j.id)"
+            >
               <span>
                 <strong>{{ j.title }}</strong>
                 <small>{{ j.team }} · {{ j.location }} · {{ j.type }}</small>
@@ -44,10 +56,26 @@ import { SupportService } from '../../core/support.service';
               <div class="job-body">
                 <p>{{ j.summary }}</p>
                 <div class="cols">
-                  <div><h3>Çfarë do të bësh</h3><ul>@for (t of j.tasks; track t) { <li>{{ t }}</li> }</ul></div>
-                  <div><h3>Çfarë kërkojmë</h3><ul>@for (r of j.requirements; track r) { <li>{{ r }}</li> }</ul></div>
+                  <div>
+                    <h3>{{ 'careers.tasks' | t }}</h3>
+                    <ul>
+                      @for (t of j.tasks; track t) {
+                        <li>{{ t }}</li>
+                      }
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>{{ 'careers.requirements' | t }}</h3>
+                    <ul>
+                      @for (r of j.requirements; track r) {
+                        <li>{{ r }}</li>
+                      }
+                    </ul>
+                  </div>
                 </div>
-                <button type="button" class="dk-btn" (click)="apply(j)">Apliko</button>
+                <button type="button" class="dk-btn" (click)="apply(j)">
+                  {{ 'careers.apply' | t }}
+                </button>
               </div>
             }
           </article>
@@ -59,127 +87,281 @@ import { SupportService } from '../../core/support.service';
     <section class="container dk-section" id="apliko">
       <div class="dk-card apply">
         @if (sent()) {
-          <h2>Faleminderit!</h2>
-          <p class="dk-muted">Aplikimi u dërgua (nr. #{{ sent() }}). Do të të kontaktojmë në email nëse profili përputhet.</p>
-          <button type="button" class="dk-btn ghost" (click)="sent.set(null)">Apliko për pozicion tjetër</button>
+          <h2>{{ 'careers.thanks' | t }}</h2>
+          <p class="dk-muted">{{ 'careers.sentText' | t: { id: sent() } }}</p>
+          <button type="button" class="dk-btn ghost" (click)="sent.set(null)">
+            {{ 'careers.applyOther' | t }}
+          </button>
         } @else {
-          <h2>Apliko</h2>
-          <p class="dk-muted">Nuk e sheh pozicionin tënd? Zgjidh "Aplikim i lirë" dhe na trego çfarë di të bësh.</p>
+          <h2>{{ 'careers.apply' | t }}</h2>
+          <p class="dk-muted">{{ 'careers.openApplicationHint' | t }}</p>
 
-          @if (error()) { <p class="err">{{ error() }}</p> }
+          @if (error()) {
+            <p class="err">{{ error() }}</p>
+          }
 
           <form [formGroup]="form" (ngSubmit)="send()" novalidate>
             <div class="fields">
               <label class="f span">
-                <span>Pozicioni</span>
+                <span>{{ 'careers.position' | t }}</span>
                 <select formControlName="position">
-                  @for (j of jobs; track j.id) { <option [value]="j.title">{{ j.title }}</option> }
-                  <option value="Aplikim i lirë">Aplikim i lirë</option>
+                  @for (j of jobs(); track j.id) {
+                    <option [value]="j.title">{{ j.title }}</option>
+                  }
+                  <option [value]="'careers.openApplication' | t">
+                    {{ 'careers.openApplication' | t }}
+                  </option>
                 </select>
               </label>
               <label class="f">
-                <span>Emri dhe mbiemri</span>
-                <input type="text" formControlName="name" autocomplete="name" [class.bad]="bad('name')">
+                <span>{{ 'careers.fullName' | t }}</span>
+                <input
+                  type="text"
+                  formControlName="name"
+                  autocomplete="name"
+                  [class.bad]="bad('name')"
+                />
               </label>
               <label class="f">
-                <span>Email</span>
-                <input type="email" formControlName="email" autocomplete="email" [class.bad]="bad('email')">
+                <span>{{ 'form.email' | t }}</span>
+                <input
+                  type="email"
+                  formControlName="email"
+                  autocomplete="email"
+                  [class.bad]="bad('email')"
+                />
               </label>
               <label class="f">
-                <span>Telefoni</span>
-                <input type="tel" formControlName="phone" autocomplete="tel" placeholder="06XXXXXXXX">
+                <span>{{ 'company.phone' | t }}</span>
+                <input
+                  type="tel"
+                  formControlName="phone"
+                  autocomplete="tel"
+                  placeholder="06XXXXXXXX"
+                />
               </label>
               <label class="f">
-                <span>Link i CV-së / LinkedIn</span>
-                <input type="url" formControlName="cv" placeholder="https://..." [class.bad]="bad('cv')">
+                <span>{{ 'careers.cv' | t }}</span>
+                <input
+                  type="url"
+                  formControlName="cv"
+                  placeholder="https://..."
+                  [class.bad]="bad('cv')"
+                />
               </label>
               <label class="f span">
-                <span>Pse ti?</span>
-                <textarea formControlName="message" rows="5" [class.bad]="bad('message')"
-                          placeholder="Disa fjali për përvojën tënde..."></textarea>
+                <span>{{ 'careers.why' | t }}</span>
+                <textarea
+                  formControlName="message"
+                  rows="5"
+                  [class.bad]="bad('message')"
+                  [placeholder]="'careers.whyPlaceholder' | t"
+                ></textarea>
               </label>
-              <input class="hp" type="text" formControlName="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <input
+                class="hp"
+                type="text"
+                formControlName="website"
+                tabindex="-1"
+                autocomplete="off"
+                aria-hidden="true"
+              />
             </div>
             @if (form.invalid && form.touched) {
-              <p class="err">Plotëso emrin, email-in, linkun e CV-së (https://...) dhe të paktën 20 karaktere te "Pse ti?".</p>
+              <p class="err">{{ 'careers.err' | t }}</p>
             }
-            <button type="submit" class="dk-btn" [disabled]="sending()">{{ sending() ? 'Duke dërguar...' : 'Dërgo aplikimin' }}</button>
+            <button type="submit" class="dk-btn" [disabled]="sending()">
+              {{ (sending() ? 'common.sending' : 'careers.send') | t }}
+            </button>
           </form>
         }
       </div>
     </section>
   `,
   styles: `
-    .perks h3 { margin: 0 0 6px; font-size: 1.05rem; }
-    .perks p { margin: 0; }
-    .count { color: #c8a86b; font-size: 1rem; vertical-align: middle; }
-    .jobs { display: grid; gap: 10px; margin-top: 18px; }
-    .job { border: 1px solid #26272c; background: #0e0f12; }
-    .job.open { border-color: #c8a86b; }
+    .perks h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+    .perks p {
+      margin: 0;
+    }
+    .count {
+      color: var(--lx-gold);
+      font-size: 1rem;
+      vertical-align: middle;
+    }
+    .jobs {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .job {
+      border: 1px solid var(--lx-line);
+      background: var(--lx-surface);
+    }
+    .job.open {
+      border-color: var(--lx-gold);
+    }
     .job-head {
-      display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%;
-      padding: 18px 20px; border: 0; background: none; color: #ece8df; font: inherit; text-align: left; cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 18px 20px;
+      border: 0;
+      background: none;
+      color: var(--lx-text);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
     }
-    .job-head strong { display: block; font-size: 1.1rem; font-weight: 500; }
-    .job-head small { color: #8d8a84; }
-    .sign { color: #c8a86b; font-size: 1.4rem; }
-    .job-body { padding: 0 20px 20px; color: #b9b5ad; }
-    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 10px 0 18px; }
-    .cols h3 { margin: 0 0 6px; font-size: .95rem; color: #ece8df; }
-    .cols ul { margin: 0; padding-left: 18px; }
-    .cols li { margin: 4px 0; }
-    .apply h2 { margin-top: 0; }
-    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; position: relative; }
-    .f { display: grid; gap: 6px; }
-    .f.span { grid-column: 1 / -1; }
-    .f span { color: #8d8a84; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; }
-    .f input, .f select, .f textarea {
-      width: 100%; padding: 10px 12px; border: 1px solid #26272c; border-radius: 0;
-      background: #050506; color: #ece8df; font: inherit; color-scheme: dark;
+    .job-head strong {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 500;
     }
-    .f input:focus, .f select:focus, .f textarea:focus { outline: none; border-color: #c8a86b; }
-    .f .bad { border-color: #eb6b6b; }
-    .err { color: #eb6b6b; }
-    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .job-head small {
+      color: var(--lx-muted);
+    }
+    .sign {
+      color: var(--lx-gold);
+      font-size: 1.4rem;
+    }
+    .job-body {
+      padding: 0 20px 20px;
+      color: var(--lx-soft);
+    }
+    .cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 10px 0 18px;
+    }
+    .cols h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      color: var(--lx-text);
+    }
+    .cols ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .cols li {
+      margin: 4px 0;
+    }
+    .apply h2 {
+      margin-top: 0;
+    }
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 16px 0;
+      position: relative;
+    }
+    .f {
+      display: grid;
+      gap: 6px;
+    }
+    .f.span {
+      grid-column: 1 / -1;
+    }
+    .f span {
+      color: var(--lx-muted);
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .f input,
+    .f select,
+    .f textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--lx-line);
+      border-radius: 0;
+      background: var(--lx-bg);
+      color: var(--lx-text);
+      font: inherit;
+      color-scheme: dark;
+    }
+    .f input:focus,
+    .f select:focus,
+    .f textarea:focus {
+      outline: none;
+      border-color: var(--lx-gold);
+    }
+    .f .bad {
+      border-color: #eb6b6b;
+    }
+    .err {
+      color: #eb6b6b;
+    }
+    .hp {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
     @media (max-width: 700px) {
-      .cols, .fields { grid-template-columns: 1fr; }
+      .cols,
+      .fields {
+        grid-template-columns: 1fr;
+      }
     }
-  `
+  `,
 })
 export class CareersPage {
-
   private supportService = inject(SupportService);
   private cdr = inject(ChangeDetectorRef);
 
-  readonly jobs = OPEN_JOBS;
-  readonly perks = [
-    { t: 'Ekip i vogël', d: 'Ide e jote mund të jetë në faqe javën tjetër.' },
-    { t: 'Rritje', d: 'Platformë e re që zgjerohet në çdo qytet të Shqipërisë.' },
-    { t: 'Fleksibilitet', d: 'Punë hibride për rolet që e lejojnë.' },
-    { t: 'Udhëtime', d: 'Zbritje për makina te kompanitë partnere.' }
-  ];
+  private i18n = inject(I18nService);
 
-  openJob = signal<string | null>(OPEN_JOBS[0]?.id ?? null);
+  // pozicionet dhe përfitimet vijnë nga JSON-i i gjuhës së zgjedhur
+  jobs(): Job[] {
+    return this.i18n.list<Job>('careers.jobs');
+  }
+
+  perks(): { t: string; d: string }[] {
+    return this.i18n.list<{ t: string; d: string }>('careers.perks');
+  }
+
+  openJob = signal<string | null>('support');
   sending = signal(false);
   sent = signal<number | null>(null);
   error = signal<string | null>(null);
 
   form = new FormGroup({
-    position: new FormControl(OPEN_JOBS[0]?.title ?? 'Aplikim i lirë', { nonNullable: true }),
-    name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.maxLength(80)] }),
-    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    position: new FormControl('', { nonNullable: true }),
+    name: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.maxLength(80)],
+    }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
     phone: new FormControl('', { nonNullable: true, validators: [Validators.maxLength(20)] }),
-    cv: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.pattern(/^https?:\/\/\S+$/)] }),
-    message: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(20), Validators.maxLength(1500)] }),
-    website: new FormControl('', { nonNullable: true })
+    cv: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/^https?:\/\/\S+$/)],
+    }),
+    message: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(20), Validators.maxLength(1500)],
+    }),
+    website: new FormControl('', { nonNullable: true }),
   });
 
   constructor() {
+    this.form.patchValue({ position: this.jobs()[0]?.title ?? '' });
     this.form.statusChanges.pipe(takeUntilDestroyed()).subscribe(() => this.cdr.markForCheck());
   }
 
   toggle(id: string) {
-    this.openJob.update(cur => (cur === id ? null : id));
+    this.openJob.update((cur) => (cur === id ? null : id));
   }
 
   apply(job: Job) {
@@ -201,24 +383,26 @@ export class CareersPage {
     const v = this.form.getRawValue();
     this.sending.set(true);
     this.error.set(null);
-    this.supportService.send({
-      topic: 'CAREER',
-      name: v.name.trim(),
-      email: v.email.trim(),
-      phone: v.phone.trim() || null,
-      bookingCode: null,
-      message: `Pozicioni: ${v.position}\nCV: ${v.cv.trim()}\n\n${v.message.trim()}`,
-      website: v.website
-    }).subscribe({
-      next: t => {
-        this.sending.set(false);
-        this.sent.set(t.id);
-        this.form.reset({ position: v.position });
-      },
-      error: err => {
-        this.sending.set(false);
-        this.error.set(errorMessage(err, 'Aplikimi nuk u dërgua. Provo përsëri.'));
-      }
-    });
+    this.supportService
+      .send({
+        topic: 'CAREER',
+        name: v.name.trim(),
+        email: v.email.trim(),
+        phone: v.phone.trim() || null,
+        bookingCode: null,
+        message: `Pozicioni: ${v.position}\nCV: ${v.cv.trim()}\n\n${v.message.trim()}`,
+        website: v.website,
+      })
+      .subscribe({
+        next: (t) => {
+          this.sending.set(false);
+          this.sent.set(t.id);
+          this.form.reset({ position: v.position });
+        },
+        error: (err) => {
+          this.sending.set(false);
+          this.error.set(errorMessage(err, this.i18n.t('careers.error')));
+        },
+      });
   }
 }

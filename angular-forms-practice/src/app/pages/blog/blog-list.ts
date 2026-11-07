@@ -6,22 +6,24 @@ import { BlogService } from '../../core/blog.service';
 import { errorMessage } from '../../core/http-error';
 import { imageSrc } from '../../core/images';
 import { BlogPostSummary } from '../../core/models';
+import { I18nService } from '../../core/i18n.service';
+import { TPipe } from '../../shared/t.pipe';
 
 // /blog — lista e artikujve
 @Component({
   selector: 'app-blog-list',
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, TPipe],
   template: `
     <section class="container blog-hero">
-      <p class="label">Blogu · Bookers Car Albania</p>
-      <h1 class="serif">Udhëtime dhe këshilla</h1>
-      <p>Itinerare nëpër Shqipëri, këshilla për qiranë e makinës dhe ofertat e kompanive partnere.</p>
+      <p class="label">{{ 'nav.blog' | t }} · Bookers Car Albania</p>
+      <h1 class="serif">{{ 'blog.title' | t }}</h1>
+      <p>{{ 'blog.lead' | t }}</p>
     </section>
 
     <section class="container">
       @if (categories().length > 1) {
         <div class="tabs">
-          <button type="button" [class.active]="category() === ''" (click)="category.set('')">Të gjitha</button>
+          <button type="button" [class.active]="category() === ''" (click)="category.set('')">{{ 'common.all' | t }}</button>
           @for (c of categories(); track c) {
             <button type="button" [class.active]="category() === c" (click)="category.set(c)">{{ c }}</button>
           }
@@ -31,7 +33,7 @@ import { BlogPostSummary } from '../../core/models';
       }
 
       @if (loading()) {
-        <p class="loading">Duke ngarkuar...</p>
+        <p class="loading">{{ 'common.loading' | t }}</p>
       } @else if (error()) {
         <p class="empty">{{ error() }}</p>
       } @else {
@@ -49,12 +51,12 @@ import { BlogPostSummary } from '../../core/models';
                 <span class="label">{{ p.category }}</span>
                 <h2 class="serif">{{ p.title }}</h2>
                 <p>{{ p.excerpt }}</p>
-                <span class="meta">{{ p.publishedAt | date:'d MMMM yyyy' }} · {{ p.readMinutes }} min lexim</span>
-                <span class="more">Lexo →</span>
+                <span class="meta">{{ p.publishedAt | date:'d MMMM yyyy':undefined:i18n.lang() }} · {{ 'blog.readMin' | t: { n: p.readMinutes } }}</span>
+                <span class="more">{{ 'blog.read' | t }} →</span>
               </div>
             </a>
           } @empty {
-            <p class="empty">Ende nuk ka artikuj.</p>
+            <p class="empty">{{ 'blog.empty' | t }}</p>
           }
         </div>
       }
@@ -65,6 +67,7 @@ import { BlogPostSummary } from '../../core/models';
 export class BlogListPage {
 
   private blogService = inject(BlogService);
+  readonly i18n = inject(I18nService);
   readonly imageSrc = imageSrc;
 
   posts = signal<BlogPostSummary[]>([]);

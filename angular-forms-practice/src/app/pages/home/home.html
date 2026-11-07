@@ -1,38 +1,39 @@
 <!-- HERO -->
 <section class="hero">
+
   <div class="container hero-copy">
-    <p class="label">Makina me qira nga kompanitë më të mira në Shqipëri</p>
+    <p class="label">{{ 'home.kicker' | t }}</p>
     <h1>Bookers <em>Car Albania</em></h1>
     <span class="rule-line" aria-hidden="true"></span>
     <!-- KËRKIMI -->
     <form class="search" (submit)="$event.preventDefault(); searchCars()">
       <label class="loc">
-        <span>Vendi i marrjes</span>
+        <span>{{ 'search.pickupPlace' | t }}</span>
         <select [value]="pickup()" (change)="pickup.set(value($event))">
-          <option value="">Zgjidh vendin</option>
+          <option value="">{{ 'search.choosePlace' | t }}</option>
           @for (l of locations; track l) {
             <option [value]="l">{{ l }}</option>
           }
         </select>
       </label>
       <label class="loc">
-        <span>Vendi i kthimit</span>
+        <span>{{ 'search.returnPlace' | t }}</span>
         <select [value]="dropoff()" (change)="dropoff.set(value($event))">
-          <option value="">I njëjti vend</option>
+          <option value="">{{ 'search.samePlace' | t }}</option>
           @for (l of locations; track l) {
             <option [value]="l">{{ l }}</option>
           }
         </select>
       </label>
       <label>
-        <span>Marrja</span>
+        <span>{{ 'search.pickupDate' | t }}</span>
         <input type="date" [min]="today" [value]="from()" (change)="setFrom(value($event))">
       </label>
       <label>
-        <span>Kthimi</span>
+        <span>{{ 'search.returnDate' | t }}</span>
         <input type="date" [min]="minReturn()" [value]="to()" (change)="to.set(value($event))">
       </label>
-      <button type="submit" class="lux-btn solid">Kërko</button>
+      <button type="submit" class="lux-btn solid">{{ 'search.search' | t }}</button>
     </form>
   </div>
 
@@ -108,8 +109,8 @@
 @if (companies().length) {
   <section class="container companies" id="kompanite">
     <div class="fleet-head">
-      <p class="label">Kompanitë partnere</p>
-      <h2>Zgjidh kompaninë</h2>
+      <p class="label">{{ 'home.partners' | t }}</p>
+      <h2>{{ 'home.chooseCompany' | t }}</h2>
     </div>
     <div class="company-grid">
       @for (co of companies(); track co.id) {
@@ -117,7 +118,7 @@
           <span class="company-mono">{{ co.name.charAt(0) }}</span>
           <span class="company-info">
             <strong>{{ co.name }}</strong>
-            <small>{{ co.city }} · {{ co.carCount }} makina</small>
+            <small>{{ co.city }} · {{ 'common.carsCount' | t: { n: co.carCount } }}</small>
           </span>
           <span class="arrow" aria-hidden="true">→</span>
         </a>
@@ -130,23 +131,23 @@
 <!-- TË GJITHA MAKINAT -->
 <section class="container fleet" id="flota">
   <div class="fleet-head">
-    <p class="label">Flota</p>
-    <h2>Të gjitha makinat</h2>
+    <p class="label">{{ 'home.fleet' | t }}</p>
+    <h2>{{ 'home.allCars' | t }}</h2>
   </div>
 
   <div class="tabs" role="tablist">
     <button type="button" role="tab" [class.active]="category() === ''" (click)="category.set('')">
-      Të gjitha <span>{{ count('') }}</span>
+      {{ 'common.all' | t }} <span>{{ count('') }}</span>
     </button>
     @for (c of categories; track c) {
       <button type="button" role="tab" [class.active]="category() === c" (click)="category.set(c)">
-        {{ categoryLabels[c] }} <span>{{ count(c) }}</span>
+        {{ c | label:'category' }} <span>{{ count(c) }}</span>
       </button>
     }
   </div>
 
   @if (loading()) {
-    <div class="loading"><span class="spinner"></span> Duke ngarkuar makinat...</div>
+    <div class="loading"><span class="spinner"></span> {{ 'common.loadingCars' | t }}</div>
   } @else if (error()) {
     <div class="alert alert-error">{{ error() }}</div>
   } @else {
@@ -154,7 +155,7 @@
       @for (car of shown(); track car.id) {
         <app-car-card [car]="car" />
       } @empty {
-        <p class="empty">Nuk ka makina në këtë kategori.</p>
+        <p class="empty">{{ 'home.emptyCategory' | t }}</p>
       }
     </div>
   }

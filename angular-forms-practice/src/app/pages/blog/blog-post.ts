@@ -7,26 +7,28 @@ import { BlogBlock, BlogService, parseBlogContent } from '../../core/blog.servic
 import { errorMessage } from '../../core/http-error';
 import { imageSrc } from '../../core/images';
 import { BlogPost, BlogPostSummary } from '../../core/models';
+import { I18nService } from '../../core/i18n.service';
+import { TPipe } from '../../shared/t.pipe';
 
 // /blog/:slug — një artikull
 @Component({
   selector: 'app-blog-post',
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, TPipe],
   template: `
     @if (loading()) {
-      <p class="state">Duke ngarkuar...</p>
+      <p class="state">{{ 'common.loading' | t }}</p>
     } @else if (error()) {
       <div class="container state">
         <p>{{ error() }}</p>
-        <a routerLink="/blog" class="back">← Të gjithë artikujt</a>
+        <a routerLink="/blog" class="back">← {{ 'blog.allPosts' | t }}</a>
       </div>
     } @else if (post(); as p) {
       <article>
         <header class="container article">
-          <a routerLink="/blog" class="back">← Blogu</a>
+          <a routerLink="/blog" class="back">← {{ 'nav.blog' | t }}</a>
           <h1 class="serif">{{ p.title }}</h1>
           <p class="meta"><span class="label">{{ p.category }}</span><br>
-            {{ p.publishedAt | date:'d MMMM yyyy' }} · {{ p.readMinutes }} min lexim</p>
+            {{ p.publishedAt | date:'d MMMM yyyy':undefined:i18n.lang() }} · {{ 'blog.readMin' | t: { n: p.readMinutes } }}</p>
           <p class="lead">{{ p.excerpt }}</p>
         </header>
 
@@ -49,23 +51,23 @@ import { BlogPost, BlogPostSummary } from '../../core/models';
 
           <aside class="cta">
             <div>
-              <h3>Gati për udhëtim?</h3>
-              <p>Krahaso makinat e kompanive partnere dhe rezervo pa llogari.</p>
+              <h3>{{ 'blog.ctaTitle' | t }}</h3>
+              <p>{{ 'blog.ctaText' | t }}</p>
             </div>
-            <a class="gold-btn" routerLink="/makinat">Shiko makinat</a>
+            <a class="gold-btn" routerLink="/makinat">{{ 'common.seeCars' | t }}</a>
           </aside>
         </div>
       </article>
 
       @if (others().length) {
         <section class="container others">
-          <p class="label">Lexo edhe</p>
+          <p class="label">{{ 'blog.alsoRead' | t }}</p>
           <div class="others-grid">
             @for (o of others(); track o.id) {
               <a class="other" [routerLink]="['/blog', o.slug]">
                 <span>{{ o.category }}</span>
                 <strong>{{ o.title }}</strong>
-                <span>{{ o.readMinutes }} min lexim</span>
+                <span>{{ 'blog.readMin' | t: { n: o.readMinutes } }}</span>
               </a>
             }
           </div>
@@ -79,6 +81,7 @@ export class BlogPostPage {
 
   private blogService = inject(BlogService);
   private title = inject(Title);
+  readonly i18n = inject(I18nService);
 
   readonly slug = input.required<string>();
   readonly imageSrc = imageSrc;
@@ -107,7 +110,7 @@ export class BlogPostPage {
           window.scrollTo(0, 0);
         },
         error: err => {
-          this.error.set(errorMessage(err, 'Artikulli nuk u gjet.'));
+          this.error.set(errorMessage(err, this.i18n.t('blog.notFound')));
           this.loading.set(false);
         }
       });

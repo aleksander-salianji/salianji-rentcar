@@ -4,22 +4,23 @@ import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../core/auth.service';
 import { errorMessage } from '../../core/http-error';
+import { translate } from '../../core/i18n.service';
+import { TPipe } from '../../shared/t.pipe';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, TPipe],
   template: `
     <div class="auth-page">
       <div class="card auth-card">
-        <h1>Hyr · Biznese</h1>
-        <p class="muted">Vetëm për kompanitë partnere dhe administratorin.
-          Klientët rezervojnë pa llogari.</p>
+        <h1>{{ 'nav.login' | t }}</h1>
+        <p class="muted">{{ 'login.intro' | t }}</p>
 
         @if (skaduar()) {
-          <div class="alert alert-info">Sesioni ka skaduar. Hyr përsëri.</div>
+          <div class="alert alert-info">{{ 'login.expired' | t }}</div>
         }
         @if (kthehu()) {
-          <div class="alert alert-info">Hyr me llogarinë e biznesit për të vazhduar.</div>
+          <div class="alert alert-info">{{ 'login.needLogin' | t }}</div>
         }
         @if (error()) {
           <div class="alert alert-error">{{ error() }}</div>
@@ -27,33 +28,33 @@ import { errorMessage } from '../../core/http-error';
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
           <label class="field">
-            <span>Email</span>
+            <span>{{ 'form.email' | t }}</span>
             <input type="email" formControlName="email" autocomplete="email"
                    [class.invalid]="isInvalid('email')">
             @if (isInvalid('email')) {
-              <small class="error">Shkruaj një email të vlefshëm.</small>
+              <small class="error">{{ 'form.err.email' | t }}</small>
             }
           </label>
 
           <label class="field mt">
-            <span>Fjalëkalimi</span>
+            <span>{{ 'login.password' | t }}</span>
             <input type="password" formControlName="password" autocomplete="current-password"
                    [class.invalid]="isInvalid('password')">
             @if (isInvalid('password')) {
-              <small class="error">Shkruaj fjalëkalimin.</small>
+              <small class="error">{{ 'login.err.password' | t }}</small>
             }
           </label>
 
           <button type="submit" class="btn btn-primary btn-block btn-lg mt" [disabled]="loading()">
-            {{ loading() ? 'Duke hyrë...' : 'Hyr' }}
+            {{ (loading() ? 'login.loggingIn' : 'login.submit') | t }}
           </button>
         </form>
 
         <p class="auth-switch">
-          Je klient? <a routerLink="/rezervimi">Gjej rezervimin tënd</a> me kodin dhe telefonin.
+          {{ 'login.client' | t }} <a routerLink="/rezervimi">{{ 'login.findBooking' | t }}</a>
         </p>
         <p class="auth-switch">
-          Do të bëhesh partner? Na shkruaj te info&#64;bookerscar.al
+          {{ 'login.partner' | t }} info&#64;bookerscar.al
         </p>
       </div>
     </div>
@@ -99,7 +100,7 @@ export class LoginPage {
       },
       error: err => {
         this.loading.set(false);
-        this.error.set(errorMessage(err, 'Hyrja dështoi.'));
+        this.error.set(errorMessage(err, translate('errors.loginFailed')));
       }
     });
   }

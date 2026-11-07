@@ -2,74 +2,73 @@ import { Routes } from '@angular/router';
 
 import { adminGuard, companyGuard, guestGuard } from './core/guards';
 
-const SITE = 'Bookers Car Albania';
 
 export const routes: Routes = [
 
   // ---------- FAQET PUBLIKE ----------
   {
     path: '',
-    title: `${SITE} | Qira makinash në Shqipëri`,
+    title: 'title.home',
     loadComponent: () => import('./pages/home/home').then(m => m.HomePage)
   },
   {
     path: 'kompania/:id',
-    title: `Kompania | ${SITE}`,
+    title: 'title.company',
     loadComponent: () => import('./pages/company/company').then(m => m.CompanyPage)
   },
   {
     path: 'makinat',
-    title: `Makinat | ${SITE}`,
+    title: 'title.cars',
     loadComponent: () => import('./pages/cars/cars').then(m => m.CarsPage)
   },
 
   // ---------- KLIENTI (pa llogari) ----------
   {
     path: 'rezervo/:carId',
-    title: `Rezervo | ${SITE}`,
+    title: 'title.book',
     loadComponent: () => import('./pages/booking/booking').then(m => m.BookingPage)
   },
   {
     path: 'rezervimi',
-    title: `Rezervimi im | ${SITE}`,
+    title: 'title.myBooking',
     loadComponent: () => import('./pages/my-bookings/my-bookings').then(m => m.MyBookingsPage)
   },
   { path: 'rezervimet', redirectTo: 'rezervimi' },
   {
     path: 'blog',
-    title: `Blogu | ${SITE}`,
+    title: 'title.blog',
     loadComponent: () => import('./pages/blog/blog-list').then(m => m.BlogListPage)
   },
   {
     path: 'blog/:slug',
-    title: `Blogu | ${SITE}`,
+    title: 'title.blogPost',
     loadComponent: () => import('./pages/blog/blog-post').then(m => m.BlogPostPage)
   },
   {
     path: 'pyetje',
-    title: `Pyetje të shpeshta | ${SITE}`,
+    title: 'title.faq',
     loadComponent: () => import('./pages/info/faq').then(m => m.FaqPage)
   },
   {
     path: 'karriera',
-    title: `Karriera | ${SITE}`,
+    title: 'title.careers',
     loadComponent: () => import('./pages/info/careers').then(m => m.CareersPage)
   },
   {
     path: 'rreth-nesh',
-    title: `Rreth nesh | ${SITE}`,
+    title: 'title.about',
     loadComponent: () => import('./pages/info/about').then(m => m.AboutPage)
   },
   {
     path: 'ndihme',
-    title: `Ndihmë | ${SITE}`,
+    title: 'title.help',
     loadComponent: () => import('./pages/support/support').then(m => m.SupportPage)
   },
 
   // ---------- HYRJA: vetëm biznese + admin ----------
   {
     path: 'hyr',
-    title: `Hyr · Biznese | ${SITE}`,
+    title: 'title.login',
     canActivate: [guestGuard],
     loadComponent: () => import('./pages/auth/login').then(m => m.LoginPage)
   },
@@ -83,17 +82,17 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        title: `Paneli i biznesit | ${SITE}`,
+        title: 'title.businessPanel',
         loadComponent: () => import('./pages/admin/admin-dashboard').then(m => m.AdminDashboard)
       },
       {
         path: 'flota',
-        title: `Makinat e mia | ${SITE}`,
+        title: 'title.myCars',
         loadComponent: () => import('./pages/admin/admin-fleet').then(m => m.AdminFleet)
       },
       {
         path: 'rezervimet',
-        title: `Rezervimet | ${SITE}`,
+        title: 'title.bookings',
         loadComponent: () => import('./pages/admin/admin-bookings').then(m => m.AdminBookings)
       }
     ]
@@ -107,37 +106,37 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        title: `Paneli | ${SITE}`,
+        title: 'title.adminPanel',
         loadComponent: () => import('./pages/admin/admin-dashboard').then(m => m.AdminDashboard)
       },
       {
         path: 'kompanite',
-        title: `Kompanitë | ${SITE}`,
+        title: 'title.companies',
         loadComponent: () => import('./pages/admin/admin-companies').then(m => m.AdminCompanies)
       },
       {
         path: 'flota',
-        title: `Gjendja e flotës | ${SITE}`,
+        title: 'title.fleet',
         loadComponent: () => import('./pages/admin/admin-fleet').then(m => m.AdminFleet)
       },
       {
         path: 'makinat',
-        title: `Menaxho makinat | ${SITE}`,
+        title: 'title.manageCars',
         loadComponent: () => import('./pages/admin/admin-cars').then(m => m.AdminCars)
       },
       {
         path: 'rezervimet',
-        title: `Menaxho rezervimet | ${SITE}`,
+        title: 'title.manageBookings',
         loadComponent: () => import('./pages/admin/admin-bookings').then(m => m.AdminBookings)
       },
       {
         path: 'blog',
-        title: `Blogu | ${SITE}`,
+        title: 'title.adminBlog',
         loadComponent: () => import('./pages/admin/admin-blog').then(m => m.AdminBlog)
       },
       {
         path: 'support',
-        title: `Support | ${SITE}`,
+        title: 'title.support',
         loadComponent: () => import('./pages/admin/admin-support').then(m => m.AdminSupport)
       }
     ]
@@ -146,7 +145,7 @@ export const routes: Routes = [
   // ---------- 404 ----------
   {
     path: '**',
-    title: `Faqja nuk u gjet | ${SITE}`,
+    title: 'title.notFound',
     loadComponent: () => import('./pages/not-found').then(m => m.NotFoundPage)
   }
 ];

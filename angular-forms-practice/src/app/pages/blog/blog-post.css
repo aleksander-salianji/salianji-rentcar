@@ -2,28 +2,28 @@
   display: block;
   margin-bottom: -64px;
   padding-bottom: 96px;
-  background: #050506;
-  color: #ece8df;
+  background: var(--lx-bg);
+  color: var(--lx-text);
 }
-.label { margin: 0 0 10px; color: #c8a86b; font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; }
-.serif { font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; color: #ece8df; }
+.label { margin: 0 0 10px; color: var(--lx-gold); font-size: .76rem; letter-spacing: .26em; text-transform: uppercase; }
+.serif { font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; color: var(--lx-text); }
 
 .article { max-width: 760px; margin: 0 auto; padding-top: 34px; }
-.back { color: #8d8a84; font-size: .86rem; text-decoration: none; }
-.back:hover { color: #c8a86b; }
+.back { color: var(--lx-muted); font-size: .86rem; text-decoration: none; }
+.back:hover { color: var(--lx-gold); }
 .article h1 { margin: 18px 0 12px; font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.1; }
-.meta { color: #8d8a84; font-size: .88rem; }
-.lead { margin: 18px 0 0; color: #cfcac0; font-size: 1.15rem; }
+.meta { color: var(--lx-muted); font-size: .88rem; }
+.lead { margin: 18px 0 0; color: var(--lx-soft); font-size: 1.15rem; }
 
-.cover { max-width: 1040px; margin: 28px auto 6px; aspect-ratio: 21 / 9; overflow: hidden; border: 1px solid #26272c; }
+.cover { max-width: 1040px; margin: 28px auto 6px; aspect-ratio: 21 / 9; overflow: hidden; border: 1px solid var(--lx-line); }
 .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.content { color: #d6d2c9; font-size: 1.06rem; line-height: 1.8; }
-.content h2 { margin: 34px 0 8px; color: #ece8df; font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: 1.6rem; }
+.content { color: var(--lx-soft); font-size: 1.06rem; line-height: 1.8; }
+.content h2 { margin: 34px 0 8px; color: var(--lx-text); font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: 1.6rem; }
 .content p { margin: 14px 0; }
 .content ul { margin: 12px 0; padding-left: 0; list-style: none; }
 .content li { position: relative; margin: 8px 0; padding-left: 22px; }
-.content li::before { content: ""; position: absolute; left: 0; top: .8em; width: 10px; height: 1px; background: #c8a86b; }
+.content li::before { content: ""; position: absolute; left: 0; top: .8em; width: 10px; height: 1px; background: var(--lx-gold); }
 
 .cta {
   display: flex;
@@ -33,22 +33,22 @@
   gap: 16px;
   margin: 40px 0 0;
   padding: 22px 24px;
-  border: 1px solid #c8a86b;
-  background: #0e0f12;
+  border: 1px solid var(--lx-gold);
+  background: var(--lx-surface);
 }
-.cta h3 { margin: 0; color: #ece8df; font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: 1.35rem; }
-.cta p { margin: 4px 0 0; color: #8d8a84; }
+.cta h3 { margin: 0; color: var(--lx-text); font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: 1.35rem; }
+.cta p { margin: 4px 0 0; color: var(--lx-muted); }
 .gold-btn {
   padding: .9em 1.6em;
-  background: #c8a86b;
-  color: #050506;
+  background: var(--lx-gold);
+  color: var(--lx-bg);
   font-size: .78rem;
   font-weight: 600;
   letter-spacing: .2em;
   text-transform: uppercase;
   text-decoration: none;
 }
-.gold-btn:hover { background: #dcc08a; }
+.gold-btn:hover { background: var(--lx-gold-hi); }
 
 .others { max-width: 1040px; margin: 56px auto 0; }
 .others-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
@@ -56,13 +56,13 @@
   display: grid;
   gap: 6px;
   padding: 18px;
-  border: 1px solid #26272c;
-  background: #0e0f12;
+  border: 1px solid var(--lx-line);
+  background: var(--lx-surface);
   color: inherit;
   text-decoration: none;
 }
-.other:hover { border-color: #c8a86b; }
+.other:hover { border-color: var(--lx-gold); }
 .other strong { font-family: "Bodoni Moda", Georgia, serif; font-weight: 400; font-size: 1.15rem; }
-.other span { color: #8d8a84; font-size: .82rem; }
+.other span { color: var(--lx-muted); font-size: .82rem; }
 
-.state { padding: 60px 0; color: #8d8a84; text-align: center; }
+.state { padding: 60px 0; color: var(--lx-muted); text-align: center; }
