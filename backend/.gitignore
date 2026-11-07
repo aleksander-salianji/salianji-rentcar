@@ -3,3 +3,5 @@ target/
 *.iml
 .mvn/
 uploads/
+
+src/main/resources/application-local.properties
